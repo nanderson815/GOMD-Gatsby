@@ -1,3 +1,7 @@
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`
+})
+
 module.exports = {
   siteMetadata: {
     title: `Georgia on my Dime`,
@@ -44,31 +48,17 @@ module.exports = {
           'Quicksand'
         ],
         display: 'swap'
-      }
+      },
     },
     {
-      resolve: "gatsby-source-wordpress",
+      resolve: `gatsby-source-contentful`,
       options: {
-        /*
-         * The base URL of the WordPress site without the trailingslash and the protocol. This is required.
-         * Example : 'dev-gatbsyjswp.pantheonsite.io' or 'www.example-site.com'
-         */
-        baseUrl: `georgiaonmydime.com`,
-        protocol: `https`,
-        hostingWPCOM: false,
-        useACF: true,
-        includedRoutes: [
-          "**/categories",
-          "**/posts",
-          "**/pages",
-          "**/listing",
-          // "**/media",
-          "**/tags",
-          "**/taxonomies",
-          "**/users",
-        ],
-      }
-    }
+        spaceId: `lt4eu82gh5sn`,
+        // Learn about environment variables: https://gatsby.dev/env-vars
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+      },
+    },
+
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
