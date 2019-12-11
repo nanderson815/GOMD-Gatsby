@@ -1,25 +1,24 @@
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
-import AppBar from '@material-ui/core/AppBar'
-import Container from '@material-ui/core/Container'
+import { Menu } from 'semantic-ui-react'
 
 const Header = ({ siteTitle }) => (
-  <AppBar>
-    <Container>
+  <Menu>
+    <Menu.Item>
       <h1 style={{ margin: 5 }}>
         <Link
           to="/"
           style={{
-            color: `white`,
+            color: `black`,
             textDecoration: `none`,
           }}
         >
           {siteTitle}
         </Link>
       </h1>
-    </Container>
-  </AppBar>
+    </Menu.Item>
+  </Menu>
 )
 
 Header.propTypes = {
