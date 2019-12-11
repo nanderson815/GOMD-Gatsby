@@ -4,21 +4,19 @@ import React from "react"
 import { Menu, Container } from 'semantic-ui-react'
 
 const Header = ({ siteTitle }) => (
-  <Menu>
+  <Menu style={{ background: "#1c70b5" }}>
     <Container>
-      <Menu.Item>
-        <h1 style={{ margin: 5 }}>
-          <Link
-            to="/"
-            style={{
-              color: `black`,
-              textDecoration: `none`,
-            }}
-          >
-            {siteTitle}
-          </Link>
-        </h1>
-      </Menu.Item>
+      <h1 style={{ margin: 5 }}>
+        <Link
+          to="/"
+          style={{
+            color: `white`,
+            textDecoration: `none`,
+          }}
+        >
+          {siteTitle}
+        </Link>
+      </h1>
     </Container>
   </Menu>
 )
