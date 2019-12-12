@@ -4,7 +4,7 @@ import { graphql } from 'gatsby';
 import Helmet from 'react-helmet';
 import Img from 'gatsby-image';
 import Layout from '../components/layout'
-import { Grid, Segment } from 'semantic-ui-react'
+import { Grid, Segment, Card } from 'semantic-ui-react'
 
 const HappyHour = (props) => {
   const post = get(props, 'data.contentfulHappyHour')
@@ -21,18 +21,22 @@ const HappyHour = (props) => {
         <Grid.Column width={11}>
           <Segment>
             <h1>{post.name}</h1>
-            <Img style={{ borderRadius: "5px" }} alt={post.name} fluid={post.mainImg.fluid} />
+            <Img style={{ borderRadius: "5px", maxHeight: "500px" }} alt={post.name} fluid={post.mainImg.fluid} />
             <h2>Description</h2>
             <p>{post.description.description}</p>
           </Segment>
         </Grid.Column>
         <Grid.Column>
-          <Segment>
-            <p>This is the stackable sidebar.</p>
+          <Card fluid>
             <a href={`https://google.com/maps/?q=${post.address}`}>
-              <img src={`https://maps.googleapis.com/maps/api/staticmap?center=${post.location.lat},${post.location.lon}&markers=color:blue%7C${post.location.lat},${post.location.lon}&zoom=15&size=400x300&key=AIzaSyDwoqHxtOYa6tDrQXuJS1aDd46uM3GzAJs`} />
+              <img style={{marginBottom: "-5px"}} src={`https://maps.googleapis.com/maps/api/staticmap?center=${post.location.lat},${post.location.lon}&markers=color:blue%7C${post.location.lat},${post.location.lon}&zoom=15&size=400x250&key=AIzaSyDwoqHxtOYa6tDrQXuJS1aDd46uM3GzAJs`} />
             </a>
-          </Segment>
+            <Card.Content>
+              <Card.Description>
+                {post.address}
+              </Card.Description>
+            </Card.Content>
+          </Card>
         </Grid.Column>
       </Grid>
     </Layout>
