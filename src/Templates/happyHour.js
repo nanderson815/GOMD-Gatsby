@@ -4,6 +4,7 @@ import { graphql } from 'gatsby';
 import Helmet from 'react-helmet';
 import Img from 'gatsby-image';
 import Layout from '../components/layout'
+import { Grid, Segment } from 'semantic-ui-react'
 
 const HappyHour = (props) => {
   const post = get(props, 'data.contentfulHappyHour')
@@ -11,10 +12,29 @@ const HappyHour = (props) => {
   console.log(post)
   return (
     <Layout>
-      <Helmet title={`${post.name} | ${siteTitle}`} />
-      <h1>This is a test for {post.name}</h1>
-      <Img alt="" fluid={post.mainImg.fluid} />
-      <p>{post.description.description}</p>
+      <Helmet
+        title={`${post.name} | ${siteTitle}`}
+      >
+        <meta name="description" content={post.seoDescription} />
+      </Helmet>
+      <Grid stackable columns="equal">
+        <Grid.Column width={11}>
+          <Segment>
+            <h1>{post.name}</h1>
+            <Img style={{ borderRadius: "5px" }} alt={post.name} fluid={post.mainImg.fluid} />
+            <h2>Description</h2>
+            <p>{post.description.description}</p>
+          </Segment>
+        </Grid.Column>
+        <Grid.Column>
+          <Segment>
+            <p>This is the stackable sidebar.</p>
+            <a href={`https://google.com/maps/?q=${post.address}`}>
+              <img src={`https://maps.googleapis.com/maps/api/staticmap?center=${post.location.lat},${post.location.lon}&markers=color:blue%7C${post.location.lat},${post.location.lon}&zoom=15&size=400x300&key=AIzaSyDwoqHxtOYa6tDrQXuJS1aDd46uM3GzAJs`} />
+            </a>
+          </Segment>
+        </Grid.Column>
+      </Grid>
     </Layout>
   )
 }
@@ -70,6 +90,7 @@ export const pageQuery = graphql`
           lat
           lon
         }
+        address
         name
         mondayDesc {
           mondayDesc
