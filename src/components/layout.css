@@ -1,3 +1,8 @@
+/* Removes Carrot from popup */
+.ui.bottom.left.popup:before{
+  position: unset !important;
+}
+
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
