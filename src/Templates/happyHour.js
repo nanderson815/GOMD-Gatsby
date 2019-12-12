@@ -97,7 +97,7 @@ export const pageQuery = graphql`
           saturdayDesc
         }
       mainImg{
-          fluid(maxWidth: 350, resizingBehavior: SCALE) {
+          fluid(maxWidth: 1800, resizingBehavior: SCALE) {
             ...GatsbyContentfulFluid_tracedSVG
           }
       }
