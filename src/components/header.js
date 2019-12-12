@@ -1,40 +1,52 @@
-import { Link } from "gatsby"
-import PropTypes from "prop-types"
-import React from "react"
-import { Menu, Container, Sticky } from 'semantic-ui-react'
-import SearchBar from "./searchbar";
+import React, { Component } from 'react'
+import { Menu } from 'semantic-ui-react'
+import SearchBar from '../components/searchbar'
 
-const Header = ({ siteTitle }) => (
-  < Sticky >
-    <Menu stackable>
-      <Container>
-        <Menu.Item header style={{ borderLeft: "none" }}>
-          <h1 style={{ margin: 5 }}>
-            <Link
-              to="/"
-              style={{
-                color: `#1c70b5`,
-                textDecoration: `none`,
-              }}
-            >
-              {siteTitle}
-            </Link>
-          </h1>
+export default class MenuExampleMenus extends Component {
+  state = {}
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+  render() {
+    const { activeItem } = this.state
+
+    return (
+      <Menu stackable className="borderless">
+        <Menu.Item
+          position="left"
+        >
+          <h1 style={{ color: "#1c70b5" }}>Georgia on my Dime</h1>
         </Menu.Item>
-        <Menu.Item>
-          <SearchBar></SearchBar>
+
+        <Menu.Item style={{ width: '50%' }}>
+          <SearchBar />
         </Menu.Item>
-      </Container>
-    </Menu>
-  </Sticky >
-)
 
-Header.propTypes = {
-  siteTitle: PropTypes.string,
+        <Menu.Menu position='right'>
+          <Menu.Item
+            name='home'
+            active={activeItem === 'home'}
+            onClick={this.handleItemClick}
+          >
+            Home
+          </Menu.Item>
+
+          <Menu.Item
+            name='happyHours'
+            active={activeItem === 'happyHours'}
+            onClick={this.handleItemClick}
+          >
+            Happy Hours
+          </Menu.Item>
+          <Menu.Item
+            name='articles'
+            active={activeItem === 'articles'}
+            onClick={this.handleItemClick}
+          >
+            Articles
+          </Menu.Item>
+        </Menu.Menu>
+      </Menu>
+    )
+  }
 }
-
-Header.defaultProps = {
-  siteTitle: ``,
-}
-
-export default Header
