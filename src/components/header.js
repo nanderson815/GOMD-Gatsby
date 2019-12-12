@@ -18,7 +18,7 @@ export default class MenuExampleMenus extends Component {
           <Menu.Item
             position="left"
           >
-            <Link> <h1 style={{ color: "#1c70b5" }}>Georgia on my Dime</h1></Link>
+            <Link to="/"> <h1 style={{ color: "#1c70b5" }}>Georgia on my Dime</h1></Link>
           </Menu.Item>
 
           <Menu.Item style={{ width: '40%' }}>

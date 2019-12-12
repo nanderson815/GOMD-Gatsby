@@ -22,7 +22,8 @@ const SearchBar = () => {
     }, [])
 
     const rebuildIndex = () => {
-        var dataToSearch = new JsSearch.Search('name');
+        var dataToSearch = new JsSearch.Search('slug');
+        dataToSearch.addIndex('name');
         dataToSearch.addIndex('tags');
         dataToSearch.addIndex('days');
         dataToSearch.addIndex(['description', 'description']);
