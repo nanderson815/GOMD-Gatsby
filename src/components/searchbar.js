@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Select, Input } from 'semantic-ui-react'
+import { Button, Input } from 'semantic-ui-react'
 import { useHappyHourData } from '../hooks/happyHourData'
 import { Icon } from 'semantic-ui-react'
 
