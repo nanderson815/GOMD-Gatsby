@@ -3,6 +3,8 @@ import { Button, Input, Popup, List, Label } from 'semantic-ui-react'
 import { useHappyHourData } from '../hooks/happyHourData'
 import { Icon } from 'semantic-ui-react'
 import * as JsSearch from 'js-search'
+import { Link } from "gatsby"
+
 
 const SearchBar = () => {
     const happyHours = useHappyHourData();
@@ -59,12 +61,15 @@ const SearchBar = () => {
                     {state.searchResults ? state.searchResults.slice(0, 5).map((item) => {
                         return (
                             <List.Item key={item.id}>
-                                <List.Content>
-                                    <List.Header>{item.name}</List.Header>
-                                    {/* <List.Description style={{ fontSize: "12px" }}>{item.tags.toString()}</List.Description> */}
-                                    {item.tags.map((tag, index) => <Label key={index}>{tag}</Label>)}
-                                </List.Content>
+                                <Link to={`/atlanta-happy-hour/${item.slug}`}>
+                                    <List.Content>
+                                        <List.Header>{item.name}</List.Header>
+                                        {/* <List.Description style={{ fontSize: "12px" }}>{item.tags.toString()}</List.Description> */}
+                                        {item.tags.map((tag, index) => <Label key={index}>{tag}</Label>)}
+                                    </List.Content>
+                                </Link>
                             </List.Item>
+
                         )
                     }) : null}
                 </List>
