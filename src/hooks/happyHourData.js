@@ -86,5 +86,5 @@ export const useHappyHourData = () => {
 }
     `
   )
-  return allContentfulHappyHour.edges
+  return allContentfulHappyHour.edges.map(item => item.node)
 }

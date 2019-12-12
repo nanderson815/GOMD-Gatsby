@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu, Container } from 'semantic-ui-react'
+import { Menu, Container, Icon } from 'semantic-ui-react'
 import SearchBar from '../components/searchbar'
 
 export default class MenuExampleMenus extends Component {
@@ -13,7 +13,7 @@ export default class MenuExampleMenus extends Component {
     return (
       <Menu stackable className="borderless">
         {/* <div className="container"> */}
-          <Container>
+        <Container>
           <Menu.Item
             position="left"
           >
@@ -25,23 +25,25 @@ export default class MenuExampleMenus extends Component {
           </Menu.Item>
 
           <Menu.Menu position='right'>
-           
+
             <Menu.Item
+              style={{ fontWeight: "bold" }}
               name='happyHours'
               active={activeItem === 'happyHours'}
               onClick={this.handleItemClick}
             >
-              Happy Hours
+              <Icon name='glass martini' style={{ color: "#1c70b5" }} />Happy Hours
           </Menu.Item>
             <Menu.Item
+              style={{ fontWeight: "bold" }}
               name='articles'
               active={activeItem === 'articles'}
               onClick={this.handleItemClick}
             >
-              Articles
+              <Icon name='utensils' style={{ color: "#1c70b5" }} /> Articles
           </Menu.Item>
           </Menu.Menu>
-          </Container>
+        </Container>
         {/* </div> */}
       </Menu>
     )
