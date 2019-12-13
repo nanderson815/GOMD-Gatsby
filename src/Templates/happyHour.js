@@ -4,7 +4,18 @@ import { graphql } from 'gatsby';
 import Helmet from 'react-helmet';
 import Img from 'gatsby-image';
 import Layout from '../components/layout'
-import { Grid, Segment, Card } from 'semantic-ui-react'
+import { Grid, Label, Card, Sticky } from 'semantic-ui-react'
+
+let formatPhoneNumber = (str) => {
+  //Filter only numbers from the input
+  let cleaned = ('' + str).replace(/\D/g, '');
+  //Check if the input is of correct length
+  let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+  if (match) {
+    return '(' + match[1] + ') ' + match[2] + '-' + match[3]
+  };
+  return null
+};
 
 const HappyHour = (props) => {
   const post = get(props, 'data.contentfulHappyHour')
@@ -19,24 +30,52 @@ const HappyHour = (props) => {
       </Helmet>
       <Grid stackable columns="equal">
         <Grid.Column width={11}>
-          <Segment>
-            <h1>{post.name}</h1>
-            <Img style={{ borderRadius: "5px", maxHeight: "500px" }} alt={post.name} fluid={post.mainImg.fluid} />
-            <h2>Description</h2>
-            <p>{post.description.description}</p>
-          </Segment>
+          <Card fluid raised>
+            <Img style={{ maxHeight: "350px" }} alt={post.name} fluid={post.mainImg.fluid} />
+            <Card.Content>
+              <Card.Header>
+                <h1 style={{ marginBottom: "-3px" }}>{post.name}</h1>
+                <p>{post.neighborhood}</p>
+                {post.tags.map((tag, index) => <Label key={`${index}label`}>{tag}</Label>)}
+              </Card.Header>
+
+            </Card.Content>
+            <Card.Content>
+              <h2>Description</h2>
+              <p>{post.description.description}</p>
+              <h2>Happy Hours</h2>
+              {post.days.map((day, index) => {
+                let descField = day.toLowerCase() + "Desc"
+                return (
+                  <div key={`${index}happyHour`}>
+                    <h3 style={{ marginBottom: "-3px" }}>{day}</h3>
+                    <p>{post[descField][descField]}</p>
+                    <hr></hr>
+                  </div>
+                )
+              })}
+            </Card.Content>
+
+          </Card>
         </Grid.Column>
         <Grid.Column>
-          <Card fluid>
-            <a href={`https://google.com/maps/?q=${post.address}`}>
-              <img style={{marginBottom: "-5px"}} src={`https://maps.googleapis.com/maps/api/staticmap?center=${post.location.lat},${post.location.lon}&markers=color:blue%7C${post.location.lat},${post.location.lon}&zoom=15&size=400x250&key=AIzaSyDwoqHxtOYa6tDrQXuJS1aDd46uM3GzAJs`} />
-            </a>
-            <Card.Content>
-              <Card.Description>
-                {post.address}
-              </Card.Description>
-            </Card.Content>
-          </Card>
+          <Sticky>
+            <Card fluid raised>
+              <a
+                style={{ marginBottom: '-18px' }}
+                href={`https://google.com/maps/?q=${post.address}`}>
+                <img style={{ marginBottom: "-5px" }} src={`https://maps.googleapis.com/maps/api/staticmap?center=${post.location.lat},${post.location.lon}&markers=color:blue%7C${post.location.lat},${post.location.lon}&zoom=15&size=400x268&key=AIzaSyDwoqHxtOYa6tDrQXuJS1aDd46uM3GzAJs`} />
+              </a>
+              <Card.Content style={{ background: "white" }}>
+                <Card.Description>
+                  {post.address}
+                </Card.Description>
+                <Card.Description>
+                  {`${formatPhoneNumber(post.phone)} |`} <a style={{ color: "#1c70b5", fontWeight: "bold" }} href={post.website}>Website</a>
+                </Card.Description>
+              </Card.Content>
+            </Card>
+          </Sticky>
         </Grid.Column>
       </Grid>
     </Layout>
@@ -95,6 +134,7 @@ export const pageQuery = graphql`
           lon
         }
         address
+        neighborhood
         name
         mondayDesc {
           mondayDesc

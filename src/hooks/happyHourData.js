@@ -48,6 +48,7 @@ export const useHappyHourData = () => {
           lon
         }
         address
+        neighborhood
         mainImg {
           fluid {
             base64
