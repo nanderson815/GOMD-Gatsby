@@ -17,6 +17,14 @@ let formatPhoneNumber = (str) => {
   return null
 };
 
+const formatTime = (time24) => {
+  const [sHours, minutes] = time24.match(/([0-9]{1,2}):([0-9]{2})/).slice(1);
+  const period = +sHours < 12 ? 'AM' : 'PM';
+  const hours = +sHours % 12 || 12;
+
+  return `${hours}:${minutes} ${period}`;
+}
+
 const HappyHour = (props) => {
   const post = get(props, 'data.contentfulHappyHour')
   const siteTitle = get(props, 'data.site.siteMetadata.title')
@@ -24,7 +32,7 @@ const HappyHour = (props) => {
   return (
     <Layout>
       <Helmet
-        title={`${post.name} | ${siteTitle}`}
+        title={`${post.name} Happy Hour | ${siteTitle}`}
       >
         <meta name="description" content={post.seoDescription} />
       </Helmet>
@@ -46,10 +54,11 @@ const HappyHour = (props) => {
               <h2>Happy Hours</h2>
               {post.days.map((day, index) => {
                 let descField = day.toLowerCase() + "Desc"
+                let timeField = day.toLowerCase()
                 return (
                   <div key={`${index}happyHour`}>
                     <h3 style={{ marginBottom: "-3px" }}>{day}</h3>
-                    <p>{post[descField][descField]}</p>
+                    <p><strong>{` ${formatTime(post.hours[timeField].start)} - ${formatTime(post.hours[timeField].end)}:`} </strong> {`${post[descField][descField]}`}</p>
                     <hr></hr>
                   </div>
                 )
@@ -64,7 +73,7 @@ const HappyHour = (props) => {
               <a
                 style={{ marginBottom: '-18px' }}
                 href={`https://google.com/maps/?q=${post.address}`}>
-                <img style={{ marginBottom: "-5px" }} src={`https://maps.googleapis.com/maps/api/staticmap?center=${post.location.lat},${post.location.lon}&markers=color:blue%7C${post.location.lat},${post.location.lon}&zoom=15&size=400x268&key=AIzaSyDwoqHxtOYa6tDrQXuJS1aDd46uM3GzAJs`} />
+                <img alt="resetaurant location map" style={{ marginBottom: "-5px" }} src={`https://maps.googleapis.com/maps/api/staticmap?center=${post.location.lat},${post.location.lon}&markers=color:blue%7C${post.location.lat},${post.location.lon}&zoom=15&size=400x268&key=AIzaSyDwoqHxtOYa6tDrQXuJS1aDd46uM3GzAJs`} />
               </a>
               <Card.Content style={{ background: "white" }}>
                 <Card.Description>
@@ -86,85 +95,85 @@ export default HappyHour
 
 export const pageQuery = graphql`
   query HappyHourBySlug($slug: String!) {
-    site {
-      siteMetadata {
+        site {
+        siteMetadata {
         title
       }
-    }
-    contentfulHappyHour(slug: { eq: $slug }) {
-      best
+      }
+    contentfulHappyHour(slug: {eq: $slug }) {
+        best
         seoDescription
-        days
+      days
         fridayDesc {
-          fridayDesc
-        }
-        hours {
-          friday {
-            end
+        fridayDesc
+      }
+      hours {
+        friday {
+        end
             start
-          }
+    }
           monday {
-            end
+        end
             start
-          }
+    }
           thursday {
-            start
+        start
             end
-          }
+    }
           tuesday {
-            end
+        end
             start
-          }
+    }
           wednesday {
-            end
+        end
             start
-          }
+    }
           saturday {
-            end
+        end
             start
-          }
+    }
           sunday {
-            end
+        end
             start
-          }
-        }
-        id
+    }
+  }
+  id
         location {
-          lat
+        lat
           lon
-        }
-        address
-        neighborhood
-        name
+    }
+    address
+    neighborhood
+    name
         mondayDesc {
-          mondayDesc
-        }
-        phone
-        slug
+        mondayDesc
+      }
+      phone
+      slug
         thursdayDesc {
-          thursdayDesc
-        }
-        tuesdayDesc {
-          tuesdayDesc
-        }
-        website
+        thursdayDesc
+      }
+      tuesdayDesc {
+        tuesdayDesc
+      }
+      website
         wednesdayDesc {
-          wednesdayDesc
-        }
-        description {
-          description
-        }
-        tags
+        wednesdayDesc
+      }
+      description {
+        description
+      }
+      tags
         sundayDesc {
-          sundayDesc
-        }
-        saturdayDesc{
-          saturdayDesc
-        }
+        sundayDesc
+      }
+      saturdayDesc{
+        saturdayDesc
+      }
       mainImg{
-          fluid(maxWidth: 1800, resizingBehavior: SCALE) {
-            ...GatsbyContentfulFluid_tracedSVG
-          }
+        fluid(maxWidth: 1800, resizingBehavior: SCALE) {
+        ...GatsbyContentfulFluid_tracedSVG
+      }
       }
     }
   }
