@@ -13,7 +13,7 @@ exports.createPages = ({ graphql, actions }) => {
     const { createPage } = actions
 
     return new Promise((resolve, reject) => {
-        const happyHour = path.resolve('./src/templates/happyHour.js')
+        const happyHour = path.resolve('./src/Templates/happyHour.js')
         resolve(
             graphql(
                 `

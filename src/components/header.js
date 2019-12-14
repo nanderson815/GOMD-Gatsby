@@ -26,15 +26,16 @@ export default class MenuExampleMenus extends Component {
           </Menu.Item>
 
           <Menu.Menu position='right'>
-
             <Menu.Item
               style={{ fontWeight: "bold" }}
               name='happyHours'
               active={activeItem === 'happyHours'}
               onClick={this.handleItemClick}
+              as={Link}
+              to='/happy-hour-finder'
             >
               <Icon name='glass martini' style={{ color: "#1c70b5" }} />Happy Hours
-          </Menu.Item>
+            </Menu.Item>
             <Menu.Item
               style={{ fontWeight: "bold" }}
               name='articles'

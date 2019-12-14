@@ -57,7 +57,7 @@ const HappyHour = (props) => {
                 let timeField = day.toLowerCase()
                 return (
                   <div key={`${index}happyHour`}>
-                    <h3 style={{ marginBottom: "-3px" }}>{day}</h3>
+                    <h3 style={{ marginBottom: "-3px" }}> <u>{day}</u></h3>
                     <p><strong>{` ${formatTime(post.hours[timeField].start)} - ${formatTime(post.hours[timeField].end)}:`} </strong> {`${post[descField][descField]}`}</p>
                     <hr></hr>
                   </div>

@@ -17,19 +17,22 @@ const SearchBar = () => {
         isError: false,
     })
 
-    useEffect(() => {
-        rebuildIndex();
-    }, [])
 
-    const rebuildIndex = () => {
-        var dataToSearch = new JsSearch.Search('slug');
-        dataToSearch.addIndex('name');
-        dataToSearch.addIndex('tags');
-        dataToSearch.addIndex('days');
-        dataToSearch.addIndex(['description', 'description']);
-        dataToSearch.addDocuments(happyHours);
-        setState({ search: dataToSearch, isLoading: false });
-    }
+
+    useEffect(() => {
+        const rebuildIndex = () => {
+            var dataToSearch = new JsSearch.Search('slug');
+            dataToSearch.addIndex('name');
+            dataToSearch.addIndex('tags');
+            dataToSearch.addIndex('days');
+            dataToSearch.addIndex(['description', 'description']);
+            dataToSearch.addDocuments(happyHours);
+            setState({ search: dataToSearch, isLoading: false });
+        }
+
+        rebuildIndex();
+        console.log("I ran")
+    }, [])
 
     const searchData = e => {
         const { search } = state
