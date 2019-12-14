@@ -5,8 +5,8 @@ require('dotenv').config({
 module.exports = {
   siteMetadata: {
     title: `Georgia on my Dime`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    description: `Discover Atlanta's best Happy Hours and restaurant deals with Georgia on my Dime! We have the only complete list of Atlanta Happy Hour and specials.`,
+    author: `@georgiaonmydime`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

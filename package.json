@@ -20,6 +20,7 @@
     "gatsby-source-contentful": "^2.1.67",
     "gatsby-source-filesystem": "^2.1.40",
     "gatsby-transformer-sharp": "^2.3.7",
+    "google-map-react": "^1.1.5",
     "install": "^0.13.0",
     "js-search": "^1.4.3",
     "less": "^3.10.3",
