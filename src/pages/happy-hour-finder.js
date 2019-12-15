@@ -2,14 +2,33 @@ import React from "react"
 import { graphql, Link } from 'gatsby'
 import SEO from '../components/seo'
 import Img from 'gatsby-image';
-import { Grid, Sticky, Card, Responsive } from "semantic-ui-react"
+import { Grid, Sticky, Card, Responsive, Dropdown } from "semantic-ui-react"
 import GoogleMap from '../components/googleMap'
 import MobileHappyHourFinder from '../components/mobileHappyHourFinder'
 
-const happyHourFinder = ({ data }) => {
+const HappyHourFinder = ({ data }) => {
 
     let happyHours = data.allContentfulHappyHour.edges.map(item => item.node)
     console.log(happyHours)
+
+    // Helper to handle day filtering
+    let days = [
+        { key: "All", value: "All", text: "All" },
+        { key: "Sun", value: "Sunday", text: "Sunday" },
+        { key: "Mon", value: "Monday", text: "Monday" },
+        { key: "Tue", value: "Tuesday", text: "Tuesday" },
+        { key: "Wed", value: "Wednesday", text: "Wednesday" },
+        { key: "Thu", value: "Thursday", text: "Thursday" },
+        { key: "Fri", value: "Friday", text: "Friday" },
+        { key: "Sat", value: "Saturday", text: "Saturday" }
+    ]
+    let currentDay = days[new Date().getDay() + 1].value;
+    const [day, setDay] = React.useState(currentDay)
+
+    const changeDay = (e, { value }) => {
+        setDay(value)
+    }
+
     return (
         <>
             <SEO title="Atlanta Happy Hour Finder" />
@@ -19,15 +38,22 @@ const happyHourFinder = ({ data }) => {
                         <Sticky>
                             <Link to="/"><h1 style={{ padding: "0px 0px 10px 10px", marginBottom: "0px", color: "#1c70b5" }}>Georgia on my Dime</h1></Link>
                             <div style={{ height: "4px", background: "#1c70b5", margin: "0px -14px 10px -14px" }}></div>
+                            <div>
+                                <Dropdown selection value={day} options={days} onChange={changeDay} />
+                            </div>
                         </Sticky>
                         <Card.Group itemsPerRow={2}>
                             {happyHours.map(deal => {
-                                return (<Card key={deal.id}>
-                                    <Img style={{ height: "150px" }} alt={deal.name} fluid={deal.mainImg.fluid} />
-                                    <Card.Content>
-                                        <Card.Header>{deal.name}</Card.Header>
-                                    </Card.Content>
-                                </Card>)
+                                if (day === "All" || deal.days.includes(day)) {
+                                    return (<Card key={deal.id}>
+                                        <Img style={{ height: "150px" }} alt={deal.name} fluid={deal.mainImg.fluid} />
+                                        <Card.Content>
+                                            <Card.Header>{deal.name}</Card.Header>
+                                        </Card.Content>
+                                    </Card>)
+                                } else {
+                                    return null
+                                }
                             })}
                         </Card.Group>
 
@@ -133,4 +159,4 @@ export const query = graphql`
 `
 
 
-export default happyHourFinder;
+export default HappyHourFinder;
