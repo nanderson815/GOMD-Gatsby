@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
+import { Icon } from 'semantic-ui-react';
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const AnyReactComponent = ({ info }) => <Icon size="huge" name="map marker alternate" style={{ color: "#1c70b5" }} />;
 
 class SimpleMap extends Component {
     static defaultProps = {
@@ -22,9 +23,8 @@ class SimpleMap extends Component {
                     defaultZoom={this.props.zoom}
                 >
                     <AnyReactComponent
-                        lat={59.955413}
-                        lng={30.337844}
-                        text="My Marker"
+                        lat={33.7490}
+                        lng={-84.3880}
                     />
                 </GoogleMapReact>
             </div>

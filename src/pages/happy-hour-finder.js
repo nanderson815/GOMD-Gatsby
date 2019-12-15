@@ -1,30 +1,48 @@
 import React from "react"
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import SEO from '../components/seo'
-import { Grid, Sticky } from "semantic-ui-react"
+import Img from 'gatsby-image';
+import { Grid, Sticky, Card, Responsive } from "semantic-ui-react"
 import GoogleMap from '../components/googleMap'
+import MobileHappyHourFinder from '../components/mobileHappyHourFinder'
 
-const happyHourFinder = (props) => {
+const happyHourFinder = ({ data }) => {
 
-    console.log(props)
+    let happyHours = data.allContentfulHappyHour.edges.map(item => item.node)
+    console.log(happyHours)
     return (
         <>
             <SEO title="Atlanta Happy Hour Finder" />
-            <Grid columns={2}>
-                <Grid.Column width={5} style={{ background: "white", padding: "0px" }}>
-                    <Sticky>
-                        <h1 style={{ padding: "20px 0px 10px 20px", marginBottom: "0px", color: "#1c70b5" }}>Georgia on my Dime</h1>
-                        <div style={{ height: "4px", background: "#1c70b5" }}></div>
-                    </Sticky>
+            <Responsive minWidth={768}>
+                <Grid style={{ margin: "0px" }}>
+                    <Grid.Column tablet={10} computer={8} largeScreen={8} style={{ background: "white" }}>
+                        <Sticky>
+                            <Link to="/"><h1 style={{ padding: "0px 0px 10px 10px", marginBottom: "0px", color: "#1c70b5" }}>Georgia on my Dime</h1></Link>
+                            <div style={{ height: "4px", background: "#1c70b5", margin: "0px -14px 10px -14px" }}></div>
+                        </Sticky>
+                        <Card.Group itemsPerRow={2}>
+                            {happyHours.map(deal => {
+                                return (<Card key={deal.id}>
+                                    <Img style={{ height: "150px" }} alt={deal.name} fluid={deal.mainImg.fluid} />
+                                    <Card.Content>
+                                        <Card.Header>{deal.name}</Card.Header>
+                                    </Card.Content>
+                                </Card>)
+                            })}
+                        </Card.Group>
 
-                </Grid.Column>
-                <Grid.Column width={11} style={{ padding: "0px" }}>
-                    <Sticky>
-                        <GoogleMap></GoogleMap>
-                    </Sticky>
-                </Grid.Column>
+                    </Grid.Column>
+                    <Grid.Column tablet={6} computer={8} largeScreen={8} style={{ padding: "0px" }}>
+                        <Sticky>
+                            <GoogleMap></GoogleMap>
+                        </Sticky>
+                    </Grid.Column>
 
-            </Grid>
+                </Grid>
+            </Responsive>
+            <Responsive {...Responsive.onlyMobile}>
+                <MobileHappyHourFinder happyhours={happyHours} />
+            </Responsive>
         </>
     )
 }
@@ -77,12 +95,10 @@ export const query = graphql`
         }
         address
         neighborhood
-        mainImg {
-          fluid {
-            base64
-          }
-          id
-          title
+        mainImg{
+        fluid(maxWidth: 1800, resizingBehavior: SCALE) {
+        ...GatsbyContentfulFluid_tracedSVG
+        }
         }
         name
         mondayDesc {
