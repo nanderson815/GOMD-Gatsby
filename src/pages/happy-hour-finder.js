@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { graphql, Link } from 'gatsby'
 import SEO from '../components/seo'
 import Img from 'gatsby-image';
@@ -8,8 +8,14 @@ import MobileHappyHourFinder from '../components/mobileHappyHourFinder'
 
 const HappyHourFinder = ({ data }) => {
 
-    let happyHours = data.allContentfulHappyHour.edges.map(item => item.node)
-    console.log(happyHours)
+    // The use effect below ensures we only run map once. (could get expensive with lots of data)
+    const [happyHours, setHappyHours] = React.useState([])
+    useEffect(() => {
+        let HHdata = data.allContentfulHappyHour.edges.map(item => item.node)
+        setHappyHours(HHdata);
+        console.log(HHdata);
+    }, [data])
+
 
     // Helper to handle day filtering
     let days = [
@@ -29,12 +35,21 @@ const HappyHourFinder = ({ data }) => {
         setDay(value)
     }
 
+    // Format time helper
+    const formatTime = (time24) => {
+        const [sHours, minutes] = time24.match(/([0-9]{1,2}):([0-9]{2})/).slice(1);
+        const period = +sHours < 12 ? 'AM' : 'PM';
+        const hours = +sHours % 12 || 12;
+
+        return `${hours}:${minutes}${period}`;
+    }
+
     return (
         <>
             <SEO title="Atlanta Happy Hour Finder" />
             <Responsive minWidth={768}>
                 <Grid style={{ margin: "0px" }}>
-                    <Grid.Column tablet={10} computer={8} largeScreen={8} style={{ background: "white" }}>
+                    <Grid.Column tablet={10} computer={8} largeScreen={8} style={{ background: "eff0f1" }}>
                         <Sticky>
                             <Link to="/"><h1 style={{ padding: "0px 0px 10px 10px", marginBottom: "0px", color: "#1c70b5" }}>Georgia on my Dime</h1></Link>
                             <div style={{ height: "4px", background: "#1c70b5", margin: "0px -14px 10px -14px" }}></div>
@@ -42,13 +57,20 @@ const HappyHourFinder = ({ data }) => {
                                 <Dropdown selection value={day} options={days} onChange={changeDay} />
                             </div>
                         </Sticky>
+
                         <Card.Group itemsPerRow={2}>
                             {happyHours.map(deal => {
                                 if (day === "All" || deal.days.includes(day)) {
+                                    let timeField = day.toLowerCase();
+                                    let descField = day.toLowerCase() + "Desc";
                                     return (<Card key={deal.id}>
                                         <Img style={{ height: "150px" }} alt={deal.name} fluid={deal.mainImg.fluid} />
                                         <Card.Content>
                                             <Card.Header>{deal.name}</Card.Header>
+                                            {day === "All" ? null :
+                                                <Card.Description>
+                                                    <strong>{` ${formatTime(deal.hours[timeField].start)} - ${formatTime(deal.hours[timeField].end)}:`} </strong> {`${deal[descField][descField]}`}
+                                                </Card.Description>}
                                         </Card.Content>
                                     </Card>)
                                 } else {
@@ -73,6 +95,7 @@ const HappyHourFinder = ({ data }) => {
     )
 }
 
+// Gets my sweet HH data from the gatsby data layer.
 export const query = graphql`
   query happyHourDataAndHappyHourData  {
   allContentfulHappyHour {
