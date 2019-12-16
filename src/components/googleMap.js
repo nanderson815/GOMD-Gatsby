@@ -2,12 +2,28 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { Icon } from 'semantic-ui-react';
 
-const AnyReactComponent = ({ info }) => <Icon size="huge" name="map marker alternate" style={{ color: "#1c70b5" }} />;
+const Marker = ({ info }) => <Icon size="huge" name="map marker alternate" style={{ color: "#1c70b5" }} />;
+
+let locations = [
+    { lat: 33.78575, lng: -84.3844 },
+    { lat: 33.78575, lng: -84.4112 }
+]
+
+const markers = locations.map((m, i) => {
+    return (
+        <Marker
+            key={i}
+            lat={m.lat}
+            lng={m.lng}
+        />
+    )
+});
+
 
 class SimpleMap extends Component {
     static defaultProps = {
         center: {
-            lat: 33.7490,
+            lat: 33.78454,
             lng: -84.3880
         },
         zoom: 11
@@ -22,10 +38,7 @@ class SimpleMap extends Component {
                     defaultCenter={this.props.center}
                     defaultZoom={this.props.zoom}
                 >
-                    <AnyReactComponent
-                        lat={33.7490}
-                        lng={-84.3880}
-                    />
+                    {markers}
                 </GoogleMapReact>
             </div>
         );

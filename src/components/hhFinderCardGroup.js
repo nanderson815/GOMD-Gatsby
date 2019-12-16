@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon } from 'semantic-ui-react'
+import { Card, Icon, Label } from 'semantic-ui-react'
 import Img from 'gatsby-image';
 
 
