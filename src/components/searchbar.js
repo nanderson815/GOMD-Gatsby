@@ -31,7 +31,6 @@ const SearchBar = () => {
         }
 
         rebuildIndex();
-        console.log("I ran")
     }, [])
 
     const searchData = e => {
