@@ -30,6 +30,10 @@ const HappyHourFinder = ({ data }) => {
         setNeighborhood(value)
     }
 
+    const linkChangeHood = (e) => {
+        setNeighborhood(e.target.text)
+    }
+
 
     // Helper to handle day filtering
     let days = [
@@ -65,7 +69,7 @@ const HappyHourFinder = ({ data }) => {
                                 Neighborhood: <Dropdown style={{ minWidth: "125px" }} selection value={neighborhood} options={neighborhoods} onChange={changeHood} />
                             </div>
                         </Sticky>
-                        <HHFinderCardGroup happyHours={happyHours} day={day} hood={neighborhood} rows={2} />
+                        <HHFinderCardGroup happyHours={happyHours} day={day} hood={neighborhood} changeHood={linkChangeHood} rows={2} />
                     </Grid.Column>
                     <Grid.Column tablet={6} computer={8} largeScreen={8} style={{ padding: "0px" }}>
                         <Sticky>
@@ -76,7 +80,7 @@ const HappyHourFinder = ({ data }) => {
                 </Grid>
             </Responsive>
             <Responsive {...Responsive.onlyMobile}>
-                <MobileHappyHourFinder happyhours={happyHours} hood={neighborhood} day={day} />
+                <MobileHappyHourFinder happyhours={happyHours} hood={neighborhood} changeHood={linkChangeHood} day={day} />
             </Responsive>
         </>
     )

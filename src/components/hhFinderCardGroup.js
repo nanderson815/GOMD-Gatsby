@@ -12,7 +12,7 @@ const formatTime = (time24) => {
     return `${hours}:${minutes}${period}`;
 }
 
-const HHFinderCardGroup = ({ happyHours, day, rows, hood }) => {
+const HHFinderCardGroup = ({ happyHours, day, rows, hood, changeHood }) => {
     return (
         <Card.Group itemsPerRow={rows} style={{ marginTop: "10px" }}>
             {
@@ -35,7 +35,7 @@ const HHFinderCardGroup = ({ happyHours, day, rows, hood }) => {
                                         </Card.Description>}
                                 </Card.Content>
                                 <Card.Content extra>
-                                    <a>
+                                    <a value={deal.neighborhood} onClick={changeHood}>
                                         <Icon name="marker" />
                                         {deal.neighborhood}
                                     </a>
