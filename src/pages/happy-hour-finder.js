@@ -10,11 +10,23 @@ const HappyHourFinder = ({ data }) => {
 
     // The use effect below ensures we only run map once. (could get expensive with lots of data)
     const [happyHours, setHappyHours] = React.useState([])
+    const [filteredHH, setFilteredHH] = React.useState([])
+
     useEffect(() => {
         let HHdata = data.allContentfulHappyHour.edges.map(item => item.node)
         setHappyHours(HHdata);
+        setFilteredHH(HHdata);
         console.log(HHdata);
     }, [data]);
+
+    // TODO: Filter HH data here, not in children
+
+    const filterHappyHours = (cat, val) => {
+        let filteredArray = happyHours.filter(item => {
+            return item[cat] === val
+        });
+        setFilteredHH(filteredArray);
+    }
 
 
     // Creating an object of all the neighborhoods
@@ -28,6 +40,11 @@ const HappyHourFinder = ({ data }) => {
 
     const changeHood = (e, { value }) => {
         setNeighborhood(value)
+        if (value === "All") {
+            setFilteredHH(happyHours);
+        } else {
+            filterHappyHours("neighborhood", value);
+        }
     }
 
     // Helper to handle day filtering
@@ -46,6 +63,14 @@ const HappyHourFinder = ({ data }) => {
 
     const changeDay = (e, { value }) => {
         setDay(value)
+        if (value === "All") {
+            setFilteredHH(happyHours);
+        } else {
+            let filteredArray = happyHours.filter(item => {
+                return item.days.includes(value);
+            });
+            setFilteredHH(filteredArray);
+        }
     }
 
     return (
@@ -64,7 +89,7 @@ const HappyHourFinder = ({ data }) => {
                                 Neighborhood: <Dropdown style={{ minWidth: "125px" }} selection value={neighborhood} options={neighborhoods} onChange={changeHood} />
                             </div>
                         </Sticky>
-                        <HHFinderCardGroup happyHours={happyHours} day={day} hood={neighborhood} rows={2} />
+                        <HHFinderCardGroup happyHours={filteredHH} day={day} hood={neighborhood} rows={2} />
                     </Grid.Column>
                     <Grid.Column tablet={6} computer={8} largeScreen={8} style={{ padding: "0px" }}>
                         <Sticky>
@@ -75,7 +100,7 @@ const HappyHourFinder = ({ data }) => {
                 </Grid>
             </Responsive>
             <Responsive {...Responsive.onlyMobile}>
-                <MobileHappyHourFinder happyhours={happyHours} hood={neighborhood} day={day} />
+                <MobileHappyHourFinder happyhours={filteredHH} hood={neighborhood} day={day} />
             </Responsive>
         </>
     )

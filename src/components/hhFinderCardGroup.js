@@ -17,34 +17,28 @@ const HHFinderCardGroup = ({ happyHours, day, rows, hood }) => {
         <Card.Group itemsPerRow={rows} style={{ marginTop: "10px" }}>
             {
                 happyHours.map(deal => {
-                    if (day === "All" || deal.days.includes(day)) {
-                        if (hood === "All" || deal.neighborhood === hood) {
-                            let timeField = day.toLowerCase();
-                            let descField = day.toLowerCase() + "Desc";
-                            let descriptionString;
-                            { day === "All" ? descriptionString = "" : descriptionString = deal[descField][descField] };
-                            let trimmedString = descriptionString.length > 200 ? descriptionString.substring(0, 200 - 3) + "..." : descriptionString;
+                    let timeField = day.toLowerCase();
+                    let descField = day.toLowerCase() + "Desc";
+                    let descriptionString;
+                    { day === "All" ? descriptionString = "" : descriptionString = deal[descField][descField] };
+                    let trimmedString = descriptionString.length > 200 ? descriptionString.substring(0, 200 - 3) + "..." : descriptionString;
 
-                            return (
-                                <Card link href={`atlanta-happy-hour/${deal.slug}`} key={deal.id} >
-                                    <Img style={{ height: "150px" }} alt={deal.name} fluid={deal.mainImg.fluid} />
-                                    <Card.Content>
-                                        <Card.Header>{deal.name}</Card.Header>
-                                        {day === "All" ? null :
-                                            <Card.Description>
-                                                <strong>{` ${formatTime(deal.hours[timeField].start)} - ${formatTime(deal.hours[timeField].end)}:`} </strong> {trimmedString}
-                                            </Card.Description>}
-                                    </Card.Content>
-                                    <Card.Content extra value={deal.neighborhood}>
-                                        <Icon name="marker" />
-                                        {deal.neighborhood}
-                                    </Card.Content>
-                                </Card>
-                            )
-                        }
-                    } else {
-                        return null
-                    }
+                    return (
+                        <Card link href={`atlanta-happy-hour/${deal.slug}`} key={deal.id} >
+                            <Img style={{ height: "150px" }} alt={deal.name} fluid={deal.mainImg.fluid} />
+                            <Card.Content>
+                                <Card.Header>{deal.name}</Card.Header>
+                                {day === "All" ? null :
+                                    <Card.Description>
+                                        <strong>{` ${formatTime(deal.hours[timeField].start)} - ${formatTime(deal.hours[timeField].end)}:`} </strong> {trimmedString}
+                                    </Card.Description>}
+                            </Card.Content>
+                            <Card.Content extra value={deal.neighborhood}>
+                                <Icon name="marker" />
+                                {deal.neighborhood}
+                            </Card.Content>
+                        </Card>
+                    )
                 })
             }
         </Card.Group >
