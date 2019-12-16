@@ -12,7 +12,7 @@ const formatTime = (time24) => {
     return `${hours}:${minutes}${period}`;
 }
 
-const HHFinderCardGroup = ({ happyHours, day, rows, hood, changeHood }) => {
+const HHFinderCardGroup = ({ happyHours, day, rows, hood }) => {
     return (
         <Card.Group itemsPerRow={rows} style={{ marginTop: "10px" }}>
             {
@@ -25,22 +25,22 @@ const HHFinderCardGroup = ({ happyHours, day, rows, hood, changeHood }) => {
                             { day === "All" ? descriptionString = "" : descriptionString = deal[descField][descField] };
                             let trimmedString = descriptionString.length > 200 ? descriptionString.substring(0, 200 - 3) + "..." : descriptionString;
 
-                            return (<Card key={deal.id}>
-                                <Img style={{ height: "150px" }} alt={deal.name} fluid={deal.mainImg.fluid} />
-                                <Card.Content>
-                                    <Card.Header>{deal.name}</Card.Header>
-                                    {day === "All" ? null :
-                                        <Card.Description>
-                                            <strong>{` ${formatTime(deal.hours[timeField].start)} - ${formatTime(deal.hours[timeField].end)}:`} </strong> {trimmedString}
-                                        </Card.Description>}
-                                </Card.Content>
-                                <Card.Content extra>
-                                    <a value={deal.neighborhood} onClick={changeHood}>
+                            return (
+                                <Card link href={`atlanta-happy-hour/${deal.slug}`} key={deal.id} >
+                                    <Img style={{ height: "150px" }} alt={deal.name} fluid={deal.mainImg.fluid} />
+                                    <Card.Content>
+                                        <Card.Header>{deal.name}</Card.Header>
+                                        {day === "All" ? null :
+                                            <Card.Description>
+                                                <strong>{` ${formatTime(deal.hours[timeField].start)} - ${formatTime(deal.hours[timeField].end)}:`} </strong> {trimmedString}
+                                            </Card.Description>}
+                                    </Card.Content>
+                                    <Card.Content extra value={deal.neighborhood}>
                                         <Icon name="marker" />
                                         {deal.neighborhood}
-                                    </a>
-                                </Card.Content>
-                            </Card>)
+                                    </Card.Content>
+                                </Card>
+                            )
                         }
                     } else {
                         return null
