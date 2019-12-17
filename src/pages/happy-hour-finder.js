@@ -111,9 +111,9 @@ const HappyHourFinder = ({ data }) => {
                         <HHFinderCardGroup happyHours={filteredHH} day={day} hood={neighborhood} rows={2} />
                     </Grid.Column>
                     <Grid.Column tablet={6} computer={8} largeScreen={8} style={{ padding: "0px" }}>
-                        <Sticky active={true}>
+                        <div style={{ position: 'fixed', top: "0", width: "55%", height: "100%" }}>
                             <GoogleMap happyHours={filteredHH}></GoogleMap>
-                        </Sticky>
+                        </div>
                     </Grid.Column>
 
                 </Grid>
