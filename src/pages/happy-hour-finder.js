@@ -8,6 +8,24 @@ import HHFinderCardGroup from '../components/hhFinderCardGroup'
 
 const HappyHourFinder = ({ data }) => {
 
+    // Helper to handle day filtering
+    let days = [
+        { key: "All", value: "All", text: "All" },
+        { key: "Sun", value: "Sunday", text: "Sunday" },
+        { key: "Mon", value: "Monday", text: "Monday" },
+        { key: "Tue", value: "Tuesday", text: "Tuesday" },
+        { key: "Wed", value: "Wednesday", text: "Wednesday" },
+        { key: "Thu", value: "Thursday", text: "Thursday" },
+        { key: "Fri", value: "Friday", text: "Friday" },
+        { key: "Sat", value: "Saturday", text: "Saturday" }
+    ]
+    const [day, setDay] = React.useState('All')
+
+    const changeDay = (e, { value }) => {
+        setDay(value)
+        filterHappyHours("days", value)
+    }
+
     // The use effect below ensures we only run map once. (could get expensive with lots of data)
     const [happyHours, setHappyHours] = React.useState([])
     const [filteredHH, setFilteredHH] = React.useState([])
@@ -15,19 +33,33 @@ const HappyHourFinder = ({ data }) => {
     useEffect(() => {
         let HHdata = data.allContentfulHappyHour.edges.map(item => item.node)
         setHappyHours(HHdata);
-        setFilteredHH(HHdata);
-        console.log(HHdata);
     }, [data]);
 
-    // TODO: Filter HH data here, not in children
+    // Sets the inital filter to today
+    useEffect(() => {
+        let currentDay = days[new Date().getDay() + 1].value;
+        setDay(currentDay);
+        filterHappyHours("days", currentDay);
+    }, [happyHours]);
 
+    // Filter HH data here, not in children
     const filterHappyHours = (cat, val) => {
-        let filteredArray = happyHours.filter(item => {
-            return item[cat] === val
-        });
-        setFilteredHH(filteredArray);
+        if (cat === "days") {
+            if (val === "All") {
+                setFilteredHH(happyHours);
+            } else {
+                let filteredArray = happyHours.filter(item => {
+                    return item.days.includes(val);
+                });
+                setFilteredHH(filteredArray);
+            }
+        } else {
+            let filteredArray = happyHours.filter(item => {
+                return item[cat] === val
+            });
+            setFilteredHH(filteredArray);
+        }
     }
-
 
     // Creating an object of all the neighborhoods
     let neighborhoods = [
@@ -47,7 +79,6 @@ const HappyHourFinder = ({ data }) => {
     ];
     const [neighborhood, setNeighborhood] = React.useState("All")
 
-
     const changeHood = (e, { value }) => {
         setNeighborhood(value)
         if (value === "All") {
@@ -57,31 +88,6 @@ const HappyHourFinder = ({ data }) => {
         }
     }
 
-    // Helper to handle day filtering
-    let days = [
-        { key: "All", value: "All", text: "All" },
-        { key: "Sun", value: "Sunday", text: "Sunday" },
-        { key: "Mon", value: "Monday", text: "Monday" },
-        { key: "Tue", value: "Tuesday", text: "Tuesday" },
-        { key: "Wed", value: "Wednesday", text: "Wednesday" },
-        { key: "Thu", value: "Thursday", text: "Thursday" },
-        { key: "Fri", value: "Friday", text: "Friday" },
-        { key: "Sat", value: "Saturday", text: "Saturday" }
-    ]
-    let currentDay = days[new Date().getDay() + 1].value;
-    const [day, setDay] = React.useState(currentDay)
-
-    const changeDay = (e, { value }) => {
-        setDay(value)
-        if (value === "All") {
-            setFilteredHH(happyHours);
-        } else {
-            let filteredArray = happyHours.filter(item => {
-                return item.days.includes(value);
-            });
-            setFilteredHH(filteredArray);
-        }
-    }
 
     return (
         <>
@@ -89,21 +95,24 @@ const HappyHourFinder = ({ data }) => {
             <Responsive minWidth={768}>
                 <Grid style={{ margin: "0px" }}>
                     <Grid.Column tablet={10} computer={8} largeScreen={8} style={{ background: "eff0f1" }}>
-                        <Sticky>
-                            <Link to="/"><h1 style={{ padding: "0px 0px 10px 10px", marginBottom: "0px", color: "#1c70b5" }}>Georgia on my Dime</h1></Link>
-                            <div style={{ height: "4px", background: "#1c70b5", margin: "0px -14px 10px -14px" }}></div>
-                            <div style={{ display: "inline-block", marginRight: "5px" }}>
-                                Choose Day: <Dropdown style={{ minWidth: "125px" }} selection value={day} options={days} onChange={changeDay} />
-                            </div>
-                            <div style={{ display: "inline-block" }}>
-                                Neighborhood: <Dropdown style={{ minWidth: "125px" }} selection value={neighborhood} options={neighborhoods} onChange={changeHood} />
+                        <Sticky style={{ margin: "-14px" }}>
+                            <div style={{ background: "white" }}>
+                                <Link to="/"><h1 style={{ padding: "0px 0px 10px 24px", marginBottom: "0px", color: "#1c70b5" }}>Georgia on my Dime</h1></Link>
+                                <div style={{ height: "4px", background: "#1c70b5", margin: "0px 0px 10px" }}></div>
+                                <div style={{ display: "inline-block", margin: "0px 5px 10px 24px" }}>
+                                    Choose Day: <Dropdown style={{ minWidth: "125px" }} selection value={day} options={days} onChange={changeDay} />
+                                </div>
+                                <div style={{ display: "inline-block" }}>
+                                    Neighborhood: <Dropdown style={{ minWidth: "125px" }} selection value={neighborhood} options={neighborhoods} onChange={changeHood} />
+                                </div>
+                                <div style={{ height: "1px", background: "#e3e3e3", margin: "0px 0px 10px 0px" }}></div>
                             </div>
                         </Sticky>
                         <HHFinderCardGroup happyHours={filteredHH} day={day} hood={neighborhood} rows={2} />
                     </Grid.Column>
                     <Grid.Column tablet={6} computer={8} largeScreen={8} style={{ padding: "0px" }}>
                         <Sticky>
-                            <GoogleMap></GoogleMap>
+                            <GoogleMap happyHours={filteredHH}></GoogleMap>
                         </Sticky>
                     </Grid.Column>
 
