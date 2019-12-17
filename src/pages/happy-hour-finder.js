@@ -30,13 +30,23 @@ const HappyHourFinder = ({ data }) => {
 
 
     // Creating an object of all the neighborhoods
-    let neighborhoods = [{ key: "All", value: "All", text: "All" }];
+    let neighborhoods = [
+        { key: "All", value: "All", text: "All" },
+        { key: "Mid", value: "Midtown", text: "Midtown" },
+        { key: "Buc", value: "Buckhead", text: "Buckhead" },
+        { key: "Wes", value: "West Midtown", text: "West Midtown" },
+        { key: "Dow", value: "Downtown", text: "Downtown" },
+        { key: "Old", value: "Old Fourth Ward", text: "Old Fourth Ward" },
+        { key: "Bro", value: "Brookhaven", text: "Brookhaven" },
+        { key: "Vir", value: "Virginia Highlands", text: "Virginia Highlands" },
+        { key: "San", value: "Sandy Springs", text: "Sandy Springs" },
+        { key: "Inm", value: "Inman Park", text: "Inman Park" },
+        { key: "Dec", value: "Decatur", text: "Decatur" },
+        { key: "Smy", value: "Smyrna", text: "Smyrna" },
+
+    ];
     const [neighborhood, setNeighborhood] = React.useState("All")
 
-    happyHours.forEach(item => {
-        let neighborhood = { key: item.neighborhood.substring(0, 4), value: item.neighborhood, text: item.neighborhood };
-        neighborhoods.push(neighborhood);
-    });
 
     const changeHood = (e, { value }) => {
         setNeighborhood(value)

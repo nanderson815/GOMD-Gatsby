@@ -1,7 +1,7 @@
 import React from "react"
-import { graphql, Link } from 'gatsby'
+import { Link } from 'gatsby'
 import SEO from '../components/seo'
-import { Grid, Sticky, Card } from "semantic-ui-react"
+import { Grid, Sticky } from "semantic-ui-react"
 import HHFinderCardGroup from './hhFinderCardGroup'
 
 const MobileHappyHourFinder = ({ happyhours, day, hood }) => {

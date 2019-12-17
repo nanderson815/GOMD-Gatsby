@@ -1,7 +1,7 @@
 import React from 'react'
-import { Card, Icon, Label } from 'semantic-ui-react'
-import Img from 'gatsby-image';
-
+import { Card, Icon } from 'semantic-ui-react'
+import Img from 'gatsby-image'
+import { navigate } from 'gatsby'
 
 // Format time helper
 const formatTime = (time24) => {
@@ -12,6 +12,11 @@ const formatTime = (time24) => {
     return `${hours}:${minutes}${period}`;
 }
 
+const navfunc = (e, { slug }) => {
+    navigate("/atlanta-happy-hour/" + slug)
+}
+
+
 const HHFinderCardGroup = ({ happyHours, day, rows, hood }) => {
     return (
         <Card.Group itemsPerRow={rows} style={{ marginTop: "10px" }}>
@@ -20,11 +25,11 @@ const HHFinderCardGroup = ({ happyHours, day, rows, hood }) => {
                     let timeField = day.toLowerCase();
                     let descField = day.toLowerCase() + "Desc";
                     let descriptionString;
-                    { day === "All" ? descriptionString = "" : descriptionString = deal[descField][descField] };
+                    day === "All" ? descriptionString = "" : descriptionString = deal[descField][descField]
                     let trimmedString = descriptionString.length > 200 ? descriptionString.substring(0, 200 - 3) + "..." : descriptionString;
 
                     return (
-                        <Card link href={`atlanta-happy-hour/${deal.slug}`} key={deal.id} >
+                        <Card link onClick={navfunc} key={deal.id} slug={deal.slug} >
                             <Img style={{ height: "150px" }} alt={deal.name} fluid={deal.mainImg.fluid} />
                             <Card.Content>
                                 <Card.Header>{deal.name}</Card.Header>
