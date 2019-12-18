@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { withGoogleMap, withScriptjs, GoogleMap } from "react-google-maps"
 import { Card } from 'semantic-ui-react';
 import Img from 'gatsby-image'
+import { navigate } from 'gatsby'
+
 
 const { MarkerClusterer } = require("react-google-maps/lib/components/addons/MarkerClusterer");
 const { MarkerWithLabel } = require("react-google-maps/lib/components/addons/MarkerWithLabel");
@@ -22,25 +24,34 @@ const HappyHourMap = ({ happyHours }) => {
     }
 
     const [visible, setVisible] = React.useState("")
-    const onMarkerClick = (id) => {
+    const onMarkerHover = (id) => {
         setVisible(id)
     }
+    const clearVisible = () => {
+        setVisible("")
+    }
+
+    const onClickHandler = (slug) => {
+        navigate("/atlanta-happy-hour/" + slug)
+    }
+
 
     useEffect(() => {
         if (happyHours.length > 0) {
-            console.log(happyHours)
-            let points = happyHours.map((m, i) => {
+            let points = happyHours.map((m) => {
                 return (
                     <MarkerWithLabel
-                        key={i}
+                        key={m.id}
                         position={{ lat: m.location.lat, lng: m.location.lon }}
                         lable={m.location.name}
                         labelAnchor={{ x: (200 / 2), y: 195 }}
                         labelStyle={{ fontSize: "12px", padding: "5px" }}
                         labelVisible={visible === m.id}
-                        onClick={onMarkerClick.bind(this, m.id)}
+                        onMouseOver={onMarkerHover.bind(this, m.id)}
+                        onMouseOut={clearVisible}
+                        onClick={onClickHandler.bind(this, m.slug)}
                     >
-                        <Card style={{ width: "200px" }}>
+                        <Card style={{ width: "200px", zIndex: "20000" }}>
                             <Img style={{ height: "100px" }} alt={m.name} fluid={m.mainImg.fluid} />
                             <Card.Content>
                                 <Card.Header>
@@ -67,7 +78,7 @@ const HappyHourMap = ({ happyHours }) => {
                 averageCenter
                 enableRetinaIcons
                 gridSize={60}
-                defaultMaxZoom={13}
+            // defaultMaxZoom={13}
             >
                 {markers}
             </MarkerClusterer>
