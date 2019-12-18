@@ -112,7 +112,15 @@ const HappyHourFinder = ({ data }) => {
                     </Grid.Column>
                     <Grid.Column tablet={6} computer={8} largeScreen={8} style={{ padding: "0px" }}>
                         <div style={{ position: 'fixed', top: "0", width: "55%", height: "100%" }}>
-                            <GoogleMap happyHours={filteredHH}></GoogleMap>
+                            <GoogleMap
+                                happyHours={filteredHH}
+                                isMarkerShown
+                                loadingElement={<div style={{ height: `100vh`, width: "100%" }} />}
+                                containerElement={<div style={{ height: `100vh` }} />}
+                                mapElement={<div style={{ height: `100%` }} />}
+                                googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-3IzXoP2LU2QhnrfuhZWHp_QGedI7VdY&v=3.exp&libraries=geometry,drawing,places">
+
+                            </GoogleMap>
                         </div>
                     </Grid.Column>
 
