@@ -88,6 +88,15 @@ const HappyHourFinder = ({ data }) => {
         }
     }
 
+    // Code for hovering and having it reflect on map
+    const [hovered, setHovered] = React.useState("");
+    const setHoverHandler = (id) => {
+        setHovered(id)
+    }
+    const clearHoveredHandler = () => {
+        setHovered('')
+    }
+
 
     return (
         <>
@@ -108,12 +117,13 @@ const HappyHourFinder = ({ data }) => {
                                 <div style={{ height: "1px", background: "#e3e3e3", margin: "0px 0px 10px 0px" }}></div>
                             </div>
                         </Sticky>
-                        <HHFinderCardGroup happyHours={filteredHH} day={day} hood={neighborhood} rows={2} />
+                        <HHFinderCardGroup happyHours={filteredHH} day={day} hood={neighborhood} rows={2} setHoverHandler={setHoverHandler} clearHoveredHandler={clearHoveredHandler} />
                     </Grid.Column>
                     <Grid.Column tablet={6} computer={8} largeScreen={8} style={{ padding: "0px" }}>
                         <div style={{ position: 'fixed', top: "0", width: "55%", height: "100%" }}>
                             <GoogleMap
                                 happyHours={filteredHH}
+                                hovered={hovered}
                                 isMarkerShown
                                 loadingElement={<div style={{ height: `100vh`, width: "100%" }} />}
                                 containerElement={<div style={{ height: `100vh` }} />}

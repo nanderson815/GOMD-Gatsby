@@ -17,7 +17,11 @@ const navfunc = (e, { slug }) => {
 }
 
 
-const HHFinderCardGroup = ({ happyHours, day, rows, hood }) => {
+const HHFinderCardGroup = ({ happyHours, day, rows, hood, setHoverHandler, clearHoveredHandler }) => {
+
+
+
+
     return (
         <Card.Group itemsPerRow={rows} style={{ marginTop: "10px" }}>
             {
@@ -29,7 +33,13 @@ const HHFinderCardGroup = ({ happyHours, day, rows, hood }) => {
                     let trimmedString = descriptionString.length > 200 ? descriptionString.substring(0, 200 - 3) + "..." : descriptionString;
 
                     return (
-                        <Card link onClick={navfunc} key={deal.id} slug={deal.slug} >
+                        <Card
+                            onMouseEnter={setHoverHandler.bind(this, deal.id)}
+                            onMouseLeave={clearHoveredHandler}
+                            link
+                            onClick={navfunc}
+                            key={deal.id}
+                            slug={deal.slug} >
                             <Img style={{ height: "150px" }} alt={deal.name} fluid={deal.mainImg.fluid} />
                             <Card.Content>
                                 <Card.Header>{deal.name}</Card.Header>

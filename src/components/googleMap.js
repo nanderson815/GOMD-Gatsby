@@ -12,7 +12,7 @@ const { MarkerWithLabel } = require("react-google-maps/lib/components/addons/Mar
 
 
 
-const HappyHourMap = ({ happyHours }) => {
+const HappyHourMap = ({ happyHours, hovered }) => {
     const center = { lat: 33.78454, lng: -84.3880 }
     const zoom = 11
     const [markers, setMarkers] = React.useState([]);
@@ -47,12 +47,12 @@ const HappyHourMap = ({ happyHours }) => {
                         labelAnchor={{ x: (200 / 2), y: 195 }}
                         labelStyle={{ fontSize: "12px", padding: "5px" }}
                         icon={"/icons/mapIcon.svg"}
-                        labelVisible={visible === m.id}
+                        labelVisible={visible === m.id || hovered === m.id}
                         onMouseOver={onMarkerHover.bind(this, m.id)}
                         onMouseOut={clearVisible}
                         onClick={onClickHandler.bind(this, m.slug)}
                     >
-                        <Card style={{ width: "200px", zIndex: "20000" }}>
+                        <Card style={{ width: "200px" }}>
                             <Img style={{ height: "100px" }} alt={m.name} fluid={m.mainImg.fluid} />
                             <Card.Content>
                                 <Card.Header>
@@ -65,7 +65,7 @@ const HappyHourMap = ({ happyHours }) => {
             });
             setMarkers(points);
         }
-    }, [happyHours, visible])
+    }, [happyHours, visible, hovered])
 
 
     return (
