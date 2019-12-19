@@ -46,6 +46,7 @@ const HappyHourMap = ({ happyHours }) => {
                         lable={m.location.name}
                         labelAnchor={{ x: (200 / 2), y: 195 }}
                         labelStyle={{ fontSize: "12px", padding: "5px" }}
+                        icon={"/icons/mapIcon.svg"}
                         labelVisible={visible === m.id}
                         onMouseOver={onMarkerHover.bind(this, m.id)}
                         onMouseOut={clearVisible}
