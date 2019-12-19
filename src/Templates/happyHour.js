@@ -22,7 +22,17 @@ const formatTime = (time24) => {
   const period = +sHours < 12 ? 'AM' : 'PM';
   const hours = +sHours % 12 || 12;
 
-  return `${hours}:${minutes} ${period}`;
+  return `${hours}:${minutes}${period}`;
+}
+
+const setHHTime = (post, day) => {
+  if (post.hours[day].end2 !== null) {
+    return (
+      <strong>{` ${formatTime(post.hours[day].start)} - ${formatTime(post.hours[day].end)} & ${formatTime(post.hours[day].start2)} - ${formatTime(post.hours[day].end2)}:`} </strong>
+    )
+  } else {
+    return <strong>{` ${formatTime(post.hours[day].start)} - ${formatTime(post.hours[day].end)}:`} </strong>
+  }
 }
 
 const HappyHour = (props) => {
@@ -58,7 +68,7 @@ const HappyHour = (props) => {
                 return (
                   <div key={`${index}happyHour`}>
                     <h3 style={{ marginBottom: "-3px" }}> <u>{day}</u></h3>
-                    <p><strong>{` ${formatTime(post.hours[timeField].start)} - ${formatTime(post.hours[timeField].end)}:`} </strong> {`${post[descField][descField]}`}</p>
+                    <p>{setHHTime(post, timeField)} {`${post[descField][descField]}`}</p>
                     <hr></hr>
                   </div>
                 )
@@ -109,32 +119,46 @@ export const pageQuery = graphql`
       }
       hours {
         friday {
-        end
+            end
             start
+            start2
+            end2
     }
           monday {
         end
             start
+            start2
+            end2
     }
           thursday {
         start
             end
+            start2
+            end2
     }
           tuesday {
         end
             start
+            start2
+            end2
     }
           wednesday {
         end
             start
+            start2
+            end2
     }
           saturday {
         end
             start
+            start2
+            end2
     }
           sunday {
         end
             start
+            start2
+            end2
     }
   }
   id

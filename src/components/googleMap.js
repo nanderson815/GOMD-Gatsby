@@ -78,7 +78,7 @@ const HappyHourMap = ({ happyHours, hovered }) => {
                 onClick={onMarkerClustererClick}
                 averageCenter
                 enableRetinaIcons
-                gridSize={60}
+                gridSize={30}
             // defaultMaxZoom={13}
             >
                 {markers}
