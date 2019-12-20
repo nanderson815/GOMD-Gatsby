@@ -64,6 +64,8 @@ const HappyHourMap = ({ happyHours, hovered }) => {
                 )
             });
             setMarkers(points);
+        } else {
+            setMarkers([]);
         }
     }, [happyHours, visible, hovered])
 
