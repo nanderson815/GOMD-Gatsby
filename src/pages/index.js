@@ -27,6 +27,7 @@ const IndexPage = () => (
       </div>
     </div>
     <Layout>
+      <div></div>
     </Layout>
   </>
 )
