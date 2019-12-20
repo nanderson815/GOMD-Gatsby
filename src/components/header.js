@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Menu, Container, Icon } from 'semantic-ui-react'
 import SearchBar from '../components/searchbar'
 import { Link } from 'gatsby'
+import Logo from './logo'
 
 export default class MenuExampleMenus extends Component {
   state = {}
@@ -18,7 +19,7 @@ export default class MenuExampleMenus extends Component {
           <Menu.Item
             position="left"
           >
-            <Link to="/"> <h1 style={{ color: "#1c70b5" }}>Georgia on my Dime</h1></Link>
+            <Link to="/"><div style={{ width: "50px" }}> <Logo /></div></Link><Link to="/"><h2 style={{ color: "#1c70b5", margin: "0px 0px 0px 5px" }}>Georgia on my Dime</h2></Link>
           </Menu.Item>
 
           <Menu.Item style={{ width: '40%' }}>
