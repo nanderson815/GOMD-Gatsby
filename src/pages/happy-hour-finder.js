@@ -137,17 +137,17 @@ const HappyHourFinder = ({ data }) => {
                                 loadingElement={<div style={{ height: `100vh`, width: "100%" }} />}
                                 containerElement={<div style={{ height: `100vh` }} />}
                                 mapElement={<div style={{ height: `100%` }} />}
-                                googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-3IzXoP2LU2QhnrfuhZWHp_QGedI7VdY&v=3.exp&libraries=geometry,drawing,places">
+                                googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}>
 
                             </GoogleMap>
                         </div>
                     </Grid.Column>
 
                 </Grid>
-            </Responsive>
-            <Responsive {...Responsive.onlyMobile}>
-                <MobileHappyHourFinder happyhours={filteredHH} hood={neighborhood} day={day} />
-            </Responsive>
+        </Responsive>
+        <Responsive {...Responsive.onlyMobile}>
+            <MobileHappyHourFinder happyhours={filteredHH} hood={neighborhood} day={day} />
+        </Responsive>
         </>
     )
 }
