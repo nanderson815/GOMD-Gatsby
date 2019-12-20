@@ -145,10 +145,10 @@ const HappyHourFinder = ({ data }) => {
                     </Grid.Column>
 
                 </Grid>
-        </Responsive>
-        <Responsive {...Responsive.onlyMobile}>
-            <MobileHappyHourFinder happyhours={filteredHH} hood={neighborhood} day={day} />
-        </Responsive>
+            </Responsive>
+            <Responsive {...Responsive.onlyMobile}>
+                <MobileHappyHourFinder happyhours={filteredHH} hood={neighborhood} day={day} />
+            </Responsive>
         </>
     )
 }
@@ -218,7 +218,7 @@ export const query = graphql`
           neighborhood
         mainImg{
                 fluid(maxWidth: 1800, resizingBehavior: SCALE) {
-                ...GatsbyContentfulFluid_tracedSVG
+                ...GatsbyContentfulFluid_withWebp
             }
             }
             name
