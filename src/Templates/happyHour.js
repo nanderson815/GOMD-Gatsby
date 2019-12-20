@@ -2,6 +2,7 @@ import React from 'react';
 import get from 'lodash/get'
 import { graphql } from 'gatsby';
 import Helmet from 'react-helmet';
+import Header from '../components/header'
 import Img from 'gatsby-image';
 import Layout from '../components/layout'
 import { Grid, Label, Card, Sticky } from 'semantic-ui-react'
@@ -40,64 +41,67 @@ const HappyHour = (props) => {
   const siteTitle = get(props, 'data.site.siteMetadata.title')
   console.log(post)
   return (
-    <Layout>
-      <Helmet
-        title={`${post.name} Happy Hour | ${siteTitle}`}
-      >
-        <meta name="description" content={post.seoDescription} />
-      </Helmet>
-      <Grid stackable columns="equal">
-        <Grid.Column width={11}>
-          <Card fluid raised>
-            <Img style={{ maxHeight: "350px" }} alt={post.name} fluid={post.mainImg.fluid} />
-            <Card.Content>
-              <Card.Header>
-                <h1 style={{ marginBottom: "-3px" }}>{post.name}</h1>
-                <p>{post.neighborhood}</p>
-                {post.tags.map((tag, index) => <Label key={`${index}label`}>{tag}</Label>)}
-              </Card.Header>
-
-            </Card.Content>
-            <Card.Content>
-              <h2>Description</h2>
-              <p>{post.description.description}</p>
-              <h2>Happy Hours</h2>
-              {post.days.map((day, index) => {
-                let descField = day.toLowerCase() + "Desc"
-                let timeField = day.toLowerCase()
-                return (
-                  <div key={`${index}happyHour`}>
-                    <h3 style={{ marginBottom: "-3px" }}> <u>{day}</u></h3>
-                    <p>{setHHTime(post, timeField)} {`${post[descField][descField]}`}</p>
-                    <hr></hr>
-                  </div>
-                )
-              })}
-            </Card.Content>
-
-          </Card>
-        </Grid.Column>
-        <Grid.Column>
-          <Sticky>
+    <>
+      <Header></Header>
+      <Layout>
+        <Helmet
+          title={`${post.name} Happy Hour | ${siteTitle}`}
+        >
+          <meta name="description" content={post.seoDescription} />
+        </Helmet>
+        <Grid stackable columns="equal">
+          <Grid.Column width={11}>
             <Card fluid raised>
-              <a
-                style={{ marginBottom: '-18px' }}
-                href={`https://google.com/maps/?q=${post.address}`}>
-                <img alt="resetaurant location map" style={{ marginBottom: "-5px" }} src={`https://maps.googleapis.com/maps/api/staticmap?center=${post.location.lat},${post.location.lon}&markers=color:0x1c70b5%7C${post.location.lat},${post.location.lon}&zoom=15&size=400x268&key=AIzaSyDwoqHxtOYa6tDrQXuJS1aDd46uM3GzAJs`} />
-              </a>
-              <Card.Content style={{ background: "white" }}>
-                <Card.Description>
-                  {post.address}
-                </Card.Description>
-                <Card.Description>
-                  {`${formatPhoneNumber(post.phone)} |`} <a style={{ color: "#1c70b5", fontWeight: "bold" }} href={post.website}>Website</a>
-                </Card.Description>
+              <Img style={{ maxHeight: "350px" }} alt={post.name} fluid={post.mainImg.fluid} />
+              <Card.Content>
+                <Card.Header>
+                  <h1 style={{ marginBottom: "-3px" }}>{post.name}</h1>
+                  <p>{post.neighborhood}</p>
+                  {post.tags.map((tag, index) => <Label key={`${index}label`}>{tag}</Label>)}
+                </Card.Header>
+
               </Card.Content>
+              <Card.Content>
+                <h2>Description</h2>
+                <p>{post.description.description}</p>
+                <h2>Happy Hours</h2>
+                {post.days.map((day, index) => {
+                  let descField = day.toLowerCase() + "Desc"
+                  let timeField = day.toLowerCase()
+                  return (
+                    <div key={`${index}happyHour`}>
+                      <h3 style={{ marginBottom: "-3px" }}> <u>{day}</u></h3>
+                      <p>{setHHTime(post, timeField)} {`${post[descField][descField]}`}</p>
+                      <hr></hr>
+                    </div>
+                  )
+                })}
+              </Card.Content>
+
             </Card>
-          </Sticky>
-        </Grid.Column>
-      </Grid>
-    </Layout>
+          </Grid.Column>
+          <Grid.Column>
+            <Sticky>
+              <Card fluid raised>
+                <a
+                  style={{ marginBottom: '-18px' }}
+                  href={`https://google.com/maps/?q=${post.address}`}>
+                  <img alt="resetaurant location map" style={{ marginBottom: "-5px" }} src={`https://maps.googleapis.com/maps/api/staticmap?center=${post.location.lat},${post.location.lon}&markers=color:0x1c70b5%7C${post.location.lat},${post.location.lon}&zoom=15&size=400x268&key=AIzaSyDwoqHxtOYa6tDrQXuJS1aDd46uM3GzAJs`} />
+                </a>
+                <Card.Content style={{ background: "white" }}>
+                  <Card.Description>
+                    {post.address}
+                  </Card.Description>
+                  <Card.Description>
+                    {`${formatPhoneNumber(post.phone)} |`} <a style={{ color: "#1c70b5", fontWeight: "bold" }} href={post.website}>Website</a>
+                  </Card.Description>
+                </Card.Content>
+              </Card>
+            </Sticky>
+          </Grid.Column>
+        </Grid>
+      </Layout>
+    </>
   )
 }
 
