@@ -19,48 +19,6 @@ const HappyHourFinder = ({ data }) => {
         { key: "Fri", value: "Friday", text: "Friday" },
         { key: "Sat", value: "Saturday", text: "Saturday" }
     ]
-    const [day, setDay] = React.useState('All')
-
-    const changeDay = (e, { value }) => {
-        setDay(value)
-        filterHappyHours("days", value)
-    }
-
-    // The use effect below ensures we only run map once. (could get expensive with lots of data)
-    const [happyHours, setHappyHours] = React.useState([])
-    const [filteredHH, setFilteredHH] = React.useState([])
-
-    useEffect(() => {
-        let HHdata = data.allContentfulHappyHour.edges.map(item => item.node)
-        setHappyHours(HHdata);
-    }, [data]);
-
-    // Sets the inital filter to today
-    useEffect(() => {
-        let currentDay = days[new Date().getDay() + 1].value;
-        setDay(currentDay);
-        filterHappyHours("days", currentDay);
-    }, [happyHours]);
-
-    // Filter HH data here, not in children
-    const filterHappyHours = (cat, val) => {
-        if (cat === "days") {
-            if (val === "All") {
-                setFilteredHH(happyHours);
-            } else {
-                let filteredArray = happyHours.filter(item => {
-                    return item.days.includes(val);
-                });
-                setFilteredHH(filteredArray);
-            }
-        } else {
-            let filteredArray = happyHours.filter(item => {
-                return item[cat] === val
-            });
-            setFilteredHH(filteredArray);
-        }
-    }
-
     // Creating an object of all the neighborhoods
     let neighborhoods = [
         { key: "All", value: "All", text: "All" },
@@ -78,15 +36,63 @@ const HappyHourFinder = ({ data }) => {
 
     ];
     const [neighborhood, setNeighborhood] = React.useState("All")
+    const [day, setDay] = React.useState('All')
+
+
+    const changeDay = (e, { value }) => {
+        setDay(value)
+        filterHappyHours()
+    }
 
     const changeHood = (e, { value }) => {
         setNeighborhood(value)
-        if (value === "All") {
-            setFilteredHH(happyHours);
-        } else {
-            filterHappyHours("neighborhood", value);
-        }
+        filterHappyHours();
     }
+
+    // Filter HH data here, not in children
+    const filterHappyHours = () => {
+        let filteredDayArray;
+        let filteredArray;
+        if (day === "All") {
+            filteredDayArray = happyHours;
+        } else {
+            filteredDayArray = happyHours.filter(item => {
+                return item.days.includes(day);
+            });
+        }
+
+        if (neighborhood === "All") {
+            filteredArray = filteredDayArray;
+        } else {
+            filteredArray = filteredDayArray.filter(item => {
+                return item.neighborhood === neighborhood
+            });
+        }
+        setFilteredHH(filteredArray);
+    }
+
+    useEffect(() => {
+        filterHappyHours()
+    }, [day, neighborhood])
+
+
+
+    // The use effect below ensures we only run map once. (could get expensive with lots of data)
+    const [happyHours, setHappyHours] = React.useState([])
+    const [filteredHH, setFilteredHH] = React.useState([])
+
+    useEffect(() => {
+        let HHdata = data.allContentfulHappyHour.edges.map(item => item.node)
+        setHappyHours(HHdata);
+    }, [data]);
+
+    // Sets the inital filter to today
+    useEffect(() => {
+        let currentDay = days[new Date().getDay() + 1].value;
+        setDay(currentDay);
+        filterHappyHours();
+    }, [happyHours]);
+
 
     // Code for hovering and having it reflect on map
     const [hovered, setHovered] = React.useState("");

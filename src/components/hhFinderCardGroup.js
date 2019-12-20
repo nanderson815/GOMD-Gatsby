@@ -13,7 +13,6 @@ const formatTime = (time24) => {
 }
 
 const setHHTime = (post, day) => {
-    console.log(post.hours[day].end2 !== null)
     if (post.hours[day].end2 !== null) {
         return (
             <strong>{` ${formatTime(post.hours[day].start)} - ${formatTime(post.hours[day].end)} & ${formatTime(post.hours[day].start2)} - ${formatTime(post.hours[day].end2)}:`} </strong>
