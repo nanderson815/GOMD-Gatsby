@@ -7,6 +7,7 @@ import MobileHappyHourFinder from '../components/mobileHappyHourFinder'
 import HHFinderCardGroup from '../components/hhFinderCardGroup'
 import logo from '../images/logoInlineText.svg'
 
+
 const HappyHourFinder = ({ data }) => {
 
     // Helper to handle day filtering
