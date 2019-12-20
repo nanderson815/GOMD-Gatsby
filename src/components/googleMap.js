@@ -3,6 +3,7 @@ import { withGoogleMap, withScriptjs, GoogleMap } from "react-google-maps"
 import { Card } from 'semantic-ui-react';
 import Img from 'gatsby-image'
 import { navigate } from 'gatsby'
+import mapIcon from '../images/mapIcon.svg'
 
 
 const { MarkerClusterer } = require("react-google-maps/lib/components/addons/MarkerClusterer");
@@ -46,7 +47,7 @@ const HappyHourMap = ({ happyHours, hovered }) => {
                         lable={m.location.name}
                         labelAnchor={{ x: (200 / 2), y: 195 }}
                         labelStyle={{ fontSize: "12px", padding: "5px" }}
-                        icon={"/icons/mapIcon.svg"}
+                        icon={mapIcon}
                         labelVisible={visible === m.id || hovered === m.id}
                         onMouseOver={onMarkerHover.bind(this, m.id)}
                         onMouseOut={clearVisible}
