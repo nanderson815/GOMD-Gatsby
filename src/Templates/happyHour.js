@@ -200,7 +200,7 @@ export const pageQuery = graphql`
       }
       mainImg{
         fluid(maxWidth: 1800, resizingBehavior: SCALE) {
-        ...GatsbyContentfulFluid_tracedSVG
+        ...GatsbyContentfulFluid_withWebp
       }
       }
     }
