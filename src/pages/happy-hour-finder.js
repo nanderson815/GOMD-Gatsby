@@ -5,6 +5,7 @@ import { Grid, Sticky, Responsive, Dropdown } from "semantic-ui-react"
 import GoogleMap from '../components/googleMap'
 import MobileHappyHourFinder from '../components/mobileHappyHourFinder'
 import HHFinderCardGroup from '../components/hhFinderCardGroup'
+import logo from '../images/logoInlineText.svg'
 
 const HappyHourFinder = ({ data }) => {
 
@@ -112,8 +113,10 @@ const HappyHourFinder = ({ data }) => {
                     <Grid.Column tablet={10} computer={8} largeScreen={8} style={{ background: "eff0f1" }}>
                         <Sticky style={{ margin: "-14px" }}>
                             <div style={{ background: "white" }}>
-                                <Link to="/"><h1 style={{ padding: "0px 0px 10px 24px", marginBottom: "0px", color: "#1c70b5" }}>Georgia on my Dime</h1></Link>
-                                <div style={{ height: "4px", background: "#1c70b5", margin: "0px 0px 10px" }}></div>
+                                <div style={{ background: "#1c70b5" }}>
+                                    <Link to="/"><img style={{ margin: "10px 0px 0px 10px" }} src={logo} /></Link>
+                                </div>
+                                <div style={{ height: "4px", background: "#5d5e5e", margin: "0px 0px 10px" }}></div>
                                 <div style={{ display: "inline-block", margin: "0px 5px 10px 24px" }}>
                                     Choose Day: <Dropdown style={{ minWidth: "125px" }} selection value={day} options={days} onChange={changeDay} />
                                 </div>
