@@ -1,14 +1,16 @@
 import React, { useEffect } from "react"
 import { graphql, Link } from 'gatsby'
 import SEO from '../components/seo'
-import { Grid, Sticky, Responsive, Dropdown } from "semantic-ui-react"
+import { Grid, Sticky, Responsive, Dropdown, Button } from "semantic-ui-react"
 import GoogleMap from '../components/googleMap'
 import MobileHappyHourFinder from '../components/mobileHappyHourFinder'
 import HHFinderCardGroup from '../components/hhFinderCardGroup'
 import logo from '../images/logoInlineText.svg'
 
 
-const HappyHourFinder = ({ data }) => {
+const HappyHourFinder = (props) => {
+    let data = props.data;
+    let searchResults = props.location.state && 'searchResults' in props.location.state ? props.location.state.searchResults : undefined
 
     // Helper to handle day filtering
     let days = [
@@ -82,11 +84,28 @@ const HappyHourFinder = ({ data }) => {
     // The use effect below ensures we only run map once. (could get expensive with lots of data)
     const [happyHours, setHappyHours] = React.useState([])
     const [filteredHH, setFilteredHH] = React.useState([])
+    const [showClear, setShowClear] = React.useState(false)
 
     useEffect(() => {
-        let HHdata = data.allContentfulHappyHour.edges.map(item => item.node)
-        setHappyHours(HHdata);
+        let HHdata = data.allContentfulHappyHour.edges.map(item => item.node);
+
+        if (searchResults !== undefined) {
+            let resultName = searchResults.map(id => id.name);
+            let filteredHHData = HHdata.filter((item) => {
+                return resultName.indexOf(item.name) !== -1
+            })
+            setShowClear(true)
+            setHappyHours(filteredHHData);
+        } else {
+            setHappyHours(HHdata);
+        }
     }, [data]);
+
+    const clearSearch = () => {
+        let HHdata = data.allContentfulHappyHour.edges.map(item => item.node);
+        setHappyHours(HHdata);
+        setShowClear(false);
+    }
 
     // Sets the inital filter to today
     useEffect(() => {
@@ -124,6 +143,7 @@ const HappyHourFinder = ({ data }) => {
                                 <div style={{ display: "inline-block" }}>
                                     Neighborhood: <Dropdown style={{ minWidth: "125px" }} selection value={neighborhood} options={neighborhoods} onChange={changeHood} />
                                 </div>
+                                {showClear ? <Button primary onClick={clearSearch} style={{ margin: "0px 5px 10px 24px" }}>Clear Search</Button> : null}
                                 <div style={{ height: "1px", background: "#e3e3e3", margin: "0px 0px 10px 0px" }}></div>
                             </div>
                         </Sticky>
