@@ -167,7 +167,7 @@ const HappyHourFinder = (props) => {
                 </Grid>
             </Responsive>
             <Responsive {...Responsive.onlyMobile}>
-                <MobileHappyHourFinder happyhours={filteredHH} hood={neighborhood} day={day} />
+                <MobileHappyHourFinder happyhours={filteredHH} hood={neighborhood} day={day} setHoverHandler={setHoverHandler} clearHoveredHandler={clearHoveredHandler} />
             </Responsive>
         </>
     )
