@@ -3,7 +3,7 @@ import { Button, Input, Popup, List, Label } from 'semantic-ui-react'
 import { useHappyHourData } from '../hooks/happyHourData'
 import { Icon } from 'semantic-ui-react'
 import * as JsSearch from 'js-search'
-import { Link } from "gatsby"
+import { Link, navigate } from "gatsby"
 
 
 const SearchBar = () => {
@@ -46,6 +46,19 @@ const SearchBar = () => {
 
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        if (state.searchResults === undefined) {
+            return
+        } else if (state.searchResults.length > 1) {
+            navigate("/happy-hour-finder", {
+                state: { searchResults: state.searchResults },
+            })
+        } else if (state.searchResults.length === 1) {
+            navigate(`atlanta-happy-hour/${state.searchResults[0].slug}`)
+        }
+    }
+
     return (
         <Popup
             wide
@@ -53,12 +66,14 @@ const SearchBar = () => {
             style={{ marginTop: "auto" }}
             open={!(state.nameResults === undefined || state.nameResults.length === 0)}
             trigger={
-                <Input type='text' placeholder='Search restaurants, happy hours, etc...' action>
-                    <input
-                        onChange={searchData}
-                    />
-                    <Button primary type='submit'> <Icon name='search' style={{ marginLeft: "5px" }} /></Button>
-                </Input>}>
+                <form style={{ width: "100%", marginBottom: "0px" }} >
+                    <Input style={{ width: "100%" }} type='text' placeholder='Search restaurants, happy hours, etc...' action>
+                        <input
+                            onChange={searchData}
+                        />
+                        <Button onClick={handleSubmit} primary type='submit'> <Icon name='search' style={{ marginLeft: "5px" }} /></Button>
+                    </Input>
+                </form>}>
             <Popup.Header>
                 <List divided>
                     {state.searchResults ? state.searchResults.slice(0, 5).map((item) => {
