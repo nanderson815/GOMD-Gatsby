@@ -3,6 +3,9 @@ import { Link } from 'gatsby'
 import SEO from '../components/seo'
 import { Grid, Sticky } from "semantic-ui-react"
 import HHFinderCardGroup from './hhFinderCardGroup'
+import "semantic-ui-less/semantic.less";
+
+
 
 const MobileHappyHourFinder = ({ happyhours, day, hood, setHoverHandler, clearHoveredHandler }) => {
 
