@@ -86,7 +86,7 @@ const HappyHour = (props) => {
                 <a
                   style={{ marginBottom: '-18px' }}
                   href={`https://www.google.com/maps/search/?api=1&query=${post.address}`}>
-                  <img alt="resetaurant location map" style={{ marginBottom: "-5px" }} src={`https://maps.googleapis.com/maps/api/staticmap?center=${post.location.lat},${post.location.lon}&markers=color:0x1c70b5%7C${post.location.lat},${post.location.lon}&zoom=15&size=400x268&key=${process.env.GATSBY_GOOGLE_MAPS_API_KEY}`} />
+                  <img alt="resetaurant location map" style={{ marginBottom: "-5px" }} src={`https://maps.googleapis.com/maps/api/staticmap?center=${post.location.lat},${post.location.lon}&markers=color:0x1c70b5%7C${post.location.lat},${post.location.lon}&zoom=15&size=500x268&key=${process.env.GATSBY_GOOGLE_MAPS_API_KEY}`} />
                 </a>
                 <Card.Content style={{ background: "white" }}>
                   <Card.Description>
