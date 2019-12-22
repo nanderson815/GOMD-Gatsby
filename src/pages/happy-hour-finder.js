@@ -179,8 +179,8 @@ const HappyHourFinder = (props) => {
                         <div style={{ background: "#1c70b5" }}>
                             <Link to="/"><img style={{ margin: "10px 0px 0px 20px" }} src={logo} /></Link>
                         </div>
-                        <div style={{ height: "4px", background: "#5d5e5e", margin: "0px 0px 10px" }}></div>
-                        <Accordion as={Menu} vertical style={{ width: "100%" }}>
+                        <div style={{ height: "4px", background: "#5d5e5e" }}></div>
+                        <Accordion as={Menu} vertical style={{ width: "100%", padding: "0px 10px", marginTop: "5px" }}>
                             <Menu.Item>
                                 <Accordion.Title
                                     active={activeIndex === 0}
@@ -190,10 +190,10 @@ const HappyHourFinder = (props) => {
                                 />
                                 <Accordion.Content active={activeIndex === 0} >
                                     <div style={{ width: "100%", margin: "0px 5px 10px 10px" }}>
-                                        Choose Day: <Dropdown style={{ minWidth: "200px" }} selection value={day} options={days} onChange={changeDay} />
+                                        Choose Day: <Dropdown style={{ minWidth: "90%", padding: "15px" }} selection value={day} options={days} onChange={changeDay} />
                                     </div>
                                     <div style={{ width: "100%", margin: "0px 5px 10px 10px" }}>
-                                        Neighborhood: <Dropdown style={{ minWidth: "200px" }} selection value={neighborhood} options={neighborhoods} onChange={changeHood} />
+                                        Neighborhood: <Dropdown style={{ minWidth: "90%", padding: "15px" }} selection value={neighborhood} options={neighborhoods} onChange={changeHood} />
                                     </div>
                                     {showClear ? <Button primary onClick={clearSearch} style={{ margin: "0px 5px 10px 24px" }}>Clear Search</Button> : null}
                                 </Accordion.Content>
