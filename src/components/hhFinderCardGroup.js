@@ -68,7 +68,7 @@ const HHFinderCardGroup = ({ happyHours, day, rows, hood, setHoverHandler, clear
 
 
     return (
-        <Card.Group itemsPerRow={rows} style={{ marginTop: "10px" }}>
+        <Card.Group itemsPerRow={rows} style={{ marginTop: "20px" }}>
             {cards}
         </Card.Group >
     )

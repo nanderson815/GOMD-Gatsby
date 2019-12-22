@@ -1,9 +1,8 @@
 import React, { useEffect } from "react"
 import { graphql, Link } from 'gatsby'
 import SEO from '../components/seo'
-import { Grid, Sticky, Responsive, Dropdown, Button } from "semantic-ui-react"
+import { Grid, Sticky, Responsive, Dropdown, Button, Accordion, MenuItem, Menu } from "semantic-ui-react"
 import GoogleMap from '../components/googleMap'
-import MobileHappyHourFinder from '../components/mobileHappyHourFinder'
 import HHFinderCardGroup from '../components/hhFinderCardGroup'
 import logo from '../images/logoInlineText.svg'
 
@@ -124,6 +123,14 @@ const HappyHourFinder = (props) => {
         setHovered('')
     }
 
+    const [activeIndex, setActiveIndex] = React.useState("");
+
+    const handleClick = (e, titleProps) => {
+        const { index } = titleProps
+        const newIndex = activeIndex === index ? -1 : index
+        setActiveIndex(newIndex)
+    }
+
 
     return (
         <>
@@ -167,7 +174,35 @@ const HappyHourFinder = (props) => {
                 </Grid>
             </Responsive>
             <Responsive {...Responsive.onlyMobile}>
-                <MobileHappyHourFinder happyhours={filteredHH} hood={neighborhood} day={day} setHoverHandler={setHoverHandler} clearHoveredHandler={clearHoveredHandler} />
+                <Sticky style={{ margin: "-14px" }}>
+                    <div style={{ background: "white" }}>
+                        <div style={{ background: "#1c70b5" }}>
+                            <Link to="/"><img style={{ margin: "10px 0px 0px 20px" }} src={logo} /></Link>
+                        </div>
+                        <div style={{ height: "4px", background: "#5d5e5e", margin: "0px 0px 10px" }}></div>
+                        <Accordion as={Menu} vertical style={{ width: "100%" }}>
+                            <Menu.Item>
+                                <Accordion.Title
+                                    active={activeIndex === 0}
+                                    content='Filters'
+                                    index={0}
+                                    onClick={handleClick}
+                                />
+                                <Accordion.Content active={activeIndex === 0} >
+                                    <div style={{ width: "100%", margin: "0px 5px 10px 10px" }}>
+                                        Choose Day: <Dropdown style={{ minWidth: "200px" }} selection value={day} options={days} onChange={changeDay} />
+                                    </div>
+                                    <div style={{ width: "100%", margin: "0px 5px 10px 10px" }}>
+                                        Neighborhood: <Dropdown style={{ minWidth: "200px" }} selection value={neighborhood} options={neighborhoods} onChange={changeHood} />
+                                    </div>
+                                    {showClear ? <Button primary onClick={clearSearch} style={{ margin: "0px 5px 10px 24px" }}>Clear Search</Button> : null}
+                                </Accordion.Content>
+                            </Menu.Item>
+                        </Accordion>
+                    </div>
+                </Sticky>
+                <HHFinderCardGroup happyHours={filteredHH} hood={neighborhood} day={day} rows={1} setHoverHandler={setHoverHandler} clearHoveredHandler={clearHoveredHandler}></HHFinderCardGroup>
+
             </Responsive>
         </>
     )
