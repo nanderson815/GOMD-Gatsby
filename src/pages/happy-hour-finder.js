@@ -5,6 +5,7 @@ import { Grid, Sticky, Responsive, Dropdown, Button, Accordion, MenuItem, Menu }
 import GoogleMap from '../components/googleMap'
 import HHFinderCardGroup from '../components/hhFinderCardGroup'
 import logo from '../images/logoInlineText.svg'
+import 'semantic-ui-less/semantic.less'
 
 
 const HappyHourFinder = (props) => {
