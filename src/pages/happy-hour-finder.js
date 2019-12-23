@@ -11,7 +11,7 @@ import 'semantic-ui-less/semantic.less'
 const HappyHourFinder = (props) => {
     let data = props.data;
     let searchResults = props.location.state && 'searchResults' in props.location.state ? props.location.state.searchResults : undefined
-
+    let filterTag = props.location.state && "tag" in props.location.state ? props.location.state.tag : undefined
     // Helper to handle day filtering
     let days = [
         { key: "All", value: "All", text: "All" },
@@ -96,6 +96,12 @@ const HappyHourFinder = (props) => {
             })
             setShowClear(true)
             setHappyHours(filteredHHData);
+        } else if (filterTag !== undefined) {
+            let filteredHHData = HHdata.filter((item) => {
+                return item.tags.indexOf(filterTag) !== -1
+            })
+            setShowClear(true)
+            setHappyHours(filteredHHData)
         } else {
             setHappyHours(HHdata);
         }
