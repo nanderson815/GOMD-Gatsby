@@ -38,7 +38,7 @@ const IndexPage = () => {
             <SearchBar padding="15px 10px" />
           </div>
           <br></br>
-          <p>Or make a selection to get started: </p>
+          <p style={{margin:"20px 0px 0px 0px"}}>Or make a selection to get started: </p>
           <Button onClick={handleClick} value="Wine" style={{ padding: "10px", margin: "2px" }} primary>Wine</Button>
           <Button onClick={handleClick} value="Tacos" style={{ padding: "10px", margin: "2px" }} primary>Tacos</Button>
           <Button onClick={handleClick} value="Sushi" style={{ padding: "10px", margin: "2px" }} primary>Sushi</Button>
