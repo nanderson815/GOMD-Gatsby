@@ -83,7 +83,7 @@ const SearchBar = (props) => {
                                     <List.Content>
                                         <List.Header>{item.name}</List.Header>
                                         {/* <List.Description style={{ fontSize: "12px" }}>{item.tags.toString()}</List.Description> */}
-                                        {item.tags.map((tag, index) => <Label key={index}>{tag}</Label>)}
+                                        {/* {item.tags.map((tag, index) => <Label key={index}>{tag}</Label>)} */}
                                     </List.Content>
                                 </Link>
                             </List.Item>

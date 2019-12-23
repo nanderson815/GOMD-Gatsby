@@ -8,7 +8,11 @@ import SearchBar from '../components/searchbar'
 import { Button } from "semantic-ui-react"
 import { navigate } from "gatsby"
 
-const IndexPage = () => {
+const IndexPage = ({ data }) => {
+
+  let happyHours = data.allContentfulHappyHour.edges.map(item => item.node)
+  console.log(happyHours)
+
   const handleClick = (e) => {
     let tag = e.target.value
     navigate("/happy-hour-finder", {
@@ -38,19 +42,34 @@ const IndexPage = () => {
             <SearchBar padding="15px 10px" />
           </div>
           <br></br>
-          <p style={{margin:"20px 0px 0px 0px"}}>Or make a selection to get started: </p>
-          <Button onClick={handleClick} value="Wine" style={{ padding: "10px", margin: "2px" }} primary>Wine</Button>
-          <Button onClick={handleClick} value="Tacos" style={{ padding: "10px", margin: "2px" }} primary>Tacos</Button>
-          <Button onClick={handleClick} value="Sushi" style={{ padding: "10px", margin: "2px" }} primary>Sushi</Button>
-          <Button onClick={handleClick} value="Cocktails" style={{ padding: "10px", margin: "2px" }} primary>Cocktails</Button>
-          <Button onClick={handleClick} value="Beer" style={{ padding: "10px", margin: "2px" }} primary>Beer</Button>
+          <p style={{ margin: "20px 0px 0px 0px" }}>Or make a selection to get started: </p>
+          <Button onClick={handleClick} value="Wine" style={{ padding: "10px", margin: "2px", minWidth: "80px" }} primary>Wine</Button>
+          <Button onClick={handleClick} value="Tacos" style={{ padding: "10px", margin: "2px", minWidth: "80px" }} primary>Tacos</Button>
+          <Button onClick={handleClick} value="Sushi" style={{ padding: "10px", margin: "2px", minWidth: "80px" }} primary>Sushi</Button>
+          <Button onClick={handleClick} value="Cocktails" style={{ padding: "10px", margin: "2px", minWidth: "80px" }} primary>Cocktails</Button>
+          <Button onClick={handleClick} value="Beer" style={{ padding: "10px", margin: "2px", minWidth: "80px" }} primary>Beer</Button>
         </div>
       </div>
       <Layout>
-        <div></div>
+        <h2>What's New</h2>
+
       </Layout>
     </>
   )
+
 }
+export const query = graphql`
+  query homePageHappyHours  {
+    allContentfulHappyHour {
+        edges {
+            node {
+                ...allHappyHourFields
+            }
+          }
+        }
+      }
+      `
+
+
 
 export default IndexPage
