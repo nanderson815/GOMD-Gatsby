@@ -19,6 +19,10 @@ const IndexPage = ({ data }) => {
     })
   }
 
+  const navfunc = (e, { slug }) => {
+    navigate("/atlanta-happy-hour/" + slug)
+  }
+
   return (
     <>
       <Header />
@@ -55,7 +59,11 @@ const IndexPage = ({ data }) => {
           <Card.Group itemsPerRow={3}>
             {happyHours.slice(0, 6).map((item, key) => {
               return (
-                <Card key={key} link>
+                <Card
+                  key={key}
+                  slug={item.slug}
+                  onClick={navfunc}
+                  link>
                   <Card.Content>
                     <Image
                       style={{ width: "70px", height: "70px", objectFit: "cover" }}
