@@ -4,8 +4,7 @@ import SEO from "../components/seo"
 import 'semantic-ui-less/semantic.less'
 import Background from '../images/homepagebackground.jpg'
 import SearchBar from '../components/searchbar'
-import Img from 'gatsby-image'
-import { Button, Card, Container, Image } from "semantic-ui-react"
+import { Button, Card, Container, Image, Label } from "semantic-ui-react"
 import { navigate } from "gatsby"
 
 const IndexPage = ({ data }) => {
@@ -52,11 +51,11 @@ const IndexPage = ({ data }) => {
       </div>
       <div style={{ background: "white" }}>
         <Container>
-          <h3>What's New</h3>
+          <h2>Featured Restaurants</h2>
           <Card.Group itemsPerRow={3}>
-            {happyHours.slice(0, 5).map((item, key) => {
+            {happyHours.slice(0, 6).map((item, key) => {
               return (
-                <Card key={key} >
+                <Card key={key} link>
                   <Card.Content>
                     <Image
                       style={{ width: "70px", height: "70px", objectFit: "cover" }}
@@ -64,10 +63,11 @@ const IndexPage = ({ data }) => {
                       alt={item.name}
                       circular
                       floated="left"
-                      src={item.mainImg.fluid.src} />
+                      src={item.mainImg.fluid.srcWebp} />
                     <Card.Header>{item.name}</Card.Header>
                     <Card.Meta>{item.neighborhood}</Card.Meta>
                   </Card.Content>
+                  <Card.Content extra>{item.tags.slice(0, 4).map((tag, index) => <Label key={index}>{tag}</Label>)}</Card.Content>
                 </Card>
               )
             })}
