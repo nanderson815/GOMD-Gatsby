@@ -4,8 +4,8 @@ import SEO from "../components/seo"
 import 'semantic-ui-less/semantic.less'
 import Background from '../images/homepagebackground.jpg'
 import SearchBar from '../components/searchbar'
-import { Button, Card, Container, Image, Label } from "semantic-ui-react"
-import { navigate } from "gatsby"
+import { Button, Grid, Container, Image, Label } from "semantic-ui-react"
+import { navigate, Link } from "gatsby"
 
 const IndexPage = ({ data }) => {
 
@@ -19,8 +19,9 @@ const IndexPage = ({ data }) => {
     })
   }
 
-  const navfunc = (e, { slug }) => {
-    navigate("/atlanta-happy-hour/" + slug)
+  const navfunc = (e) => {
+    // navigate("/atlanta-happy-hour/" + slug)
+    console.log(e.target)
   }
 
   return (
@@ -56,15 +57,14 @@ const IndexPage = ({ data }) => {
       <div style={{ background: "white" }}>
         <Container>
           <h2>Featured Restaurants</h2>
-          <Card.Group itemsPerRow={3}>
-            {happyHours.slice(0, 6).map((item, key) => {
+          <Grid divided stackable columns={4} style={{ padding: "0px 5px 10px 5px" }}>
+            {happyHours.slice(0, 4).map((item) => {
               return (
-                <Card
-                  key={key}
-                  slug={item.slug}
+                <Grid.Column
+                  key={item.id}
                   onClick={navfunc}
-                  link>
-                  <Card.Content>
+                >
+                  <Link to={`/atlanta-happy-hour/${item.slug}`} style={{ color: "black" }}>
                     <Image
                       style={{ width: "70px", height: "70px", objectFit: "cover" }}
                       size='small'
@@ -72,14 +72,13 @@ const IndexPage = ({ data }) => {
                       circular
                       floated="left"
                       src={item.mainImg.fluid.srcWebp} />
-                    <Card.Header>{item.name}</Card.Header>
-                    <Card.Meta>{item.neighborhood}</Card.Meta>
-                  </Card.Content>
-                  <Card.Content extra>{item.tags.slice(0, 4).map((tag, index) => <Label key={index}>{tag}</Label>)}</Card.Content>
-                </Card>
+                    <h5 style={{ margin: "0px" }}>{item.name}</h5>
+                    <p style={{ fontSize: "12px" }}>{item.neighborhood}</p>
+                  </Link>
+                </Grid.Column>
               )
             })}
-          </Card.Group>
+          </Grid>
         </Container>
       </div>
     </>
@@ -88,15 +87,15 @@ const IndexPage = ({ data }) => {
 }
 export const query = graphql`
   query homePageHappyHours  {
-    allContentfulHappyHour {
-        edges {
-            node {
-                ...allHappyHourFields
-            }
-          }
+          allContentfulHappyHour {
+          edges {
+          node {
+          ...allHappyHourFields
+        }
         }
       }
-      `
+    }
+    `
 
 
 
