@@ -6,7 +6,7 @@ import * as JsSearch from 'js-search'
 import { Link, navigate } from "gatsby"
 
 
-const SearchBar = () => {
+const SearchBar = (props) => {
     const happyHours = useHappyHourData();
     const [state, setState] = React.useState({
         happyHours: [],
@@ -39,7 +39,6 @@ const SearchBar = () => {
             const queryResult = search.search(e.target.value)
             const names = queryResult.map(item => item.name)
             setState({ ...state, searchResults: queryResult, nameResults: names })
-            console.log(state.searchResults);
         } else {
             setState({ ...state, searchResults: [], nameResults: [] })
         }
@@ -63,13 +62,14 @@ const SearchBar = () => {
         <Popup
             wide
             position='bottom left'
-            style={{ marginTop: "auto" }}
+            style={{ marginTop: "auto", width: "100%" }}
             open={!(state.nameResults === undefined || state.nameResults.length === 0)}
             trigger={
                 <form style={{ width: "100%", marginBottom: "0px" }} >
                     <Input style={{ width: "100%" }} type='text' placeholder='Search restaurants, happy hours, etc...' action>
                         <input
                             onChange={searchData}
+                            style={{ padding: props.padding }}
                         />
                         <Button onClick={handleSubmit} primary type='submit'> <Icon name='search' style={{ marginLeft: "5px" }} /></Button>
                     </Input>

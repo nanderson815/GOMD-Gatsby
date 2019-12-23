@@ -1,11 +1,11 @@
 import React from 'react';
 import get from 'lodash/get'
 import { graphql } from 'gatsby';
-import Helmet from 'react-helmet';
 import Header from '../components/header'
 import Img from 'gatsby-image';
 import Layout from '../components/layout'
 import { Grid, Label, Card, Sticky } from 'semantic-ui-react'
+import SEO from '../components/seo'
 
 let formatPhoneNumber = (str) => {
   //Filter only numbers from the input
@@ -38,17 +38,12 @@ const setHHTime = (post, day) => {
 
 const HappyHour = (props) => {
   const post = get(props, 'data.contentfulHappyHour')
-  const siteTitle = get(props, 'data.site.siteMetadata.title')
-  console.log(post)
   return (
     <>
       <Header></Header>
+      <SEO title={`${post.name} Happy Hour`}
+        description={post.seoDescription} />
       <Layout>
-        <Helmet
-          title={`${post.name} Happy Hour | ${siteTitle}`}
-        >
-          <meta name="description" content={post.seoDescription} />
-        </Helmet>
         <Grid stackable columns="equal">
           <Grid.Column width={11}>
             <Card fluid raised>
@@ -121,94 +116,7 @@ export const pageQuery = graphql`
       }
       }
     contentfulHappyHour(slug: {eq: $slug }) {
-        best
-        seoDescription
-      days
-        fridayDesc {
-        fridayDesc
-      }
-      hours {
-        friday {
-            end
-            start
-            start2
-            end2
-    }
-          monday {
-        end
-            start
-            start2
-            end2
-    }
-          thursday {
-        start
-            end
-            start2
-            end2
-    }
-          tuesday {
-        end
-            start
-            start2
-            end2
-    }
-          wednesday {
-        end
-            start
-            start2
-            end2
-    }
-          saturday {
-        end
-            start
-            start2
-            end2
-    }
-          sunday {
-        end
-            start
-            start2
-            end2
-    }
-  }
-  id
-        location {
-        lat
-          lon
-    }
-    address
-    neighborhood
-    name
-        mondayDesc {
-        mondayDesc
-      }
-      phone
-      slug
-        thursdayDesc {
-        thursdayDesc
-      }
-      tuesdayDesc {
-        tuesdayDesc
-      }
-      website
-        wednesdayDesc {
-        wednesdayDesc
-      }
-      description {
-        description
-      }
-      tags
-        sundayDesc {
-        sundayDesc
-      }
-      saturdayDesc{
-        saturdayDesc
-      }
-      mainImg{
-        fluid(maxWidth: 1800, resizingBehavior: SCALE) {
-        ...GatsbyContentfulFluid_withWebp
-      }
-      }
+      ...allHappyHourFields
     }
   }
 `
