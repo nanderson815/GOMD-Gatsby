@@ -148,7 +148,7 @@ const HappyHourFinder = (props) => {
                         <Sticky style={{ margin: "-14px" }}>
                             <div style={{ background: "white" }}>
                                 <div style={{ background: "#1c70b5" }}>
-                                    <Link to="/"><img style={{ margin: "10px 0px 0px 10px" }} src={logo} /></Link>
+                                    <Link to="/"><img alt="Georiga on my Dime Logo" style={{ margin: "10px 0px 0px 10px" }} src={logo} /></Link>
                                 </div>
                                 <div style={{ height: "4px", background: "#5d5e5e", margin: "0px 0px 10px" }}></div>
                                 <div style={{ display: "inline-block", margin: "0px 5px 10px 24px" }}>
@@ -184,7 +184,7 @@ const HappyHourFinder = (props) => {
                 <Sticky style={{ margin: "-14px" }}>
                     <div style={{ background: "white" }}>
                         <div style={{ background: "#1c70b5" }}>
-                            <Link to="/"><img style={{ margin: "10px 0px 0px 20px" }} src={logo} /></Link>
+                            <Link to="/"><img alt="Georgia on my Dime Logo" style={{ margin: "10px 0px 0px 20px" }} src={logo} /></Link>
                         </div>
                         <div style={{ height: "4px", background: "#5d5e5e" }}></div>
                         <Accordion as={Menu} vertical style={{ width: "100%", padding: "0px 10px", marginTop: "5px" }}>
