@@ -63,21 +63,22 @@ const IndexPage = ({ data }) => {
                 <Grid.Column
                   key={item.id}
                   onClick={navfunc}
+                  verticalAlign="middle"
                 >
-                  {/* <Link to={`/atlanta-happy-hour/${item.slug}`} style={{ color: "black" }}> */}
-                  <Image
-                    style={{ width: "70px", height: "70px", objectFit: "cover" }}
-                    size='small'
-                    alt={item.name}
-                    circular
-                    floated="left"
-                    src={item.mainImg.fluid.srcWebp} />
-                  <h5 style={{ margin: "0px" }}>{item.name}</h5>
-                  <p style={{ fontSize: "12px" }}>{item.neighborhood}</p>
-                  <Label as='a' color='blue' tag>
-                    {item.tag[0]}
+                  <Link to={`/atlanta-happy-hour/${item.slug}`} style={{ color: "black" }}>
+                    <Image
+                      style={{ width: "70px", height: "70px", objectFit: "cover" }}
+                      size='small'
+                      alt={item.name}
+                      circular
+                      floated="left"
+                      src={item.mainImg.fluid.srcWebp} />
+                    <h5 style={{ margin: "0px" }}>{item.name}</h5>
+                    <p style={{ fontSize: "12px" }}>{item.neighborhood}</p>
+                  </Link>
+                  <Label as="a" color='blue' style={{ position: "absolute", bottom: "5px" }} value={item.tags[0]} onClick={handleClick} tag>
+                    {item.tags[0]}
                   </Label>
-                  {/* </Link> */}
 
                 </Grid.Column>
               )
