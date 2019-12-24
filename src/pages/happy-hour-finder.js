@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { graphql, Link } from 'gatsby'
 import SEO from '../components/seo'
-import { Grid, Sticky, Responsive, Dropdown, Button, Accordion, MenuItem, Menu } from "semantic-ui-react"
+import { Grid, Sticky, Responsive, Dropdown, Button, Accordion, Menu } from "semantic-ui-react"
 import GoogleMap from '../components/googleMap'
 import HHFinderCardGroup from '../components/hhFinderCardGroup'
 import logo from '../images/logoInlineText.svg'

@@ -4,7 +4,7 @@ import SEO from "../components/seo"
 import 'semantic-ui-less/semantic.less'
 import Background from '../images/homepagebackground.jpg'
 import SearchBar from '../components/searchbar'
-import { Button, Grid, Container, Image, Label } from "semantic-ui-react"
+import { Button, Grid, Container, Image } from "semantic-ui-react"
 import { navigate, Link } from "gatsby"
 
 const IndexPage = ({ data }) => {

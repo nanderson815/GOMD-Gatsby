@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Button, Input, Popup, List, Label } from 'semantic-ui-react'
+import { Button, Input, Popup, List } from 'semantic-ui-react'
 import { useHappyHourData } from '../hooks/happyHourData'
 import { Icon } from 'semantic-ui-react'
 import * as JsSearch from 'js-search'
