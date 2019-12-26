@@ -81,33 +81,33 @@ const IndexPage = ({ data }) => {
       )
     })
 
-    let segment = (
-      <Card link key={`mapKeyCardLink`} style={{ width: `${window.screen.width < 768 ? "100%" : "33%"}`, background: "#1c70b5" }}>
-        <Card.Content>
-          <Card.Header>
-            <h1 style={{ color: 'white', marginTop: "20px" }}>Looking to grab a beer or a bite?</h1>
-          </Card.Header>
-          <br></br>
-          <Card.Description>
-            <h2 style={{ color: "white" }}> We might have a couple of suggestions if you're into...</h2>
-            <ul style={{ color: "white", fontWeight: "bold", fontSize: "20px" }}>
-              <li>Sushi</li>
-              <li>Beer</li>
-              <li>Cocktails</li>
-              <li>Trying New Things</li>
-              <li>Tacos</li>
-              <li>Oysters</li>
-              <li>Saving Money</li>
-            </ul>
-            <br></br>
-          </Card.Description>
-          <Card.Description>
-            <Button onClick={() => navigate("/happy-hour-finder")} style={{ width: "100%", textAlign: "center", marginTop: '50px' }} secondary>Find Happy Hours <Icon name="arrow right"></Icon ></Button>
-          </Card.Description>
-        </Card.Content>
-      </Card>)
+    // let segment = (
+    //   <Card link key={`mapKeyCardLink`} style={{ width: `${window.screen.width < 768 ? "100%" : "33%"}`, background: "#1c70b5" }}>
+    //     <Card.Content>
+    //       <Card.Header>
+    //         <h1 style={{ color: 'white', marginTop: "20px" }}>Looking to grab a beer or a bite?</h1>
+    //       </Card.Header>
+    //       <br></br>
+    //       <Card.Description>
+    //         <h2 style={{ color: "white" }}> We might have a couple of suggestions if you're into...</h2>
+    //         <ul style={{ color: "white", fontWeight: "bold", fontSize: "20px" }}>
+    //           <li>Sushi</li>
+    //           <li>Beer</li>
+    //           <li>Cocktails</li>
+    //           <li>Trying New Things</li>
+    //           <li>Tacos</li>
+    //           <li>Oysters</li>
+    //           <li>Saving Money</li>
+    //         </ul>
+    //         <br></br>
+    //       </Card.Description>
+    //       <Card.Description>
+    //         <Button onClick={() => navigate("/happy-hour-finder")} style={{ width: "100%", textAlign: "center", marginTop: '50px' }} secondary>Find Happy Hours <Icon name="arrow right"></Icon ></Button>
+    //       </Card.Description>
+    //     </Card.Content>
+    //   </Card>)
 
-    cards.splice(6, 0, segment)
+    // cards.splice(6, 0, segment)
     return cards
   }
 
