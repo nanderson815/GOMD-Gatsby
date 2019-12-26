@@ -46,11 +46,13 @@ const HappyHourFinder = (props) => {
     const changeDay = (e, { value }) => {
         setDay(value)
         filterHappyHours()
+        setActiveIndex(-1)
     }
 
     const changeHood = (e, { value }) => {
         setNeighborhood(value)
         filterHappyHours();
+        setActiveIndex(-1)
     }
 
     // Filter HH data here, not in children
@@ -111,6 +113,7 @@ const HappyHourFinder = (props) => {
         let HHdata = data.allContentfulHappyHour.edges.map(item => item.node);
         setHappyHours(HHdata);
         setShowClear(false);
+        setActiveIndex(-1);
     }
 
     // Sets the inital filter to today
