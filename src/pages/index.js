@@ -44,13 +44,10 @@ const IndexPage = ({ data }) => {
   const renderHomePage = () => {
     let cards = shuffle(happyHours).slice(0, 10).map((item, index) => {
       return (
-        <Card key={item.id}>
-          <Img style={{ height: "30vh" }} alt={item.name} fluid={item.mainImg.fluid} />
+        <Card key={item.id} style={{ width: "30%" }}>
+          <Img style={{ height: "50vh" }} alt={item.name} fluid={item.mainImg.fluid} />
+          <h2 style={{ color: "white", position: "absolute", bottom: "175px", left: "10px", zIndex: "2000" }}>{item.name}</h2>
           <Card.Content>
-            <Card.Header>{item.name}</Card.Header>
-            <Card.Meta>
-              <span className='date'>Joined in 2015</span>
-            </Card.Meta>
             <Card.Description>
               {item.seoDescription}
             </Card.Description>
@@ -127,7 +124,7 @@ const IndexPage = ({ data }) => {
         </Container>
       </div>
       <Container>
-        <Card.Group>
+        <Card.Group style={{ marginTop: "30px" }}>
           {renderHomePage()}
         </Card.Group>
       </Container>
