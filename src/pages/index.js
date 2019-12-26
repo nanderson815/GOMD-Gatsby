@@ -4,9 +4,8 @@ import SEO from "../components/seo"
 import 'semantic-ui-less/semantic.less'
 import Background from '../images/homepagebackground.jpg'
 import SearchBar from '../components/searchbar'
-import { Button, Grid, Container, Image, Label, Card } from "semantic-ui-react"
+import { Button, Grid, Container, Image, Label, Card, Icon } from "semantic-ui-react"
 import { navigate, Link, graphql } from "gatsby"
-import Img from 'gatsby-image'
 import BackgroundImage from 'gatsby-background-image'
 
 
@@ -49,7 +48,13 @@ const IndexPage = ({ data }) => {
   const renderHomePage = () => {
     let cards = shuffle(happyHours).slice(0, 10).map((item, index) => {
 
-      let width = index % 3 === 0 ? "65%" : "30%"
+      let width;
+
+      if (window.screen.width < 768) {
+        width = "100%"
+      } else {
+        width = index % 3 === 0 ? "65%" : "30%"
+      }
 
       return (
         <Card
@@ -60,7 +65,7 @@ const IndexPage = ({ data }) => {
           <BackgroundImage
             fluid={[`linear-gradient(rgba(225, 225, 225, 0.2), rgba(0, 0, 0, 0.9))`, item.mainImg.fluid]}
             alt={item.name}
-            style={{ height: "50vh" }}
+            style={{ height: `${window.screen.width < 768 ? "20vh" : "50vh"}` }}
           >
             <h2 style={{ color: "white", position: "absolute", bottom: "20px", left: "10px", zIndex: "2000" }}>{item.name}</h2>
           </BackgroundImage>
@@ -75,6 +80,34 @@ const IndexPage = ({ data }) => {
         </Card>
       )
     })
+
+    let segment = (
+      <Card link key={`mapKeyCardLink`} style={{ width: `${window.screen.width < 768 ? "100%" : "33%"}`, background: "#1c70b5" }}>
+        <Card.Content>
+          <Card.Header>
+            <h1 style={{ color: 'white', marginTop: "20px" }}>Looking to grab a beer or a bite?</h1>
+          </Card.Header>
+          <br></br>
+          <Card.Description>
+            <h2 style={{ color: "white" }}> We might have a couple of suggestions if you're into...</h2>
+            <ul style={{ color: "white", fontWeight: "bold", fontSize: "20px" }}>
+              <li>Sushi</li>
+              <li>Beer</li>
+              <li>Cocktails</li>
+              <li>Trying New Things</li>
+              <li>Tacos</li>
+              <li>Oysters</li>
+              <li>Saving Money</li>
+            </ul>
+            <br></br>
+          </Card.Description>
+          <Card.Description>
+            <Button onClick={() => navigate("/happy-hour-finder")} style={{ width: "100%", textAlign: "center", marginTop: '50px' }} secondary>Find Happy Hours <Icon name="arrow right"></Icon ></Button>
+          </Card.Description>
+        </Card.Content>
+      </Card>)
+
+    cards.splice(6, 0, segment)
     return cards
   }
 
