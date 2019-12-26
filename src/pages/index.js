@@ -5,8 +5,9 @@ import 'semantic-ui-less/semantic.less'
 import Background from '../images/homepagebackground.jpg'
 import SearchBar from '../components/searchbar'
 import { Button, Grid, Container, Image, Label, Card } from "semantic-ui-react"
-import { navigate, Link } from "gatsby"
+import { navigate, Link, graphql } from "gatsby"
 import Img from 'gatsby-image'
+import BackgroundImage from 'gatsby-background-image'
 
 
 const IndexPage = ({ data }) => {
@@ -45,8 +46,13 @@ const IndexPage = ({ data }) => {
     let cards = shuffle(happyHours).slice(0, 10).map((item, index) => {
       return (
         <Card key={item.id} style={{ width: "30%" }}>
-          <Img style={{ height: "50vh" }} alt={item.name} fluid={item.mainImg.fluid} />
-          <h2 style={{ color: "white", position: "absolute", bottom: "175px", left: "10px", zIndex: "2000" }}>{item.name}</h2>
+          <BackgroundImage
+            fluid={[`linear-gradient(rgba(225, 225, 225, 0.2), rgba(0, 0, 0, 0.9))`, item.mainImg.fluid]}
+            alt={item.name}
+            style={{ height: "50vh" }}
+          >
+            <h2 style={{ color: "white", position: "absolute", bottom: "20px", left: "10px", zIndex: "2000" }}>{item.name}</h2>
+          </BackgroundImage>
           <Card.Content>
             <Card.Description>
               {item.seoDescription}
