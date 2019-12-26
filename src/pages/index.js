@@ -22,6 +22,10 @@ const IndexPage = ({ data }) => {
     })
   }
 
+  const handleCardClick = (slug) => {
+    navigate(`atlanta-happy-hour/${slug}`)
+  }
+
   const navfunc = (e) => {
     // navigate("/atlanta-happy-hour/" + slug)
     console.log(e.target)
@@ -44,8 +48,15 @@ const IndexPage = ({ data }) => {
 
   const renderHomePage = () => {
     let cards = shuffle(happyHours).slice(0, 10).map((item, index) => {
+
+      let width = index % 3 === 0 ? "65%" : "30%"
+
       return (
-        <Card key={item.id} style={{ width: "30%" }}>
+        <Card
+          link
+          onClick={() => handleCardClick(item.slug)}
+          key={item.id}
+          style={{ width: width }}>
           <BackgroundImage
             fluid={[`linear-gradient(rgba(225, 225, 225, 0.2), rgba(0, 0, 0, 0.9))`, item.mainImg.fluid]}
             alt={item.name}
