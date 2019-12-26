@@ -4,8 +4,10 @@ import SEO from "../components/seo"
 import 'semantic-ui-less/semantic.less'
 import Background from '../images/homepagebackground.jpg'
 import SearchBar from '../components/searchbar'
-import { Button, Grid, Container, Image, Label, Segment } from "semantic-ui-react"
+import { Button, Grid, Container, Image, Label, Card } from "semantic-ui-react"
 import { navigate, Link } from "gatsby"
+import Img from 'gatsby-image'
+
 
 const IndexPage = ({ data }) => {
 
@@ -22,6 +24,44 @@ const IndexPage = ({ data }) => {
   const navfunc = (e) => {
     // navigate("/atlanta-happy-hour/" + slug)
     console.log(e.target)
+  }
+
+  const shuffle = (array) => {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+    return array;
+  }
+
+  const renderHomePage = () => {
+    let cards = shuffle(happyHours).slice(0, 10).map((item, index) => {
+      return (
+        <Card key={item.id}>
+          <Img style={{ height: "30vh" }} alt={item.name} fluid={item.mainImg.fluid} />
+          <Card.Content>
+            <Card.Header>{item.name}</Card.Header>
+            <Card.Meta>
+              <span className='date'>Joined in 2015</span>
+            </Card.Meta>
+            <Card.Description>
+              {item.seoDescription}
+            </Card.Description>
+          </Card.Content>
+          <Card.Content extra>
+            {item.neighborhood}
+          </Card.Content>
+        </Card>
+      )
+    })
+    return cards
   }
 
   return (
@@ -76,7 +116,7 @@ const IndexPage = ({ data }) => {
                     <h5 style={{ margin: "0px" }}>{item.name}</h5>
                     <p style={{ fontSize: "12px" }}>{item.neighborhood}</p>
                   </Link>
-                  <Label as={Button} color='blue' style={{ marginTop: "10px"}} value={item.tags[0]} onClick={handleClick} tag>
+                  <Label as={Button} color='blue' style={{ marginTop: "10px" }} value={item.tags[0]} onClick={handleClick} tag>
                     {item.tags[0]}
                   </Label>
 
@@ -86,6 +126,11 @@ const IndexPage = ({ data }) => {
           </Grid>
         </Container>
       </div>
+      <Container>
+        <Card.Group>
+          {renderHomePage()}
+        </Card.Group>
+      </Container>
     </>
   )
 
