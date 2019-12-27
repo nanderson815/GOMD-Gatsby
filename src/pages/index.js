@@ -32,11 +32,6 @@ const IndexPage = ({ data }) => {
     navigate(`atlanta-happy-hour/${slug}`)
   }
 
-  const navfunc = (e) => {
-    // navigate("/atlanta-happy-hour/" + slug)
-    console.log(e.target)
-  }
-
   const shuffle = (array) => {
     var currentIndex = array.length, temporaryValue, randomIndex;
     // While there remain elements to shuffle...
@@ -74,7 +69,7 @@ const IndexPage = ({ data }) => {
             alt={item.name}
             style={{ height: "50vh" }}
           >
-            <h2 style={{ color: "white", position: "absolute", bottom: "20px", left: "10px", zIndex: "2000" }}>{item.name}</h2>
+            <h2 style={{ color: "white", position: "absolute", bottom: "20px", left: "10px", zIndex: "2000" }}><span style={{ fontWeight: "lighter", fontSize: "20px" }}>Happy Hour:</span> <br />{item.name}</h2>
           </BackgroundImage>
           <Card.Content>
             <Card.Description>
@@ -156,7 +151,6 @@ const IndexPage = ({ data }) => {
               return (
                 <Grid.Column
                   key={item.id}
-                  onClick={navfunc}
                   verticalAlign="middle"
                 >
                   <Link to={`/atlanta-happy-hour/${item.slug}`} style={{ color: "black" }}>
