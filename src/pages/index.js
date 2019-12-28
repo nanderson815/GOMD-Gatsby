@@ -3,6 +3,7 @@ import Header from '../components/header'
 import SEO from "../components/seo"
 import 'semantic-ui-less/semantic.less'
 import Background from '../images/homepagebackground.jpg'
+import Blue from '../images/blue.svg'
 import SearchBar from '../components/searchbar'
 import { Button, Grid, Container, Image, Label, Card, Icon } from "semantic-ui-react"
 import { navigate, Link, graphql } from "gatsby"
@@ -84,7 +85,7 @@ const IndexPage = ({ data }) => {
     })
 
     let segment = (
-      <Card link key={`mapKeyCardLink`} style={{ width: `${screen < 768 ? "100%" : '33%'}`, background: "#1c70b5" }}>
+      <Card link key={`mapKeyCardLink`} style={{ width: `${screen < 768 ? "100%" : '33%'}`, backgroundImage: `url(${Blue})` }}>
         <Card.Content>
           <Card.Header>
             <h1 style={{ color: 'white', marginTop: "20px" }}>Looking to grab a beer or a bite?</h1>

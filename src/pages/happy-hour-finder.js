@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { graphql, Link } from 'gatsby'
 import SEO from '../components/seo'
-import { Grid, Sticky, Responsive, Dropdown, Button, Accordion, Menu } from "semantic-ui-react"
+import { Grid, Sticky, Responsive, Dropdown, Button, Accordion, Menu, Icon } from "semantic-ui-react"
 import GoogleMap from '../components/googleMap'
 import HHFinderCardGroup from '../components/hhFinderCardGroup'
 import logo from '../images/logoInlineText.svg'
@@ -82,6 +82,11 @@ const HappyHourFinder = (props) => {
     }, [day, neighborhood])
 
 
+    const [displayMap, setDisplayMap] = React.useState(false)
+
+    const handleDisplayChange = () => {
+        setDisplayMap(!displayMap)
+    }
 
     // The use effect below ensures we only run map once. (could get expensive with lots of data)
     const [happyHours, setHappyHours] = React.useState([])
@@ -190,7 +195,7 @@ const HappyHourFinder = (props) => {
                             <Link to="/"><img alt="Georgia on my Dime Logo" style={{ margin: "10px 0px 0px 20px" }} src={logo} /></Link>
                         </div>
                         <div style={{ height: "4px", background: "#5d5e5e" }}></div>
-                        <Accordion as={Menu} vertical style={{ width: "100%", padding: "0px 10px", marginTop: "5px" }}>
+                        <Accordion as={Menu} vertical style={{ width: "77%", padding: "0px 10px", margin: "5px 10px 10px 20px", display: "inline-block" }}>
                             <Menu.Item>
                                 <Accordion.Title
                                     active={activeIndex === 0}
@@ -209,10 +214,21 @@ const HappyHourFinder = (props) => {
                                 </Accordion.Content>
                             </Menu.Item>
                         </Accordion>
+                        <Icon link onClick={handleDisplayChange} style={{ position: "absolute", marginTop: '5px' }} circular size='large' color='blue' name='map' />
+
                     </div>
                 </Sticky>
-                <HHFinderCardGroup happyHours={filteredHH} hood={neighborhood} day={day} rows={1} setHoverHandler={setHoverHandler} clearHoveredHandler={clearHoveredHandler}></HHFinderCardGroup>
+                {displayMap ? <GoogleMap
+                    happyHours={filteredHH}
+                    hovered={hovered}
+                    isMarkerShown
+                    loadingElement={<div style={{ height: `100vh`, width: "100%" }} />}
+                    containerElement={<div style={{ height: `calc(100vh - 115.67px)`, marginTop: "20px" }} />}
+                    mapElement={<div style={{ height: `100%` }} />}
+                    googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.GATSBY_GOOGLE_MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}>
 
+                </GoogleMap> :
+                    <HHFinderCardGroup happyHours={filteredHH} hood={neighborhood} day={day} rows={1} setHoverHandler={setHoverHandler} clearHoveredHandler={clearHoveredHandler}></HHFinderCardGroup>}
             </Responsive>
         </>
     )
