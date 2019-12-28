@@ -67,7 +67,7 @@ const IndexPage = ({ data }) => {
           <BackgroundImage
             fluid={[`linear-gradient(rgba(225, 225, 225, 0.2), rgba(0, 0, 0, 0.9))`, item.mainImg.fluid]}
             alt={item.name}
-            style={{ height: "50vh" }}
+            style={{ height: `${screen < 768 ? "20vh" : "50vh"}` }}
           >
             <h2 style={{ color: "white", position: "absolute", bottom: "20px", left: "10px", zIndex: "2000" }}><span style={{ fontWeight: "lighter", fontSize: "20px" }}>Happy Hour:</span> <br />{item.name}</h2>
           </BackgroundImage>
