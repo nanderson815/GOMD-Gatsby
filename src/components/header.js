@@ -17,9 +17,9 @@ export default class MenuExampleMenus extends Component {
     const { activeItem } = this.state
 
     return (
-      <>
+      <div>
         <Responsive minWidth={768}>
-          <Menu stackable className="borderless" style={{marginBottom: "10px"}}>
+          <Menu stackable className="borderless" style={{ marginBottom: "10px" }}>
             <Container>
               <Menu.Item
                 position="left"
@@ -104,7 +104,7 @@ export default class MenuExampleMenus extends Component {
             </Menu>
           </Sticky>
         </Responsive>
-      </>
+      </div>
     )
   }
 }

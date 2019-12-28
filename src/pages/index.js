@@ -114,7 +114,7 @@ const IndexPage = ({ data }) => {
   }
 
   return (
-    <>
+    <div>
       <Header />
       <SEO title="Home" />
       <div style={{
@@ -179,21 +179,21 @@ const IndexPage = ({ data }) => {
           {renderHomePage()}
         </Card.Group>
       </Container>
-    </>
+    </div>
   )
 
 }
 export const query = graphql`
   query homePageHappyHours  {
-          allContentfulHappyHour {
-          edges {
-          node {
-          ...allHappyHourFields
-        }
-        }
+        allContentfulHappyHour {
+        edges {
+        node {
+        ...allHappyHourFields
+      }
       }
     }
-    `
+  }
+  `
 
 
 
