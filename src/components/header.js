@@ -3,6 +3,8 @@ import { Menu, Container, Icon, Responsive, Sticky } from 'semantic-ui-react'
 import SearchBar from '../components/searchbar'
 import { Link } from 'gatsby'
 import Logo from './logo'
+import 'semantic-ui-less/semantic.less'
+
 
 export default class MenuExampleMenus extends Component {
   state = {
