@@ -64,7 +64,7 @@ export default class MenuExampleMenus extends Component {
                   </Menu.Item>
                   <Menu.Item
                     position="right"
-                    style={{ borderRight: "1px solid #8080807a", margin: "0px" }}
+                    style={{ borderRight: "1px solid #8080807a", margin: "0px !important" }}
                     name='happyHours'
                     active={activeItem === 'happyHours'}
                     onClick={this.handleItemClick}
@@ -74,7 +74,7 @@ export default class MenuExampleMenus extends Component {
                     <Icon name='glass martini' style={{ color: "#1c70b5" }} /></Menu.Item>
                   <Menu.Item
                     position="right"
-                    style={{ borderRight: "1px solid #8080807a", margin: "0px" }}
+                    style={{ borderRight: "1px solid #8080807a", margin: "0px !important" }}
                     name='articles'
                     active={activeItem === 'articles'}
                     onClick={this.handleItemClick}
@@ -82,7 +82,7 @@ export default class MenuExampleMenus extends Component {
                     <Icon name='utensils' style={{ color: "#1c70b5" }} /></Menu.Item>
                   <Menu.Item
                     position="right"
-                    style={{ margin: "0px" }}
+                    style={{ margin: "0px !important" }}
                     name='search'
                     active={activeItem === 'search'}
                     onClick={this.handleSearchClick}
