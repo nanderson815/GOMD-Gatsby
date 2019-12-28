@@ -30,8 +30,13 @@ const HappyHourMap = ({ happyHours, hovered }) => {
         setVisible("")
     }
 
-    const onClickHandler = (slug) => {
-        navigate("/atlanta-happy-hour/" + slug)
+    const onClickHandler = (slug, id) => {
+        console.log(id)
+        if (visible === id) {
+            navigate("/atlanta-happy-hour/" + slug)
+        } else {
+            setVisible(id)
+        }
     }
 
 
@@ -49,7 +54,7 @@ const HappyHourMap = ({ happyHours, hovered }) => {
                         labelVisible={visible === m.id || hovered === m.id}
                         onMouseOver={onMarkerHover.bind(this, m.id)}
                         onMouseOut={clearVisible}
-                        onClick={onClickHandler.bind(this, m.slug)}
+                        onClick={onClickHandler.bind(this, m.slug, m.id)}
                     >
                         <Card style={{ width: "200px" }}>
                             <Img style={{ height: "100px" }} alt={m.name} fluid={m.mainImg.fluid} />
