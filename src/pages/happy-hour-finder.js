@@ -160,7 +160,7 @@ const HappyHourFinder = (props) => {
                                 </div>
                                 <div style={{ height: "4px", background: "#5d5e5e", margin: "0px 0px 10px" }}></div>
                                 <div style={{ display: "inline-block", margin: "0px 5px 10px 24px" }}>
-                                    Choose Day: <Dropdown style={{ minWidth: "125px" }} selection value={day} options={days} onChange={changeDay} />
+                                    Day: <Dropdown style={{ minWidth: "125px" }} selection value={day} options={days} onChange={changeDay} />
                                 </div>
                                 <div style={{ display: "inline-block" }}>
                                     Neighborhood: <Dropdown style={{ minWidth: "125px" }} selection value={neighborhood} options={neighborhoods} onChange={changeHood} />
@@ -205,7 +205,7 @@ const HappyHourFinder = (props) => {
                                 />
                                 <Accordion.Content active={activeIndex === 0} >
                                     <div style={{ width: "100%", margin: "0px 5px 10px 10px" }}>
-                                        Choose Day: <Dropdown style={{ minWidth: "90%", padding: "15px" }} selection value={day} options={days} onChange={changeDay} />
+                                        Day: <Dropdown style={{ minWidth: "90%", padding: "15px" }} selection value={day} options={days} onChange={changeDay} />
                                     </div>
                                     <div style={{ width: "100%", margin: "0px 5px 10px 10px" }}>
                                         Neighborhood: <Dropdown style={{ minWidth: "90%", padding: "15px" }} selection value={neighborhood} options={neighborhoods} onChange={changeHood} />
