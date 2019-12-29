@@ -19,40 +19,42 @@ export default class MenuExampleMenus extends Component {
     return (
       <div>
         <Responsive minWidth={768}>
-          <Menu stackable className="borderless" style={{ marginBottom: "10px" }}>
-            <Container>
-              <Menu.Item
-                position="left"
-              >
-                <Link to="/"><div style={{ width: "50px" }}> <Logo /></div></Link><Link to="/"><h2 style={{ color: "#1c70b5", margin: "0px 0px 0px 5px" }}>Georgia on my Dime</h2></Link>
-              </Menu.Item>
-
-              <Menu.Item style={{ width: '40%' }}>
-                <SearchBar />
-              </Menu.Item>
-
-              <Menu.Menu position='right'>
+          <Sticky>
+            <Menu stackable className="borderless" style={{ marginBottom: "10px" }}>
+              <Container>
                 <Menu.Item
-                  style={{ fontWeight: "bold" }}
-                  name='happyHours'
-                  active={activeItem === 'happyHours'}
-                  onClick={this.handleItemClick}
-                  as={Link}
-                  to='/happy-hour-finder'
+                  position="left"
                 >
-                  <Icon name='glass martini' style={{ color: "#1c70b5" }} />Happy Hours
+                  <Link to="/"><div style={{ width: "50px" }}> <Logo /></div></Link><Link to="/"><h2 style={{ color: "#1c70b5", margin: "0px 0px 0px 5px" }}>Georgia on my Dime</h2></Link>
+                </Menu.Item>
+
+                <Menu.Item style={{ width: '40%' }}>
+                  <SearchBar />
+                </Menu.Item>
+
+                <Menu.Menu position='right'>
+                  <Menu.Item
+                    style={{ fontWeight: "bold" }}
+                    name='happyHours'
+                    active={activeItem === 'happyHours'}
+                    onClick={this.handleItemClick}
+                    as={Link}
+                    to='/happy-hour-finder'
+                  >
+                    <Icon name='glass martini' style={{ color: "#1c70b5" }} />Happy Hours
             </Menu.Item>
-                <Menu.Item
-                  style={{ fontWeight: "bold" }}
-                  name='articles'
-                  active={activeItem === 'articles'}
-                  onClick={this.handleItemClick}
-                >
-                  <Icon name='utensils' style={{ color: "#1c70b5" }} /> Articles
+                  <Menu.Item
+                    style={{ fontWeight: "bold" }}
+                    name='articles'
+                    active={activeItem === 'articles'}
+                    onClick={this.handleItemClick}
+                  >
+                    <Icon name='utensils' style={{ color: "#1c70b5" }} /> Articles
           </Menu.Item>
-              </Menu.Menu>
-            </Container>
-          </Menu>
+                </Menu.Menu>
+              </Container>
+            </Menu>
+          </Sticky>
         </Responsive>
         <Responsive {...Responsive.onlyMobile}>
           <Sticky>
