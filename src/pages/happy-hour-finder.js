@@ -214,7 +214,7 @@ const HappyHourFinder = (props) => {
                                 </Accordion.Content>
                             </Menu.Item>
                         </Accordion>
-                        <Icon link onClick={handleDisplayChange} style={{ position: "absolute", marginTop: '5px' }} circular size='large' color='blue' name='map' />
+                        <Icon link onClick={handleDisplayChange} style={{ position: "absolute", marginTop: '5px' }} circular size='large' color='blue' name={`${displayMap ? "list" : "map"}`} />
 
                     </div>
                 </Sticky>
