@@ -4,11 +4,16 @@ import { graphql } from 'gatsby';
 import Header from '../components/header'
 import Img from 'gatsby-image';
 import Layout from '../components/layout'
-import { Grid, Label, Card, Sticky } from 'semantic-ui-react'
+import { Grid, Card, Sticky, Label, Advertisement } from 'semantic-ui-react'
 import SEO from '../components/seo'
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 const BlogPost = (props) => {
   const post = get(props, 'data.contentfulBlogPost')
+  const document = post.body.json
+  let doc2 = documentToReactComponents(document)
+
+
   return (
     <>
       <Header></Header>
@@ -18,24 +23,29 @@ const BlogPost = (props) => {
         <Grid stackable columns="equal">
           <Grid.Column width={12}>
             <Card fluid raised>
-              <Img style={{ maxHeight: "350px" }} alt={post.title} fluid={post.image.fluid} />
+              <Img style={{ maxHeight: "450px" }} alt={post.title} fluid={post.image.fluid} />
               <Card.Content>
                 <Card.Header>
                   <h1 style={{ marginBottom: "-3px" }}>{post.title}</h1>
-                  <p>{post.date}</p>
-                  <p>{post.category}</p>
+                  <Card.Meta>{post.date}</Card.Meta>
+                  <Label color="blue" ribbon style={{ fontSize: "15px" }}>{post.category}</Label>
                 </Card.Header>
 
               </Card.Content>
               <Card.Content>
-                <h2>Description</h2>
+                {doc2}
               </Card.Content>
 
             </Card>
           </Grid.Column>
           <Grid.Column>
-            <Sticky>
+            <Sticky offset={80}>
               <Card fluid raised>
+                <Advertisement
+                  unit="half page"
+                  test="This is an advertisement.">
+
+                </Advertisement>
               </Card>
             </Sticky>
           </Grid.Column>

@@ -20,88 +20,16 @@ exports.createPages = ({ graphql, actions }) => {
         `
           {
             allContentfulBlogPost {
-    edges {
-      node {
-        body {
-          json
-        }
-        category
-        date
-        id
-        seoDesc
-        slug
-        title
-        image {
-          fluid {
-            srcWebp
-          }
-        }
-      }
-    }
-  }
+              edges {
+               node {
+                slug
+               }
+              }
+            }
        allContentfulHappyHour {
     edges {
       node {
-        best
-        fridayDesc {
-          fridayDesc
-        }
-        hours {
-          friday {
-            end
-            start
-          }
-          monday {
-            end
-            start
-          }
-          thursday {
-            start
-            end
-          }
-          tuesday {
-            end
-            start
-          }
-          wednesday {
-            end
-            start
-          }
-          saturday {
-            end
-            start
-          }
-          sunday {
-            end
-            start
-          }
-        }
-        id
-        location {
-          lat
-          lon
-        }
-        mainImg {
-          fluid {
-            base64
-          }
-        }
-        name
-        mondayDesc {
-          mondayDesc
-        }
-        phone
         slug
-        thursdayDesc {
-          thursdayDesc
-        }
-        tuesdayDesc {
-          tuesdayDesc
-        }
-        website
-        wednesdayDesc {
-          wednesdayDesc
-        }
       }
     }
   }

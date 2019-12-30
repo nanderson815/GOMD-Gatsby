@@ -3,7 +3,7 @@ import { graphql } from 'gatsby'
 export const allBlogPostFields = graphql`
   fragment allBlogPostFields on ContentfulBlogPost {
     category
-        date
+        date(formatString: "MMMM DD, YYYY")
         id
         image {
           fluid(maxWidth: 1800, resizingBehavior: SCALE) {

@@ -76,7 +76,7 @@ const HappyHour = (props) => {
             </Card>
           </Grid.Column>
           <Grid.Column>
-            <Sticky>
+            <Sticky offset={80}>
               <Card fluid raised>
                 <div
                   style={{ overflow: 'hidden', height: "225px" }}
