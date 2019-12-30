@@ -31,7 +31,7 @@ const Articles = ({ data }) => {
             if (screen < 768) {
                 width = "100%"
             } else {
-                width = index % 5 === 0 ? "65%" : "30%"
+                width = index % 5 === 0 ? "63.5%" : "31%"
             }
 
             return (
