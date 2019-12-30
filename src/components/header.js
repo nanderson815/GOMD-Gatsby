@@ -25,7 +25,7 @@ export default class MenuExampleMenus extends Component {
                 <Menu.Item
                   position="left"
                 >
-                  <Link to="/"><div style={{ width: "50px" }}> <Logo /></div></Link><Link to="/"><h2 style={{ color: "#1c70b5", margin: "0px 0px 0px 5px" }}>Georgia on my Dime</h2></Link>
+                  <Link to="/"><div style={{ width: "50px" }}> <Logo /></div></Link><Link to="/"><h3 style={{ color: "#1c70b5", margin: "0px 0px 0px 5px" }}>Georgia on my Dime</h3></Link>
                 </Menu.Item>
 
                 <Menu.Item style={{ width: '40%' }}>
@@ -48,6 +48,8 @@ export default class MenuExampleMenus extends Component {
                     name='articles'
                     active={activeItem === 'articles'}
                     onClick={this.handleItemClick}
+                    as={Link}
+                    to='/articles'
                   >
                     <Icon name='utensils' style={{ color: "#1c70b5" }} /> Articles
           </Menu.Item>
