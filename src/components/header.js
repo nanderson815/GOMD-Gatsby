@@ -86,6 +86,8 @@ export default class MenuExampleMenus extends Component {
                     name='search'
                     active={activeItem === 'search'}
                     onClick={this.handleSearchClick}
+                    as={Link}
+                    to='/articles'
                   >
                     <Icon name='search' style={{ color: "#1c70b5" }} /></Menu.Item>
                 </>
