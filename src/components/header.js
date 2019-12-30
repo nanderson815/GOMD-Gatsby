@@ -51,7 +51,7 @@ export default class MenuExampleMenus extends Component {
                     as={Link}
                     to='/articles'
                   >
-                    <Icon name='utensils' style={{ color: "#1c70b5" }} /> Articles
+                    <Icon name='newspaper' style={{ color: "#1c70b5" }} /> Articles
           </Menu.Item>
                 </Menu.Menu>
               </Container>
@@ -81,7 +81,7 @@ export default class MenuExampleMenus extends Component {
                     active={activeItem === 'articles'}
                     onClick={this.handleItemClick}
                   >
-                    <Icon name='utensils' style={{ color: "#1c70b5" }} /></Menu.Item>
+                    <Icon name='newspaper' style={{ color: "#1c70b5" }} /></Menu.Item>
                   <Menu.Item
                     name='search'
                     active={activeItem === 'search'}
