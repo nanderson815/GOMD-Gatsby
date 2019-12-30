@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SEO from '../components/seo'
 import Layout from '../components/layout'
 import Header from '../components/header'
@@ -10,6 +10,14 @@ import { Card } from 'semantic-ui-react'
 
 const Articles = ({ data }) => {
 
+    const [screen, setScreen] = React.useState('');
+
+    useEffect(() => {
+        let screen = window ? window.screen.width : 1000;
+        setScreen(screen);
+    }, [])
+
+
     const handleCardClick = (slug) => {
         navigate(`/${slug}`)
     }
@@ -17,12 +25,21 @@ const Articles = ({ data }) => {
     const renderCards = () => {
         let articles = data.allContentfulBlogPost.edges.map(item => item.node)
         let cards = articles.map((item, index) => {
+
+            let width;
+
+            if (screen < 768) {
+                width = "100%"
+            } else {
+                width = index % 5 === 0 ? "65%" : "30%"
+            }
+
             return (
                 <Card
                     link
                     onClick={() => handleCardClick(item.slug)}
                     key={item.id}
-                    style={{ width: "60%" }}>
+                    style={{ width: width }}>
                     <BackgroundImage
                         fluid={[`linear-gradient(rgba(225, 225, 225, 0.2), rgba(0, 0, 0, 0.9))`, item.image.fluid]}
                         alt={item.image.title}
