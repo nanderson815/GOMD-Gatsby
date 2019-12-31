@@ -8,6 +8,7 @@ import SearchBar from '../components/searchbar'
 import { Button, Grid, Container, Image, Label, Card, Icon } from "semantic-ui-react"
 import { navigate, Link, graphql } from "gatsby"
 import BackgroundImage from 'gatsby-background-image'
+import Layout from "../components/layout"
 
 
 const IndexPage = ({ data }) => {
@@ -175,11 +176,11 @@ const IndexPage = ({ data }) => {
           </Grid>
         </Container>
       </div>
-      <Container>
+      <Layout>
         <Card.Group style={{ marginTop: "30px" }}>
           {renderHomePage()}
         </Card.Group>
-      </Container>
+      </Layout>
     </div>
   )
 
