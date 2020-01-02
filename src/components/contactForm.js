@@ -1,6 +1,12 @@
 import React from 'react'
 import { Form, Input, TextArea, Button } from 'semantic-ui-react'
 
+const encode = (data) => {
+    return Object.keys(data)
+        .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+        .join("&");
+}
+
 const FormExampleFieldControlId = () => {
 
     const [state, setState] = React.useState({})
@@ -9,16 +15,26 @@ const FormExampleFieldControlId = () => {
         setState({ ...state, [e.target.id]: e.target.value })
     }
 
-    const handleSubmit = () => {
-        console.log(state);
-    }
+    const handleSubmit = e => {
+        fetch("/", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: encode({ "form-name": "contact", ...this.state })
+        })
+            .then(() => alert("Success!"))
+            .catch(error => alert(error));
+
+        e.preventDefault();
+    };
 
     return (
         <Form
             onSubmit={handleSubmit}
-            data-netlify="true">
-            <Form.Group widths='equal'
-                name="contact" method="post" data-netlify="true" data-netlify-honeypot="bot-field">
+            data-netlify="true"
+            name="contact"
+            method="post"
+            data-netlify-honeypot="bot-field">
+            <Form.Group widths='equal'>
                 <input type="hidden" name="form-name" value="contact" />
                 <Form.Field
                     required
