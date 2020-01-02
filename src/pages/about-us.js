@@ -3,8 +3,10 @@ import Header from '../components/header'
 import SEO from '../components/seo';
 import Layout from '../components/layout';
 import { Card, Icon, Segment, Grid } from 'semantic-ui-react';
-import { Link } from 'gatsby';
-const About = () => {
+import { Link, graphql } from 'gatsby';
+import Img from 'gatsby-image';
+
+const About = ({ data }) => {
     return (
         <div>
             <SEO title="About Us"></SEO>
@@ -60,8 +62,7 @@ const About = () => {
                                 <em><strong>Georgia on my Dime</strong></em></p>
                         </Grid.Column>
                         <Grid.Column>
-                            <Segment>
-                            </Segment>
+                            <Img fluid={data.file.childImageSharp.fluid}></Img>
                         </Grid.Column>
                     </Grid>
                 </Segment>
@@ -69,5 +70,17 @@ const About = () => {
         </div >
     )
 };
+
+export const query = graphql`
+  query {
+    file(relativePath: { eq: "Bazati.jpg" }) {
+      childImageSharp {
+        fluid(maxWidth: 700) {
+            ...GatsbyImageSharpFluid_tracedSVG
+        }
+      }
+    }
+  }
+`
 
 export default About;
