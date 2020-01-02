@@ -19,9 +19,13 @@ const FormExampleFieldControlId = () => {
         fetch("/", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: encode({ "form-name": "contact", ...this.state })
+            body: encode({ "form-name": "contact", ...state })
         })
-            .then(() => alert("Success!"))
+            .then(() => {
+                setState({})
+                document.getElementById("contactForm").reset();
+                alert("Thank you! Your message has been sent.")
+            })
             .catch(error => alert(error));
 
         e.preventDefault();
@@ -32,6 +36,7 @@ const FormExampleFieldControlId = () => {
             onSubmit={handleSubmit}
             data-netlify="true"
             name="contact"
+            id="contactForm"
             method="post"
             data-netlify-honeypot="bot-field">
             <Form.Group widths='equal'>
