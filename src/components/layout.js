@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
       </Container>
       <footer style={{ marginTop: "20px", backgroundColor: "#1c70b5" }}>
         <div style={{ minHeight: '20px', backgroundColor: "#115287", display: 'flex', justifyContent: "center" }}>
-          <h4 style={{ margin: "20px 30px" }}><Link style={{ color: "white" }} to='/about'>About Us</Link></h4>
+          <h4 style={{ margin: "20px 30px" }}><Link style={{ color: "white" }} to='/about-us'>About Us</Link></h4>
           <h4 style={{ margin: "20px 30px" }}><Link style={{ color: "white" }} to='/contact'>Contact</Link></h4>
           <h4 style={{ margin: "20px 30px" }}><Link style={{ color: "white" }} to='/articles'>Articles</Link></h4>
         </div>
