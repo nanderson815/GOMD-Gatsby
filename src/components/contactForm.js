@@ -8,9 +8,18 @@ const FormExampleFieldControlId = () => {
     const handleChange = (e) => {
         setState({ ...state, [e.target.id]: e.target.value })
     }
+
+    const handleSubmit = () => {
+        console.log(state);
+    }
+
     return (
-        <Form>
-            <Form.Group widths='equal'>
+        <Form
+            onSubmit={handleSubmit}
+            data-netlify="true">
+            <Form.Group widths='equal'
+                name="contact" method="post" data-netlify="true" data-netlify-honeypot="bot-field">
+                <input type="hidden" name="form-name" value="contact" />
                 <Form.Field
                     required
                     id='firstName'
