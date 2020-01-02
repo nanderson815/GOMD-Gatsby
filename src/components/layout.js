@@ -9,7 +9,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import "./layout.css"
 import { Container, Icon } from "semantic-ui-react"
-import { Link, navigate } from "gatsby"
+import { Link } from "gatsby"
 
 const Layout = ({ children }) => {
 
