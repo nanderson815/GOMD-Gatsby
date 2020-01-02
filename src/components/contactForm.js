@@ -12,15 +12,18 @@ const FormExampleFieldControlId = () => {
     const [state, setState] = React.useState({})
 
     const handleChange = (e) => {
-        setState({ ...state, [e.target.id]: e.target.value })
+        setState({ ...state, [e.target.name]: e.target.value })
     }
 
     const handleSubmit = e => {
-        fetch("/", {
+        let data = {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: encode({ "form-name": "contact", ...state })
-        })
+        }
+
+        console.log(data);
+        fetch("/", data)
             .then(() => {
                 setState({})
                 document.getElementById("contactForm").reset();
@@ -43,7 +46,7 @@ const FormExampleFieldControlId = () => {
                 <input type="hidden" name="form-name" value="contact" />
                 <Form.Field
                     required
-                    id='firstName'
+                    name='firstName'
                     control={Input}
                     label='First name'
                     placeholder='First name'
@@ -51,7 +54,7 @@ const FormExampleFieldControlId = () => {
                 />
                 <Form.Field
                     required
-                    id='lastName'
+                    name='lastName'
                     control={Input}
                     label='Last name'
                     onChange={handleChange}
@@ -60,7 +63,7 @@ const FormExampleFieldControlId = () => {
             </Form.Group>
             <Form.Field
                 required
-                id='message'
+                name='message'
                 control={TextArea}
                 label='Message'
                 placeholder='Message'
@@ -68,7 +71,7 @@ const FormExampleFieldControlId = () => {
             />
             <Form.Field
                 required
-                id='email'
+                name='email'
                 control={Input}
                 label='Email'
                 // error={{
