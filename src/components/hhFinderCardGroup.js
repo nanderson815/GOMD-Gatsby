@@ -41,8 +41,8 @@ const HHFinderCardGroup = ({ happyHours, day, rows, hood, setHoverHandler, clear
 
             return (
                 <Card
-                    onMouseEnter={setHoverHandler.bind(this, deal.id)}
-                    onMouseLeave={clearHoveredHandler}
+                    // onMouseEnter={setHoverHandler.bind(this, deal.id)}
+                    // onMouseLeave={clearHoveredHandler}
                     link
                     onClick={navfunc}
                     key={deal.id}
