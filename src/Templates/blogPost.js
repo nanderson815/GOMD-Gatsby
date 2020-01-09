@@ -21,7 +21,7 @@ const BlogPost = (props) => {
         description={post.seoDesc} />
       <Layout>
         <Grid stackable columns="equal">
-          <Grid.Column width={12}>
+          <Grid.Column>
             <Card fluid raised>
               <Img style={{ maxHeight: "450px" }} alt={post.title} fluid={post.image.fluid} />
               <Card.Content>
@@ -37,17 +37,6 @@ const BlogPost = (props) => {
               </Card.Content>
 
             </Card>
-          </Grid.Column>
-          <Grid.Column>
-            <Sticky offset={80}>
-              <Card fluid raised>
-                <Advertisement
-                  unit="half page"
-                  test="This is an advertisement.">
-
-                </Advertisement>
-              </Card>
-            </Sticky>
           </Grid.Column>
         </Grid>
       </Layout >

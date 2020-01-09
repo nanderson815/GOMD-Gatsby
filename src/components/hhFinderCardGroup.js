@@ -3,6 +3,22 @@ import { Card, Icon } from 'semantic-ui-react'
 import Img from 'gatsby-image'
 import { navigate } from 'gatsby'
 
+// Shuffle deals helper
+const shuffle = (array) => {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+    return array;
+}
+
 // Format time helper
 const formatTime = (time24) => {
     const [sHours, minutes] = time24.match(/([0-9]{1,2}):([0-9]{2})/).slice(1);
@@ -32,7 +48,8 @@ const HHFinderCardGroup = ({ happyHours, day, rows, hood, setHoverHandler, clear
     const [cards, setCards] = React.useState('')
 
     useEffect(() => {
-        let cards = happyHours.map(deal => {
+
+        let cards = shuffle(happyHours).map(deal => {
             let timeField = day.toLowerCase();
             let descField = day.toLowerCase() + "Desc";
             let descriptionString;
@@ -47,7 +64,7 @@ const HHFinderCardGroup = ({ happyHours, day, rows, hood, setHoverHandler, clear
                     onClick={navfunc}
                     key={deal.id}
                     slug={deal.slug} >
-                    <Img style={{ height: "150px" }} alt={deal.name} fluid={deal.mainImg.fluid} />
+                    <Img style={{ height: "150px" }} alt={deal.name + ' Happy Hour atlanta'} fluid={deal.mainImg.fluid} />
                     <Card.Content>
                         <Card.Header>{deal.name}</Card.Header>
                         {day === "All" ? null :

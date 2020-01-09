@@ -21,7 +21,6 @@ const IndexPage = ({ data }) => {
   }, [])
 
   let happyHours = data.allContentfulHappyHour.edges.map(item => item.node)
-  console.log(happyHours)
 
   const handleClick = (e) => {
     let tag = e.target.value
@@ -68,7 +67,7 @@ const IndexPage = ({ data }) => {
           style={{ width: width }}>
           <BackgroundImage
             fluid={[`linear-gradient(rgba(225, 225, 225, 0.2), rgba(0, 0, 0, 0.9))`, item.mainImg.fluid]}
-            alt={item.name}
+            alt={item.name + ' Happy Hour Atlanta'}
             style={{ height: `${screen < 768 ? "20vh" : "50vh"}` }}
           >
             <h2 style={{ color: "white", position: "absolute", bottom: "20px", left: "10px", zIndex: "2000" }}><span style={{ fontWeight: "lighter", fontSize: "20px" }}>Happy Hour:</span> <br />{item.name}</h2>
@@ -159,7 +158,7 @@ const IndexPage = ({ data }) => {
                     <Image
                       style={{ width: "70px", height: "70px", objectFit: "cover" }}
                       size='small'
-                      alt={item.name}
+                      alt={item.name + ' Happy Hour Atlanta'}
                       circular
                       floated="left"
                       src={item.mainImg.fluid.srcWebp} />
