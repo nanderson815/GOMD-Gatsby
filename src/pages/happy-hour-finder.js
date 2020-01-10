@@ -195,7 +195,10 @@ const HappyHourFinder = (props) => {
                             <Link to="/"><img alt="Georgia on my Dime Logo" style={{ margin: "10px 0px 0px 20px" }} src={logo} /></Link>
                         </div>
                         <div style={{ height: "4px", background: "#5d5e5e" }}></div>
-                        <Accordion as={Menu} vertical style={{ width: "77%", padding: "0px 10px", margin: "5px 10px 10px 20px", display: "inline-block" }}>
+                        <h3 style={{ margin: "10px 0px 0px 20px" }}>{day} Happy Hours</h3>
+                        <Icon link onClick={handleDisplayChange} style={{ position: "absolute", top: "60px", right: "30px" }} circular size='large' color='blue' name={`${displayMap ? "list" : "map"}`} />
+
+                        <Accordion as={Menu} vertical style={{ width: "90%", padding: "0px 10px", margin: "12px 10px 5px 20px", display: "inline-block" }}>
                             <Menu.Item>
                                 <Accordion.Title
                                     active={activeIndex === 0}
@@ -214,8 +217,6 @@ const HappyHourFinder = (props) => {
                                 </Accordion.Content>
                             </Menu.Item>
                         </Accordion>
-                        <Icon link onClick={handleDisplayChange} style={{ position: "absolute", marginTop: '5px' }} circular size='large' color='blue' name={`${displayMap ? "list" : "map"}`} />
-
                     </div>
                 </Sticky>
                 {displayMap ? <GoogleMap
