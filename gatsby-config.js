@@ -7,10 +7,12 @@ module.exports = {
     title: `Georgia on my Dime`,
     description: `Discover Atlanta's best Happy Hours and restaurant deals with Georgia on my Dime! We have the only complete list of Atlanta Happy Hour and specials.`,
     author: `@georgiaonmydime`,
+    siteUrl: 'https://georgiaonmydime.com/'
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-netlify`,
+    `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -36,7 +38,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: "UA-108351219-2",
+        trackingId: "UA-108351219-1",
       },
     },
     {
