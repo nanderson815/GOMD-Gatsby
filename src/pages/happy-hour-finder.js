@@ -208,10 +208,10 @@ const HappyHourFinder = (props) => {
                                 />
                                 <Accordion.Content active={activeIndex === 0} >
                                     <div style={{ width: "100%", margin: "0px 5px 10px 10px" }}>
-                                        Day: <Dropdown style={{ minWidth: "90%", padding: "15px" }} selection value={day} options={days} onChange={changeDay} />
+                                        Day: <Dropdown style={{ minWidth: "95%", padding: "15px" }} selection value={day} options={days} onChange={changeDay} />
                                     </div>
                                     <div style={{ width: "100%", margin: "0px 5px 10px 10px" }}>
-                                        Neighborhood: <Dropdown style={{ minWidth: "90%", padding: "15px" }} selection value={neighborhood} options={neighborhoods} onChange={changeHood} />
+                                        Neighborhood: <Dropdown style={{ minWidth: "95%", padding: "15px" }} selection value={neighborhood} options={neighborhoods} onChange={changeHood} />
                                     </div>
                                     {showClear ? <Button primary onClick={clearSearch} style={{ margin: "0px 5px 10px 24px" }}>Clear Search</Button> : null}
                                 </Accordion.Content>
