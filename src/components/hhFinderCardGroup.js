@@ -1,23 +1,8 @@
 import React, { useEffect } from 'react'
 import { Card, Icon } from 'semantic-ui-react'
 import Img from 'gatsby-image'
-import { navigate } from 'gatsby'
+import { navigate, Link } from 'gatsby'
 
-// Shuffle deals helper
-const shuffle = (array) => {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-        // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        // And swap it with the current element.
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-    return array;
-}
 
 // Format time helper
 const formatTime = (time24) => {
@@ -49,7 +34,7 @@ const HHFinderCardGroup = ({ happyHours, day, rows, hood, setHoverHandler, clear
 
     useEffect(() => {
 
-        let cards = shuffle(happyHours).map(deal => {
+        let cards = happyHours.map(deal => {
             let timeField = day.toLowerCase();
             let descField = day.toLowerCase() + "Desc";
             let descriptionString;
@@ -61,16 +46,20 @@ const HHFinderCardGroup = ({ happyHours, day, rows, hood, setHoverHandler, clear
                     // onMouseEnter={setHoverHandler.bind(this, deal.id)}
                     // onMouseLeave={clearHoveredHandler}
                     link
-                    onClick={navfunc}
+                    // onClick={navfunc}
                     key={deal.id}
                     slug={deal.slug} >
-                    <Img style={{ height: "150px" }} alt={deal.name + ' Happy Hour atlanta'} fluid={deal.mainImg.fluid} />
+                    <Link to={`/atlanta-happy-hour/${deal.slug}`}>
+                        <Img style={{ height: "150px" }} alt={deal.name + ' Happy Hour atlanta'} fluid={deal.mainImg.fluid} />
+                    </Link>
                     <Card.Content>
-                        <Card.Header>{deal.name}</Card.Header>
-                        {day === "All" ? null :
-                            <Card.Description>
-                                {setHHTime(deal, timeField)} {trimmedString}
-                            </Card.Description>}
+                        <Card.Header style={{ marginBottom: '5px' }}> <Link style={{ color: "black" }} to={`/atlanta-happy-hour/${deal.slug}`}>{deal.name}</Link></Card.Header>
+                        <Link style={{ color: "grey" }} to={`/atlanta-happy-hour/${deal.slug}`}>
+                            {day === "All" ? null :
+                                <Card.Description>
+                                    {setHHTime(deal, timeField)} {trimmedString}
+                                </Card.Description>}
+                        </Link>
                     </Card.Content>
                     <Card.Content extra value={deal.neighborhood}>
                         <Icon name="marker" />

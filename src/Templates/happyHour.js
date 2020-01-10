@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import get from 'lodash/get'
 import { graphql } from 'gatsby';
 import Header from '../components/header'
