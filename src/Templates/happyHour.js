@@ -4,8 +4,9 @@ import { graphql } from 'gatsby';
 import Header from '../components/header'
 import Img from 'gatsby-image';
 import Layout from '../components/layout'
-import { Grid, Label, Card, Sticky } from 'semantic-ui-react'
+import { Grid, Label, Card, Sticky, Segment } from 'semantic-ui-react'
 import SEO from '../components/seo'
+import NearbyHH from '../components/nearbyHH'
 
 let formatPhoneNumber = (str) => {
   //Filter only numbers from the input
@@ -38,7 +39,8 @@ const setHHTime = (post, day) => {
 
 const HappyHour = (props) => {
   const post = get(props, 'data.contentfulHappyHour')
-  console.log(props)
+  const nearbyHH = get(props, 'data.allContentfulHappyHour.edges').map(item => item.node).filter(item => item.name !== post.name);
+  console.log(nearbyHH)
 
   useEffect(() => {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -82,29 +84,32 @@ const HappyHour = (props) => {
             </Card>
           </Grid.Column>
           <Grid.Column>
-            <Sticky offset={80}>
-              <Card fluid raised>
-                <div
-                  style={{ overflow: 'hidden', height: "225px" }}
-                >
-                  {/* <img alt="resetaurant location map" style={{ marginBottom: "-5px" }} src={`https://maps.googleapis.com/maps/api/staticmap?center=${post.location.lat},${post.location.lon}&markers=color:0x1c70b5%7C${post.location.lat},${post.location.lon}&zoom=15&size=500x268&key=${process.env.GATSBY_GOOGLE_MAPS_API_KEY}`} /> */}
-                  <iframe title="Happy Hour Map" width="100%" height="240px" frameBorder="0" style={{ border: "0", margin: "0px" }} src={`https://www.google.com/maps/embed/v1/place?q=${post.address}&key=${process.env.GATSBY_GOOGLE_MAPS_API_KEY}`}></iframe>
-                </div>
-                <Card.Content style={{ background: "white" }}>
-                  <Card.Description>
-                    <a
-                      style={{ color: "grey" }}
-                      href={`https://www.google.com/maps/search/?api=1&query=${post.address}`}>
-                      {post.address}
+            <Card fluid raised>
+              <div
+                style={{ overflow: 'hidden', height: "225px" }}
+              >
+                {/* <img alt="resetaurant location map" style={{ marginBottom: "-5px" }} src={`https://maps.googleapis.com/maps/api/staticmap?center=${post.location.lat},${post.location.lon}&markers=color:0x1c70b5%7C${post.location.lat},${post.location.lon}&zoom=15&size=500x268&key=${process.env.GATSBY_GOOGLE_MAPS_API_KEY}`} /> */}
+                <iframe title="Happy Hour Map" width="100%" height="240px" frameBorder="0" style={{ border: "0", margin: "0px" }} src={`https://www.google.com/maps/embed/v1/place?q=${post.address}&key=${process.env.GATSBY_GOOGLE_MAPS_API_KEY}`}></iframe>
+              </div>
+              <Card.Content style={{ background: "white" }}>
+                <Card.Description>
+                  <a
+                    style={{ color: "grey" }}
+                    href={`https://www.google.com/maps/search/?api=1&query=${post.address}`}>
+                    {post.address}
 
-                    </a>
-                  </Card.Description>
-                  <Card.Description>
-                    {`${formatPhoneNumber(post.phone)} |`} <a style={{ color: "#1c70b5", fontWeight: "bold" }} href={post.website}>Website</a>
-                  </Card.Description>
-                </Card.Content>
-              </Card>
-            </Sticky>
+                  </a>
+                </Card.Description>
+                <Card.Description>
+                  {`${formatPhoneNumber(post.phone)} |`} <a style={{ color: "#1c70b5", fontWeight: "bold" }} href={post.website}>Website</a>
+                </Card.Description>
+              </Card.Content>
+            </Card>
+
+            <Segment style={{ paddingTop: '10px' }}>
+              <h4 style={{ marginBottom: "20px" }}>Other Happy Hours in {post.neighborhood}</h4>
+              <NearbyHH happyHours={nearbyHH}></NearbyHH>
+            </Segment>
           </Grid.Column>
         </Grid>
       </Layout >
