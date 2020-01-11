@@ -30,6 +30,7 @@ exports.createPages = ({ graphql, actions }) => {
     edges {
       node {
         slug
+        neighborhood
       }
     }
   }
@@ -48,7 +49,8 @@ exports.createPages = ({ graphql, actions }) => {
             path: `/atlanta-happy-hour/${post.node.slug}/`,
             component: happyHour,
             context: {
-              slug: post.node.slug
+              slug: post.node.slug,
+              neighborhood: post.node.neighborhood
             },
           })
         })

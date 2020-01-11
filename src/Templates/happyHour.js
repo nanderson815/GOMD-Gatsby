@@ -38,6 +38,7 @@ const setHHTime = (post, day) => {
 
 const HappyHour = (props) => {
   const post = get(props, 'data.contentfulHappyHour')
+  console.log(props)
 
   useEffect(() => {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -114,7 +115,7 @@ const HappyHour = (props) => {
 export default HappyHour
 
 export const pageQuery = graphql`
-  query HappyHourBySlug($slug: String!) {
+  query HappyHourBySlug($slug: String!, $neighborhood: String!) {
         site {
         siteMetadata {
         title
@@ -123,6 +124,13 @@ export const pageQuery = graphql`
     contentfulHappyHour(slug: {eq: $slug }) {
       ...allHappyHourFields
     }
+    allContentfulHappyHour(filter: {neighborhood: {eq: $neighborhood}}) {
+    edges {
+      node {
+        ...allHappyHourFields
+      }
+    }
+  }
   }
 `
 
