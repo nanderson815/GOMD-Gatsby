@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import get from 'lodash/get'
-import { graphql } from 'gatsby';
+import { navigate, graphql } from 'gatsby';
 import Header from '../components/header'
 import Img from 'gatsby-image';
 import Layout from '../components/layout'
-import { Grid, Label, Card, Sticky, Segment } from 'semantic-ui-react'
+import { Grid, Label, Card, Segment, Button } from 'semantic-ui-react'
 import SEO from '../components/seo'
 import NearbyHH from '../components/nearbyHH'
 
@@ -18,6 +18,13 @@ let formatPhoneNumber = (str) => {
   };
   return null
 };
+
+const handleClick = (e) => {
+  let tag = e.target.value
+  navigate("/happy-hour-finder", {
+    state: { tag: tag },
+  })
+}
 
 const formatTime = (time24) => {
   const [sHours, minutes] = time24.match(/([0-9]{1,2}):([0-9]{2})/).slice(1);
@@ -60,7 +67,7 @@ const HappyHour = (props) => {
                 <Card.Header>
                   <h1 style={{ marginBottom: "-3px" }}>{post.name}</h1>
                   <p>{post.neighborhood}</p>
-                  {post.tags.map((tag, index) => <Label key={`${index}label`}>{tag}</Label>)}
+                  {post.tags.map((tag, index) => <Label as={Button} key={`${index}label`} value={tag} onClick={handleClick}>{tag}</Label>)}
                 </Card.Header>
 
               </Card.Content>
