@@ -6,6 +6,7 @@ import GoogleMap from '../components/googleMap'
 import HHFinderCardGroup from '../components/hhFinderCardGroup'
 import logo from '../images/logoInlineText.svg'
 import 'semantic-ui-less/semantic.less'
+import MobileHappyHourMap from '../components/mobileHappyHourMap'
 
 
 const HappyHourFinder = (props) => {
@@ -219,16 +220,10 @@ const HappyHourFinder = (props) => {
                         </Accordion>
                     </div>
                 </Sticky>
-                {displayMap ? <GoogleMap
-                    happyHours={filteredHH}
-                    hovered={hovered}
-                    isMarkerShown
-                    loadingElement={<div style={{ height: `100vh`, width: "100%" }} />}
-                    containerElement={<div style={{ height: `calc(100vh - 115.67px)`, marginTop: "20px" }} />}
-                    mapElement={<div style={{ height: `100%` }} />}
-                    googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.GATSBY_GOOGLE_MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}>
-
-                </GoogleMap> :
+                {displayMap ? <MobileHappyHourMap
+                    filteredHH={filteredHH}
+                    hovered={hovered}>
+                </MobileHappyHourMap> :
                     <HHFinderCardGroup happyHours={filteredHH} hood={neighborhood} day={day} rows={1} setHoverHandler={setHoverHandler} clearHoveredHandler={clearHoveredHandler}></HHFinderCardGroup>}
             </Responsive>
         </>

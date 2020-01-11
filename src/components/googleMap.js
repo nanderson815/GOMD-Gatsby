@@ -3,7 +3,7 @@ import { withGoogleMap, withScriptjs, GoogleMap } from "react-google-maps"
 import { Card } from 'semantic-ui-react';
 import Img from 'gatsby-image'
 import { navigate } from 'gatsby'
-import mapIcon from '../images/mapIcon.svg'
+import mapIcon from '../images/mapIcon2.svg'
 
 
 const { MarkerClusterer } = require("react-google-maps/lib/components/addons/MarkerClusterer");
@@ -104,6 +104,10 @@ const mapStyles = [
     }
 ]
 
+const defaultMapOptions = {
+    disableDefaultUI: true
+}
+
 
 
 const HappyHourMap = ({ happyHours, hovered }) => {
@@ -175,16 +179,17 @@ const HappyHourMap = ({ happyHours, hovered }) => {
             }}
             defaultZoom={zoom}
             defaultCenter={center}
+            defaultOptions={defaultMapOptions}
         >
-            <MarkerClusterer
+            {/* <MarkerClusterer
                 onClick={onMarkerClustererClick}
                 averageCenter
                 enableRetinaIcons
-                gridSize={30}
+                gridSize={20}
             // defaultMaxZoom={13}
-            >
-                {markers}
-            </MarkerClusterer>
+            > */}
+            {markers}
+            {/* </MarkerClusterer> */}
         </GoogleMap>
     );
 }

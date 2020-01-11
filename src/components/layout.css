@@ -12,6 +12,19 @@
     display: none;
 }
 
+.scrolling-snapper {
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}::-webkit-scrollbar {
+    display: none;
+}
+
+.child-snap{
+  scroll-snap-align: center;
+}
+
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
