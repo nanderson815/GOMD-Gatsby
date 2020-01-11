@@ -106,8 +106,8 @@ const HappyHour = (props) => {
               </Card.Content>
             </Card>
 
-            <Segment style={{ paddingTop: '10px' }}>
-              <h4 style={{ marginBottom: "20px" }}>Other Happy Hours in {post.neighborhood}</h4>
+            <Segment raised style={{ paddingTop: '10px' }}>
+              <h4 style={{ marginBottom: "25px", textAlign: "center", fontSize: "18px" }}>Other Happy Hours in {post.neighborhood}</h4>
               <NearbyHH happyHours={nearbyHH}></NearbyHH>
             </Segment>
           </Grid.Column>
