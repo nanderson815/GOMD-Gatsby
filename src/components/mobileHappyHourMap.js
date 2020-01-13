@@ -67,9 +67,9 @@ const MobileHappyHourMap = ({ filteredHH, hovered }) => {
                                 className="child-snap"
                                 key={card.id}
                                 id={card.id}>
-                                <Img style={{ height: "80px" }} alt={card.name + ' Happy Hour atlanta'} fluid={card.mainImg.fluid} />
+                                <Img style={{ height: "100px" }} alt={card.name + ' Happy Hour atlanta'} fluid={card.mainImg.fluid} />
                                 <Card.Content>
-                                    <Card.Header style={{ margin: "-15px 0px" }}>{card.name}</Card.Header>
+                                    <Card.Header style={{ margin: "-5px 0px -10px 0px" }}>{card.name}</Card.Header>
                                 </Card.Content>
                                 <Card.Content style={{ padding: "3px 0px 0px 10px" }}>
                                     <Link to={`/atlanta-happy-hour/${card.slug}`}>
