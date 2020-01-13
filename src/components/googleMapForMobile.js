@@ -125,11 +125,14 @@ const HappyHourMap = ({ happyHours, hovered, focused }) => {
 
     const onClickHandler = (slug, id) => {
         console.log(id)
-        if (visible === id) {
-            navigate("/atlanta-happy-hour/" + slug)
-        } else {
-            setVisible(id)
-        }
+        let element = document.getElementById(id);
+        element.scrollIntoView()
+        // if (visible === id) {
+        //     navigate("/atlanta-happy-hour/" + slug)
+        // } else {
+        //     setVisible(id)
+        // }
+
     }
 
 
@@ -171,7 +174,6 @@ const HappyHourMap = ({ happyHours, hovered, focused }) => {
     return (
         // Important! Always set the container height explicitly as less than 100vh to avoid strange sticky behavior.
         <GoogleMap
-            onClick={onClickHandler.bind(this, "null", "null")}
             options={{
                 styles: mapStyles
             }}
