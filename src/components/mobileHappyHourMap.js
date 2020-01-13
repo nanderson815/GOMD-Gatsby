@@ -7,6 +7,7 @@ import Img from 'gatsby-image'
 import './layout.css'
 
 
+
 const MobileHappyHourMap = ({ filteredHH, hovered }) => {
 
     const handleIntersect = (entries, observer) => {
@@ -36,6 +37,8 @@ const MobileHappyHourMap = ({ filteredHH, hovered }) => {
         } else {
         }
     }
+
+    useEffect(() => window.scrollTo(0, document.body.scrollHeight));
 
     useEffect(() => {
         let elements = []

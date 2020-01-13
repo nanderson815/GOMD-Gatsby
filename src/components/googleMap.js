@@ -102,7 +102,8 @@ const mapStyles = [
 const defaultMapOptions = {
     fullscreenControl: false,
     streetViewControl: false,
-    mapTypeControl: false
+    mapTypeControl: false,
+    styles: mapStyles
 }
 
 const HappyHourMap = ({ happyHours, hovered }) => {
