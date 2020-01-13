@@ -175,6 +175,7 @@ const HappyHourMap = ({ happyHours, hovered, focused }) => {
     return (
         // Important! Always set the container height explicitly as less than 100vh to avoid strange sticky behavior.
         <GoogleMap
+            onClick={onClickHandler.bind(this, "null", "null")}
             options={{
                 styles: mapStyles
             }}
