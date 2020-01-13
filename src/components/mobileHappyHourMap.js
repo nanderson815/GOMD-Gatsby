@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import "semantic-ui-less/semantic.less"
-import GoogleMap from '../components/googleMap'
+import GoogleMapMobile from '../components/googleMapForMobile'
 import { Card, Icon } from "semantic-ui-react"
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
@@ -47,7 +47,7 @@ const MobileHappyHourMap = ({ filteredHH, hovered }) => {
     let width = filteredHH.length * 304 + 30
     return (
         <>
-            <GoogleMap
+            <GoogleMapMobile
                 happyHours={filteredHH}
                 hovered={hovered}
                 focused={focused}
@@ -56,7 +56,7 @@ const MobileHappyHourMap = ({ filteredHH, hovered }) => {
                 containerElement={<div style={{ height: `calc(104vh - 115.67px)`, marginTop: "-40px" }} />}
                 mapElement={<div style={{ height: `100%` }} />}
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.GATSBY_GOOGLE_MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}>
-            </GoogleMap>
+            </GoogleMapMobile>
 
             <div id="scrollArea" className="scrolling-snapper" style={{ position: "absolute", bottom: "20px", width: "calc(100vw)" }}>
                 <Card.Group style={{ width: width }}>
@@ -69,9 +69,9 @@ const MobileHappyHourMap = ({ filteredHH, hovered }) => {
                                 id={card.id}>
                                 <Img style={{ height: "80px" }} alt={card.name + ' Happy Hour atlanta'} fluid={card.mainImg.fluid} />
                                 <Card.Content>
-                                    <Card.Header style={{ marginBottom: "-15px" }}>{card.name}</Card.Header>
+                                    <Card.Header style={{ margin: "-15px 0px" }}>{card.name}</Card.Header>
                                 </Card.Content>
-                                <Card.Content style={{ padding: "3px 0px 0px 5px", marginBottom: "-5px" }}>
+                                <Card.Content style={{ padding: "3px 0px 0px 10px" }}>
                                     <Link to={`/atlanta-happy-hour/${card.slug}`}>
                                         <Card.Description style={{ color: "grey" }}>Show Happy Hours <Icon style={{ float: "right" }} name="chevron right"></Icon> </Card.Description>
                                     </Link>
