@@ -115,10 +115,6 @@ const HappyHourMap = ({ happyHours, hovered, focused }) => {
     const zoom = 11
     const [markers, setMarkers] = React.useState([]);
 
-    const onMarkerClustererClick = (markerClusterer) => {
-        const clickedMarkers = markerClusterer.getMarkers()
-    }
-
     const [visible, setVisible] = React.useState("")
     const onMarkerHover = (id) => {
         setVisible(id)
@@ -181,7 +177,7 @@ const HappyHourMap = ({ happyHours, hovered, focused }) => {
             }}
             defaultZoom={zoom}
             defaultCenter={center}
-            defaultOptions={defaultMapOptions}
+            options={defaultMapOptions}
         >
             {markers}
         </GoogleMap>

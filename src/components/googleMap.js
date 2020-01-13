@@ -99,7 +99,11 @@ const mapStyles = [
     }
 ]
 
-
+const defaultMapOptions = {
+    fullscreenControl: false,
+    streetViewControl: false,
+    mapTypeControl: false
+}
 
 const HappyHourMap = ({ happyHours, hovered }) => {
     const center = { lat: 33.78454, lng: -84.3880 }
@@ -170,6 +174,7 @@ const HappyHourMap = ({ happyHours, hovered }) => {
             }}
             defaultZoom={zoom}
             defaultCenter={center}
+            options={defaultMapOptions}
         >
             <MarkerClusterer
                 onClick={onMarkerClustererClick}

@@ -173,7 +173,7 @@ const HappyHourFinder = (props) => {
                         <HHFinderCardGroup happyHours={filteredHH} day={day} hood={neighborhood} rows={2} setHoverHandler={setHoverHandler} clearHoveredHandler={clearHoveredHandler} />
                     </Grid.Column>
                     <Grid.Column tablet={6} computer={8} largeScreen={8} style={{ padding: "0px" }}>
-                        <div style={{ position: 'fixed', top: "0", width: "55%", height: "100%" }}>
+                        <div style={{ position: 'fixed', top: "0", width: "50%", height: "100%" }}>
                             <GoogleMap
                                 happyHours={filteredHH}
                                 hovered={hovered}
