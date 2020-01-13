@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import "semantic-ui-less/semantic.less"
 import GoogleMap from '../components/googleMap'
 import { Card, Icon } from "semantic-ui-react"
@@ -7,30 +7,37 @@ import Img from 'gatsby-image'
 import './layout.css'
 
 
-const handleIntersect = (entries, observer) => {
-    entries.forEach(entry => {
-        console.log(entry.target.id)
-    })
-}
-
-const createObserver = (elements) => {
-    let observer;
-    let options = {
-        root: document.getElementById("scrollArea"),
-        rootMargin: "0px",
-        threshold: 1.0
-    };
-    observer = new IntersectionObserver(handleIntersect, options);
-    elements.forEach(element => observer.observe(element))
-}
-
-
-
-
-
 const MobileHappyHourMap = ({ filteredHH, hovered }) => {
+
+    const handleIntersect = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                handleFocused(entry.target.id)
+            }
+        })
+    }
+
+    const createObserver = (elements) => {
+        let observer;
+        let options = {
+            root: document.getElementById("scrollArea"),
+            rootMargin: "0px",
+            threshold: 1.0
+        };
+        observer = new IntersectionObserver(handleIntersect, options);
+        elements.forEach(element => observer.observe(element))
+    }
+
+    const [focused, setFocused] = useState('')
+
+    const handleFocused = (id) => {
+        if (focused !== id) {
+            setFocused(id)
+        } else {
+        }
+    }
+
     useEffect(() => {
-        console.log(filteredHH)
         let elements = []
         filteredHH.forEach(card => elements.push(document.getElementById(`${card.id}`)))
         createObserver(elements);
@@ -43,6 +50,7 @@ const MobileHappyHourMap = ({ filteredHH, hovered }) => {
             <GoogleMap
                 happyHours={filteredHH}
                 hovered={hovered}
+                focused={focused}
                 isMarkerShown
                 loadingElement={<div style={{ height: `100vh`, width: "100%" }} />}
                 containerElement={<div style={{ height: `calc(104vh - 115.67px)`, marginTop: "-40px" }} />}
