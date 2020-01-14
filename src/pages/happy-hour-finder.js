@@ -190,7 +190,7 @@ const HappyHourFinder = (props) => {
                 </Grid>
             </Responsive>
             <Responsive {...Responsive.onlyMobile}>
-                <Sticky style={{ margin: "-14px" }}>
+                <div style={{ margin: "0px -14px" }}>
                     <div style={{ background: "white" }}>
                         <div style={{ background: "#1c70b5" }}>
                             <Link to="/"><img alt="Georgia on my Dime Logo" style={{ margin: "10px 0px 0px 20px" }} src={logo} /></Link>
@@ -219,10 +219,11 @@ const HappyHourFinder = (props) => {
                             </Menu.Item>
                         </Accordion>
                     </div>
-                </Sticky>
+                </div>
                 {displayMap ? <MobileHappyHourMap
                     filteredHH={filteredHH}
-                    hovered={hovered}>
+                    hovered={hovered}
+                    day={day.toLowerCase() + "Desc"}>
                 </MobileHappyHourMap> :
                     <HHFinderCardGroup happyHours={filteredHH} hood={neighborhood} day={day} rows={1} setHoverHandler={setHoverHandler} clearHoveredHandler={clearHoveredHandler}></HHFinderCardGroup>}
             </Responsive>

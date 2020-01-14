@@ -161,7 +161,7 @@ const IndexPage = ({ data }) => {
                       alt={item.name + ' Happy Hour Atlanta'}
                       circular
                       floated="left"
-                      src={item.mainImg.fluid.srcWebp} />
+                      src={item.mainImg.fluid.src} />
                     <h5 style={{ margin: "0px" }}>{item.name}</h5>
                     <p style={{ fontSize: "12px" }}>{item.neighborhood}</p>
                   </Link>

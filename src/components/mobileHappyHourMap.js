@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react"
 import "semantic-ui-less/semantic.less"
 import GoogleMapMobile from '../components/googleMapForMobile'
-import { Card, Icon } from "semantic-ui-react"
+import { Card, Icon, Label, Button } from "semantic-ui-react"
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
 import './layout.css'
 
 
 
-const MobileHappyHourMap = ({ filteredHH, hovered }) => {
+const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
 
     const handleIntersect = (entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 handleFocused(entry.target.id)
+                console.log(entry.target.id)
             }
         })
     }
@@ -34,11 +35,8 @@ const MobileHappyHourMap = ({ filteredHH, hovered }) => {
     const handleFocused = (id) => {
         if (focused !== id) {
             setFocused(id)
-        } else {
         }
     }
-
-    useEffect(() => window.scrollTo(0, document.body.scrollHeight));
 
     useEffect(() => {
         let elements = []
@@ -55,13 +53,13 @@ const MobileHappyHourMap = ({ filteredHH, hovered }) => {
                 hovered={hovered}
                 focused={focused}
                 isMarkerShown
-                loadingElement={<div style={{ height: `100vh`, width: "100%" }} />}
-                containerElement={<div style={{ height: `calc(102vh - 115.67px)`, marginTop: "-40px" }} />}
+                loadingElement={<div style={{ height: `100%`, width: "100%" }} />}
+                containerElement={<div style={{ height: `calc(100vh - 151px)` }} />}
                 mapElement={<div style={{ height: `100%` }} />}
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.GATSBY_GOOGLE_MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}>
             </GoogleMapMobile>
 
-            <div id="scrollArea" className="scrolling-snapper" style={{ position: "relative", marginTop: "-195px", width: "calc(100vw)" }}>
+            <div id="scrollArea" className="scrolling-snapper" style={{ position: "relative", marginTop: "-185px", width: "calc(100vw)" }}>
                 <Card.Group style={{ width: width }}>
                     {filteredHH.map((card, index) => {
                         return (
@@ -70,9 +68,10 @@ const MobileHappyHourMap = ({ filteredHH, hovered }) => {
                                 className="child-snap"
                                 key={card.id}
                                 id={card.id}>
-                                <Img style={{ height: "100px" }} alt={card.name + ' Happy Hour atlanta'} fluid={card.mainImg.fluid} />
+                                <Img style={{ height: "80px" }} alt={card.name + ' Happy Hour atlanta'} fluid={card.mainImg.fluid} />
                                 <Card.Content>
-                                    <Card.Header style={{ margin: "-5px 0px -10px 0px" }}>{card.name}</Card.Header>
+                                    <Card.Header style={{ margin: "-5px 0px 0px 0px" }}>{card.name}</Card.Header>
+                                    <div style={{ marginBottom: "-20px" }}>{card.tags.slice(0, 3).join(', ')}</div>
                                 </Card.Content>
                                 <Card.Content style={{ padding: "3px 0px 0px 10px" }}>
                                     <Link to={`/atlanta-happy-hour/${card.slug}`}>
