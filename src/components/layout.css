@@ -17,12 +17,15 @@
   scroll-snap-type: x mandatory;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
+  -webkit-scroll-snap-type: mandatory;
+  -webkit-scroll-snap-destination: 50% 50%;
 }::-webkit-scrollbar {
     display: none;
 }
 
 .child-snap{
   scroll-snap-align: center;
+  -webkit-scroll-snap-coordinate: 50% 50%;
 }
 
 html {

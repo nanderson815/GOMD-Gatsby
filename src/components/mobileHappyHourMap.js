@@ -54,12 +54,12 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
                 focused={focused}
                 isMarkerShown
                 loadingElement={<div style={{ height: `100%`, width: "100%" }} />}
-                containerElement={<div style={{ height: `calc(100vh - 151px)` }} />}
+                containerElement={<div style={{ height: `calc(100vh - 131px)` }} />}
                 mapElement={<div style={{ height: `100%` }} />}
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.GATSBY_GOOGLE_MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}>
             </GoogleMapMobile>
 
-            <div id="scrollArea" className="scrolling-snapper" style={{ position: "relative", marginTop: "-185px", width: "calc(100vw)" }}>
+            <div id="scrollArea" className="scrolling-snapper" style={{ position: "fixed", bottom: "20px", width: "calc(100vw)" }}>
                 <Card.Group style={{ width: width }}>
                     {filteredHH.map((card, index) => {
                         return (
