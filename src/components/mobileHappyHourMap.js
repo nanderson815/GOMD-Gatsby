@@ -47,14 +47,14 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
 
     let width = filteredHH.length * 304 + 30
     return (
-        <div style={{ overflowY: "hidden" }}>
+        <>
             <GoogleMapMobile
                 happyHours={filteredHH}
                 focused={focused}
                 width={width}
                 isMarkerShown
                 loadingElement={<div style={{ height: `100%`, width: "100%" }} />}
-                containerElement={<div style={{ height: `calc(100vh - 131px)` }} />}
+                containerElement={<div style={{ height: `calc(100vh - 131px)`, overflowY: "hidden" }} />}
                 mapElement={<div style={{ height: `100%` }} />}
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.GATSBY_GOOGLE_MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}>
             </GoogleMapMobile>
@@ -83,7 +83,7 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
                     })}
                 </Card.Group>
             </div>
-        </div>
+        </>
     )
 }
 
