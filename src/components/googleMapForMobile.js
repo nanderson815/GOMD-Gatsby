@@ -111,23 +111,23 @@ const defaultMapOptions = {
 
 
 
-const HappyHourMap = ({ happyHours, focused }) => {
+const HappyHourMap = ({ happyHours, focused, width }) => {
     const center = { lat: 33.78454, lng: -84.3880 }
     const zoom = 11
     const [markers, setMarkers] = React.useState([]);
 
 
-    const onClickHandler = (slug, id) => {
-        console.log(id)
+    const onClickHandler = (index, id) => {
         let element = document.getElementById(id);
         element.scrollIntoView({ inline: 'center' })
+        // element.scrollLeft = width * index / happyHours.length
 
     }
 
 
     useEffect(() => {
         if (happyHours.length > 0) {
-            let points = happyHours.map((m) => {
+            let points = happyHours.map((m, index) => {
                 return (
                     <MarkerWithLabel
                         key={m.id}
@@ -137,7 +137,7 @@ const HappyHourMap = ({ happyHours, focused }) => {
                         labelStyle={{ fontSize: "12px", padding: "5px" }}
                         icon={focused === m.id ? focusIcon : mapIcon}
                         labelVisible={false}
-                        onClick={onClickHandler.bind(this, m.slug, m.id)}
+                        onClick={onClickHandler.bind(this, index, m.id)}
                         zIndex={focused === m.id ? 10000 : 100}
                     >
                         <Card style={{ width: "200px" }}>
