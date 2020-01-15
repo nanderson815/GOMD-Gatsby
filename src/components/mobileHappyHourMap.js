@@ -47,10 +47,9 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
 
     let width = filteredHH.length * 304 + 30
     return (
-        <>
+        <div style={{ overflowY: "hidden" }}>
             <GoogleMapMobile
                 happyHours={filteredHH}
-                hovered={hovered}
                 focused={focused}
                 isMarkerShown
                 loadingElement={<div style={{ height: `100%`, width: "100%" }} />}
@@ -83,7 +82,7 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
                     })}
                 </Card.Group>
             </div>
-        </>
+        </div>
     )
 }
 

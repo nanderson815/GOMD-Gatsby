@@ -111,28 +111,16 @@ const defaultMapOptions = {
 
 
 
-const HappyHourMap = ({ happyHours, hovered, focused }) => {
+const HappyHourMap = ({ happyHours, focused }) => {
     const center = { lat: 33.78454, lng: -84.3880 }
     const zoom = 11
     const [markers, setMarkers] = React.useState([]);
 
-    const [visible, setVisible] = React.useState("")
-    const onMarkerHover = (id) => {
-        setVisible(id)
-    }
-    const clearVisible = () => {
-        setVisible("")
-    }
 
     const onClickHandler = (slug, id) => {
         console.log(id)
         let element = document.getElementById(id);
-        element.scrollIntoView()
-        // if (visible === id) {
-        //     navigate("/atlanta-happy-hour/" + slug)
-        // } else {
-        //     setVisible(id)
-        // }
+        element.scrollIntoView({ inline: 'center' })
 
     }
 
@@ -148,9 +136,7 @@ const HappyHourMap = ({ happyHours, hovered, focused }) => {
                         labelAnchor={{ x: (200 / 2), y: 195 }}
                         labelStyle={{ fontSize: "12px", padding: "5px" }}
                         icon={focused === m.id ? focusIcon : mapIcon}
-                        labelVisible={visible === m.id || hovered === m.id}
-                        onMouseOver={onMarkerHover.bind(this, m.id)}
-                        onMouseOut={clearVisible}
+                        labelVisible={false}
                         onClick={onClickHandler.bind(this, m.slug, m.id)}
                         zIndex={focused === m.id ? 10000 : 100}
                     >
@@ -169,7 +155,7 @@ const HappyHourMap = ({ happyHours, hovered, focused }) => {
         } else {
             setMarkers([]);
         }
-    }, [happyHours, visible, hovered, focused])
+    }, [happyHours, focused])
 
 
     return (
