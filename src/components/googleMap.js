@@ -124,7 +124,6 @@ const HappyHourMap = ({ happyHours, hovered }) => {
     }
 
     const onClickHandler = (slug, id) => {
-        console.log(id)
         if (visible === id) {
             navigate("/atlanta-happy-hour/" + slug)
         } else {

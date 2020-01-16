@@ -35,7 +35,6 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 handleFocused(entry.target.id)
-                console.log(entry.target.id)
             }
         })
     }
@@ -76,9 +75,8 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
     }, [filteredHH])
 
 
-    let width = filteredHH.length * 314 + 30
+    let width = filteredHH.length * 329 + 30
     let height = window ? window.innerHeight - 120 : '80vh'
-    // console.log(height)
 
     return (
         <div>
@@ -102,7 +100,7 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
                         let trimmedString = descriptionString.length > 150 ? descriptionString.substring(0, 150 - 3) + "..." : descriptionString;
                         return (
                             <Card
-                                style={{ marginLeft: `${index === 0 ? "20px" : null}`, width: "300px" }}
+                                style={{ marginLeft: `${index === 0 ? "20px" : null}`, width: "315px" }}
                                 className="child-snap"
                                 key={card.id}
                                 id={card.id}

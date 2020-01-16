@@ -47,7 +47,6 @@ const setHHTime = (post, day) => {
 const HappyHour = (props) => {
   const post = get(props, 'data.contentfulHappyHour')
   const nearbyHH = get(props, 'data.allContentfulHappyHour.edges').map(item => item.node).filter(item => item.name !== post.name);
-  console.log(nearbyHH)
 
   useEffect(() => {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
