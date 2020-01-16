@@ -82,10 +82,10 @@ const HappyHourFinder = (props) => {
         filterHappyHours()
     }, [day, neighborhood])
 
-
-    const [displayMap, setDisplayMap] = React.useState(false)
-
+    let viewFromStorage = sessionStorage.getItem('displayMap') === "true"
+    const [displayMap, setDisplayMap] = React.useState(viewFromStorage)
     const handleDisplayChange = () => {
+        sessionStorage.setItem('displayMap', !displayMap)
         setDisplayMap(!displayMap)
     }
 
@@ -223,7 +223,7 @@ const HappyHourFinder = (props) => {
                 {displayMap ? <MobileHappyHourMap
                     filteredHH={filteredHH}
                     hovered={hovered}
-                    day={day.toLowerCase() + "Desc"}>
+                    day={day.toLowerCase()}>
                 </MobileHappyHourMap> :
                     <HHFinderCardGroup happyHours={filteredHH} hood={neighborhood} day={day} rows={1} setHoverHandler={setHoverHandler} clearHoveredHandler={clearHoveredHandler}></HHFinderCardGroup>}
             </Responsive>
