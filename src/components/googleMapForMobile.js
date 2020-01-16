@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { withGoogleMap, withScriptjs, GoogleMap } from "react-google-maps"
 import { Card } from 'semantic-ui-react';
 import Img from 'gatsby-image'
-import { navigate } from 'gatsby'
 import mapIcon from '../images/mapIcon2.svg'
 import focusIcon from '../images/mapIcon3.svg'
 

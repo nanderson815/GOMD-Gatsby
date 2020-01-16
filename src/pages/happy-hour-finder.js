@@ -82,8 +82,12 @@ const HappyHourFinder = (props) => {
         filterHappyHours()
     }, [day, neighborhood])
 
-    let viewFromStorage = sessionStorage.getItem('displayMap') === "true"
-    const [displayMap, setDisplayMap] = React.useState(viewFromStorage)
+    useEffect(() => {
+        let displayMap = sessionStorage.getItem('displayMap') === "true"
+        setDisplayMap(displayMap)
+    })
+
+    const [displayMap, setDisplayMap] = React.useState('')
     const handleDisplayChange = () => {
         sessionStorage.setItem('displayMap', !displayMap)
         setDisplayMap(!displayMap)
