@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import "semantic-ui-less/semantic.less"
 import GoogleMapMobile from '../components/googleMapForMobile'
-import { Card } from "semantic-ui-react"
-import { navigate, Link } from 'gatsby'
+import { Card, Modal, Image, Button, Icon } from "semantic-ui-react"
+import { navigate } from 'gatsby'
 import Img from 'gatsby-image'
 import './layout.css'
 
@@ -25,9 +25,7 @@ const setHHTime = (post, day) => {
     }
 }
 
-const navfunc = (e, { slug }) => {
-    navigate("/atlanta-happy-hour/" + slug)
-}
+
 
 const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
 
@@ -74,6 +72,18 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
         createObserver(elements);
     }, [filteredHH])
 
+    const [previewHH, setPreviewHH] = React.useState('')
+    const [modalOpen, setModalOpen] = React.useState(false)
+    const handleClick = (card) => {
+        console.log(card)
+        setPreviewHH(card)
+        setModalOpen(true)
+    }
+
+    const navClick = (slug) => {
+        navigate("/atlanta-happy-hour/" + slug)
+    }
+
 
     let width = filteredHH.length * 329 + 30
     let height = window ? window.innerHeight - 120 : '80vh'
@@ -104,9 +114,8 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
                                 className="child-snap"
                                 key={card.id}
                                 id={card.id}
-                                onClick={navfunc}
+                                onClick={handleClick.bind(this, card)}
                                 link={false}
-                                slug={card.slug}
                             >
                                 <Img style={{ height: "80px" }} alt={card.name + ' Happy Hour atlanta'} fluid={card.mainImg.fluid} />
                                 <Card.Content>
@@ -118,6 +127,43 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
                     })}
                 </Card.Group>
             </div>
+            <Modal
+                open={modalOpen}
+                closeOnDimmerClick={true}
+                closeOnDocumentClick={true}
+                onClose={() => setModalOpen(false)}
+                closeIcon
+            >
+                {previewHH ?
+                    <>
+                        <Modal.Header>{previewHH.name}</Modal.Header>
+                        <Modal.Content scrolling image>
+                            <Image rounded style={{ marginBottom: "-20px" }} wrapped src={previewHH.mainImg.fluid.src}></Image>
+                            <Modal.Description style={{ padding: "0px !important" }}>
+                                <h3 style={{ marginTop: '-40px' }}>Happy Hours</h3>
+                                <div>
+                                    {previewHH.days.map((day, index) => {
+                                        let descField = day.toLowerCase() + "Desc"
+                                        let timeField = day.toLowerCase()
+                                        return (
+                                            <div key={`${index}happyHour`}>
+                                                <h4 style={{ marginBottom: "-3px" }}> <u>{day}</u></h4>
+                                                <p style={{ fontSize: "14px" }}>{setHHTime(previewHH, timeField)} {`${previewHH[descField][descField]}`}</p>
+                                                <hr></hr>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </Modal.Description>
+                        </Modal.Content>
+                        <Modal.Actions>
+                            <Button primary onClick={() => navClick(previewHH.slug)}>
+                                More <Icon name='right chevron' />
+                            </Button>
+                        </Modal.Actions>
+                    </>
+                    : null}
+            </Modal>
         </div >
     )
 }
