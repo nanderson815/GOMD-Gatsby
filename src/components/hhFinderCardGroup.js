@@ -2,26 +2,7 @@ import React, { useEffect } from 'react'
 import { Card, Icon } from 'semantic-ui-react'
 import Img from 'gatsby-image'
 import { navigate, Link } from 'gatsby'
-
-
-// Format time helper
-const formatTime = (time24) => {
-    const [sHours, minutes] = time24.match(/([0-9]{1,2}):([0-9]{2})/).slice(1);
-    const period = +sHours < 12 ? 'AM' : 'PM';
-    const hours = +sHours % 12 || 12;
-
-    return `${hours}:${minutes}${period}`;
-}
-
-const setHHTime = (post, day) => {
-    if (post.hours[day].end2 !== null) {
-        return (
-            <strong>{` ${formatTime(post.hours[day].start)} - ${formatTime(post.hours[day].end)} & ${formatTime(post.hours[day].start2)} - ${formatTime(post.hours[day].end2)}:`} </strong>
-        )
-    } else {
-        return <strong>{` ${formatTime(post.hours[day].start)} - ${formatTime(post.hours[day].end)}:`} </strong>
-    }
-}
+import { setHHTime } from '../Util/Util'
 
 const navfunc = (e, { slug }) => {
     navigate("/atlanta-happy-hour/" + slug)

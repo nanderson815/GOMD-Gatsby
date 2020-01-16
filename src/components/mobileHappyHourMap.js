@@ -5,25 +5,7 @@ import { Card, Modal, Image, Button, Icon } from "semantic-ui-react"
 import { navigate } from 'gatsby'
 import Img from 'gatsby-image'
 import './layout.css'
-
-// Format time helper
-const formatTime = (time24) => {
-    const [sHours, minutes] = time24.match(/([0-9]{1,2}):([0-9]{2})/).slice(1);
-    const period = +sHours < 12 ? 'AM' : 'PM';
-    const hours = +sHours % 12 || 12;
-
-    return `${hours}:${minutes}${period}`;
-}
-
-const setHHTime = (post, day) => {
-    if (post.hours[day].end2 !== null) {
-        return (
-            <strong>{` ${formatTime(post.hours[day].start)} - ${formatTime(post.hours[day].end)} & ${formatTime(post.hours[day].start2)} - ${formatTime(post.hours[day].end2)}:`} </strong>
-        )
-    } else {
-        return <strong>{` ${formatTime(post.hours[day].start)} - ${formatTime(post.hours[day].end)}:`} </strong>
-    }
-}
+import { sortByDay, setHHTime } from '../Util/Util'
 
 
 
@@ -75,7 +57,6 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
     const [previewHH, setPreviewHH] = React.useState('')
     const [modalOpen, setModalOpen] = React.useState(false)
     const handleClick = (card) => {
-        console.log(card)
         setPreviewHH(card)
         setModalOpen(true)
     }
@@ -142,7 +123,7 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
                             <Modal.Description style={{ padding: "0px !important" }}>
                                 <h3 style={{ marginTop: '-40px' }}>Happy Hours</h3>
                                 <div>
-                                    {previewHH.days.map((day, index) => {
+                                    {sortByDay(previewHH.days).map((day, index) => {
                                         let descField = day.toLowerCase() + "Desc"
                                         let timeField = day.toLowerCase()
                                         return (

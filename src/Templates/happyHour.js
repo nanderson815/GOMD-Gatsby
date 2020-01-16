@@ -7,41 +7,15 @@ import Layout from '../components/layout'
 import { Grid, Label, Card, Segment, Button } from 'semantic-ui-react'
 import SEO from '../components/seo'
 import NearbyHH from '../components/nearbyHH'
+import { setHHTime, formatPhoneNumber, sortByDay } from '../Util/Util'
 
-let formatPhoneNumber = (str) => {
-  //Filter only numbers from the input
-  let cleaned = ('' + str).replace(/\D/g, '');
-  //Check if the input is of correct length
-  let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-  if (match) {
-    return '(' + match[1] + ') ' + match[2] + '-' + match[3]
-  };
-  return null
-};
+
 
 const handleClick = (e) => {
   let tag = e.target.value
   navigate("/happy-hour-finder", {
     state: { tag: tag },
   })
-}
-
-const formatTime = (time24) => {
-  const [sHours, minutes] = time24.match(/([0-9]{1,2}):([0-9]{2})/).slice(1);
-  const period = +sHours < 12 ? 'AM' : 'PM';
-  const hours = +sHours % 12 || 12;
-
-  return `${hours}:${minutes}${period}`;
-}
-
-const setHHTime = (post, day) => {
-  if (post.hours[day].end2 !== null) {
-    return (
-      <strong>{` ${formatTime(post.hours[day].start)} - ${formatTime(post.hours[day].end)} & ${formatTime(post.hours[day].start2)} - ${formatTime(post.hours[day].end2)}:`} </strong>
-    )
-  } else {
-    return <strong>{` ${formatTime(post.hours[day].start)} - ${formatTime(post.hours[day].end)}:`} </strong>
-  }
 }
 
 const HappyHour = (props) => {
@@ -74,7 +48,7 @@ const HappyHour = (props) => {
                 <h2>Description</h2>
                 <p>{post.description.description}</p>
                 <h2>Happy Hours</h2>
-                {post.days.map((day, index) => {
+                {sortByDay(post.days).map((day, index) => {
                   let descField = day.toLowerCase() + "Desc"
                   let timeField = day.toLowerCase()
                   return (
