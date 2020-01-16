@@ -77,7 +77,7 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
 
 
     let width = filteredHH.length * 314 + 30
-    let height = window ? window.innerHeight - 151 : '80vh'
+    let height = window ? window.innerHeight - 120 : '80vh'
     // console.log(height)
 
     return (
@@ -98,7 +98,7 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
                     {filteredHH.map((card, index) => {
                         let descField = day + "Desc";
                         let descriptionString;
-                        day === "allDesc" ? descriptionString = "" : descriptionString = card[descField][descField]
+                        day === "all" ? descriptionString = "" : descriptionString = card[descField][descField]
                         let trimmedString = descriptionString.length > 150 ? descriptionString.substring(0, 150 - 3) + "..." : descriptionString;
                         return (
                             <Card
@@ -107,12 +107,13 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
                                 key={card.id}
                                 id={card.id}
                                 onClick={navfunc}
+                                link={false}
                                 slug={card.slug}
                             >
                                 <Img style={{ height: "80px" }} alt={card.name + ' Happy Hour atlanta'} fluid={card.mainImg.fluid} />
                                 <Card.Content>
                                     <Card.Header style={{ margin: "-10px 0px -5px ", whiteSpace: "nowrap", overflow: "scroll" }}>{card.name}</Card.Header>
-                                    <Card.Description style={{ marginBottom: "-10px" }}>{setHHTime(card, day)} {trimmedString}</Card.Description>
+                                    <Card.Description style={{ marginBottom: "-10px" }}>{day === "all" ? card.neighborhood : setHHTime(card, day)} {trimmedString}</Card.Description>
                                 </Card.Content>
                             </Card>
                         )
