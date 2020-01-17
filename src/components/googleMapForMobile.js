@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 import { withGoogleMap, withScriptjs, GoogleMap, Marker } from "react-google-maps"
-import { Card } from 'semantic-ui-react';
-import Img from 'gatsby-image'
 import mapIcon from '../images/mapIcon2.svg'
 import focusIcon from '../images/mapIcon3.svg'
 
@@ -109,7 +107,7 @@ const defaultMapOptions = {
 
 
 
-const HappyHourMap = ({ happyHours, focused, width }) => {
+const HappyHourMap = ({ happyHours, focused }) => {
     const center = { lat: 33.78454, lng: -84.3880 }
     const zoom = 11
     const [markers, setMarkers] = React.useState([]);
@@ -118,8 +116,6 @@ const HappyHourMap = ({ happyHours, focused, width }) => {
     const onClickHandler = (index, id) => {
         let element = document.getElementById(id);
         element.scrollIntoView({ inline: 'center' })
-        // element.scrollLeft = width * index / happyHours.length
-
     }
 
 

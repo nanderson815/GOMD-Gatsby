@@ -66,15 +66,18 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
     }
 
 
+    const [height, setHeight] = React.useState('80vh')
     let width = filteredHH.length * 329 + 30
-    let height = window ? window.innerHeight - 120 : '80vh'
+    useEffect(() => {
+        let height = window ? window.innerHeight - 120 : '80vh'
+        setHeight(height)
+    }, [])
 
     return (
         <div>
             <GoogleMapMobile
                 happyHours={filteredHH}
                 focused={focused}
-                width={width}
                 isMarkerShown
                 loadingElement={<div style={{ height: `100%`, width: "100%" }} />}
                 containerElement={<div style={{ height: height }} />}
