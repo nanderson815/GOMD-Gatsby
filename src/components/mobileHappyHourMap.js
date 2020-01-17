@@ -24,7 +24,7 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
         let options = {
             root: document.getElementById("scrollArea"),
             rootMargin: "0px",
-            threshold: 1.0
+            threshold: .9
         };
         observer = new IntersectionObserver(handleIntersect, options);
         elements.forEach(element => observer.observe(element))
@@ -96,7 +96,6 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
                                 key={card.id}
                                 id={card.id}
                                 onClick={handleClick.bind(this, card)}
-                                link={false}
                             >
                                 <Img style={{ height: "80px" }} alt={card.name + ' Happy Hour atlanta'} fluid={card.mainImg.fluid} />
                                 <Card.Content>
