@@ -106,9 +106,8 @@ const defaultMapOptions = {
 }
 
 
-
 const HappyHourMap = ({ happyHours, focused }) => {
-    const center = { lat: 33.78454, lng: -84.3880 }
+    const center = { lat: 33.819000, lng: -84.3880 }
     const zoom = 11
     const [markers, setMarkers] = React.useState([]);
 
@@ -142,7 +141,6 @@ const HappyHourMap = ({ happyHours, focused }) => {
 
 
     return (
-        // Important! Always set the container height explicitly as less than 100vh to avoid strange sticky behavior.
         <GoogleMap
             defaultZoom={zoom}
             defaultCenter={center}

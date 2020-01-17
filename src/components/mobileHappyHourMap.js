@@ -66,24 +66,20 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
     }
 
 
-    const [height, setHeight] = React.useState('80vh')
     let width = filteredHH.length * 329 + 30
-    useEffect(() => {
-        let height = window ? window.innerHeight - 120 : '80vh'
-        setHeight(height)
-    }, [])
-
     return (
         <div>
-            <GoogleMapMobile
-                happyHours={filteredHH}
-                focused={focused}
-                isMarkerShown
-                loadingElement={<div style={{ height: `100%`, width: "100%" }} />}
-                containerElement={<div style={{ height: height }} />}
-                mapElement={<div style={{ height: `100%` }} />}
-                googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.GATSBY_GOOGLE_MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}>
-            </GoogleMapMobile >
+            <div style={{ position: 'fixed', top: "0", width: "100%", height: "100%" }}>
+                <GoogleMapMobile
+                    happyHours={filteredHH}
+                    focused={focused}
+                    isMarkerShown
+                    loadingElement={<div style={{ height: `100vh`, width: "100%" }} />}
+                    containerElement={<div style={{ height: `100vh` }} />}
+                    mapElement={<div style={{ height: `100%` }} />}
+                    googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.GATSBY_GOOGLE_MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}>
+                </GoogleMapMobile >
+            </div>
 
             <div id="scrollArea" className="scrolling-snapper" style={{ position: "fixed", bottom: "10px", width: "calc(100vw)" }}>
                 <Card.Group style={{ width: width }}>
