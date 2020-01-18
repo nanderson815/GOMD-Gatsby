@@ -7,7 +7,8 @@ module.exports = {
     title: `Georgia on my Dime`,
     description: `Discover Atlanta's best Happy Hours and restaurant deals with Georgia on my Dime! We have the only complete list of Atlanta Happy Hour and specials.`,
     author: `@georgiaonmydime`,
-    siteUrl: 'https://georgiaonmydime.com/'
+    siteUrl: 'https://georgiaonmydime.com',
+    image: '/atlanta-happy-hour-georgia-on-my-dime.jpeg'
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

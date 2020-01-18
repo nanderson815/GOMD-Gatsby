@@ -20,6 +20,7 @@ const handleClick = (e) => {
 
 const HappyHour = (props) => {
   const post = get(props, 'data.contentfulHappyHour')
+  console.log(post)
   const nearbyHH = get(props, 'data.allContentfulHappyHour.edges').map(item => item.node).filter(item => item.name !== post.name);
 
   useEffect(() => {
@@ -30,7 +31,9 @@ const HappyHour = (props) => {
     <>
       <Header></Header>
       <SEO title={`${post.name} Happy Hour`}
-        description={post.seoDescription} />
+        description={post.seoDescription}
+        image={post.mainImg.fluid.src}
+        happyHour={true} />
       <Layout>
         <Grid stackable columns="equal">
           <Grid.Column width={11}>
