@@ -17,7 +17,7 @@ const BottomlessMimosas = (props) => {
         return (
             <div data-lat={deal.location.lat} data-lon={deal.location.lon} id={deal.id} key={deal.id}>
                 <Img alt={`${deal.name} bottomless mimosas`} title={`${deal.name} bottomless mimosas`} fluid={deal.mainImg.fluid} style={{ width: "100%", maxHeight: "400px", borderRadius: "5px" }}></Img>
-                <Link to={`atlanta-happy-hour/${deal.slug}`}> <h1>{deal.name}</h1></Link>
+                <Link to={`/atlanta-happy-hour/${deal.slug}`}> <h1>{deal.name}</h1></Link>
                 <p style={{ fontSize: "13px" }}><Icon name='map marker alternate'></Icon>{deal.address}</p>
                 <p>{deal.brunchDesc.brunchDesc}</p>
                 <Divider></Divider>
@@ -74,15 +74,17 @@ const BottomlessMimosas = (props) => {
                             <p>Your guide to successful day drinking.</p>
                         </Grid.Column>
                         <Grid.Column computer={6}>
-                            <BackgroundImage
-                                onClick={handleClick}
-                                fluid={[`linear-gradient(rgba(225, 225, 225, 0.2), rgba(0, 0, 0, 0.9))`, props.data.file.childImageSharp.fluid]}
-                                style={{ height: "200px", display: "flex", textAlign: 'center' }}
-                            >
-                                <div style={{ margin: "auto", color: "white" }}>
-                                    <p>View the map.</p>
-                                </div>
-                            </BackgroundImage>
+                            <div style={{ borderRadius: '5px', overflow: "hidden" }}>
+                                <BackgroundImage
+                                    onClick={handleClick}
+                                    fluid={[`linear-gradient(rgba(225, 225, 225, 0.2), rgba(0, 0, 0, 0.9))`, props.data.file.childImageSharp.fluid]}
+                                    style={{ height: "200px", display: "flex", textAlign: 'center' }}
+                                >
+                                    <div style={{ margin: "auto", color: "white" }}>
+                                        <p>View the map.</p>
+                                    </div>
+                                </BackgroundImage>
+                            </div>
                         </Grid.Column>
                     </Grid>
                 </Container>

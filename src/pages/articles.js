@@ -53,6 +53,32 @@ const Articles = ({ data }) => {
                 </Card>
             )
         })
+        let width;
+        if (screen < 768) {
+            width = "100%"
+        } else {
+            width = "31%"
+        }
+
+        let mimosas = (
+            <Card
+                link
+                onClick={() => handleCardClick('bottomless-mimosas-atlanta')}
+                key={"bottomles-123-baby"}
+                style={{ width: width }}>
+                <BackgroundImage
+                    fluid={[`linear-gradient(rgba(225, 225, 225, 0.2), rgba(0, 0, 0, 0.9))`, data.mimosa.childImageSharp.fluid]}
+                    alt={"Bottomless Mimosas in Atlanta"}
+                    style={{ height: `50vh`, borderRadius: "10px" }}
+                >
+                    <div style={{ color: "white", position: "absolute", bottom: "20px", left: "10px", zIndex: "2000" }}>
+                        <h2 ><span style={{ fontWeight: "lighter", fontSize: "20px" }}>Guides:</span> <br />Bottomless Mimosas in Atlanta (2020)</h2>
+                        <Card.Meta style={{ color: "white" }}>January, 10 2020</Card.Meta>
+                    </div>
+                </BackgroundImage>
+            </Card>
+        )
+        cards.splice(4, 0, mimosas)
         return cards
     }
     return (
@@ -89,6 +115,13 @@ export const query = graphql`
       }
     }
         desktop: file(relativePath: { eq: "articlesBackground.jpg" }) {
+          childImageSharp {
+            fluid(quality: 90, maxWidth: 1920) {
+              ...GatsbyImageSharpFluid_withWebp
+            }
+          }
+        }
+        mimosa: file(relativePath: { eq: "mimosas.png" }) {
           childImageSharp {
             fluid(quality: 90, maxWidth: 1920) {
               ...GatsbyImageSharpFluid_withWebp
