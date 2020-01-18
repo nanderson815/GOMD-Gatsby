@@ -84,6 +84,7 @@ export const allHappyHourFields = graphql`
     fluid(maxWidth: 1800, resizingBehavior: SCALE) {
     ...GatsbyContentfulFluid_withWebp
     }
+    title
     }
   name
   mondayDesc {

@@ -128,9 +128,16 @@ const HappyHourFinder = (props) => {
 
     // Sets the inital filter to today
     useEffect(() => {
-        let currentDay = days[new Date().getDay() + 1].value;
-        setDay(currentDay);
-        filterHappyHours();
+        if (filterTag === "Bottomless Mimosas") {
+            let brunchDay = "Sunday"
+            setDay(brunchDay);
+            filterHappyHours();
+        } else {
+            let currentDay = days[new Date().getDay() + 1].value;
+            setDay(currentDay);
+            filterHappyHours();
+        }
+
     }, [happyHours]);
 
 
