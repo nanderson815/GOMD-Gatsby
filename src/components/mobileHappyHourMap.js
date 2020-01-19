@@ -66,7 +66,7 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
     }
 
 
-    let width = filteredHH.length * 329 + 30
+    let width = filteredHH.length * 330 + 30
     return (
         <div>
             <div style={{ position: 'fixed', top: "0", width: "100%", height: "100%" }}>

@@ -15,7 +15,7 @@ const HappyHourFinder = (props) => {
     let filterTag = props.location.state && "tag" in props.location.state ? props.location.state.tag : undefined
     // Helper to handle day filtering
     let days = [
-        { key: "All", value: "All", text: "All" },
+        { key: "All", value: "All", text: "All Days" },
         { key: "Sun", value: "Sunday", text: "Sunday" },
         { key: "Mon", value: "Monday", text: "Monday" },
         { key: "Tue", value: "Tuesday", text: "Tuesday" },
@@ -26,7 +26,7 @@ const HappyHourFinder = (props) => {
     ]
     // Creating an object of all the neighborhoods
     let neighborhoods = [
-        { key: "All", value: "All", text: "All" },
+        { key: "All", value: "All", text: "All Locations" },
         { key: "Mid", value: "Midtown", text: "Midtown" },
         { key: "Buc", value: "Buckhead", text: "Buckhead" },
         { key: "Wes", value: "West Midtown", text: "West Midtown" },
@@ -128,12 +128,13 @@ const HappyHourFinder = (props) => {
 
     // Sets the inital filter to today
     useEffect(() => {
-        if (filterTag === "Bottomless Mimosas") {
-            let brunchDay = "Sunday"
-            setDay(brunchDay);
+        if (filterTag || searchResults) {
+            let days = "All"
+            setDay(days);
             filterHappyHours();
         } else {
             let currentDay = days[new Date().getDay() + 1].value;
+            console.log(currentDay)
             setDay(currentDay);
             filterHappyHours();
         }
@@ -207,28 +208,17 @@ const HappyHourFinder = (props) => {
                             <Link to="/"><img alt="Georgia on my Dime Logo" style={{ margin: "10px 0px 0px 20px" }} src={logo} /></Link>
                         </div>
                         <div style={{ height: "4px", background: "#5d5e5e" }}></div>
-                        <h3 style={{ margin: "10px 0px 0px 20px" }}>{day} Happy Hours</h3>
-                        <Icon link onClick={handleDisplayChange} style={{ position: "absolute", top: "60px", right: "30px" }} circular size='large' color='blue' name={`${displayMap ? "list" : "map"}`} />
-
-                        <Accordion as={Menu} vertical style={{ width: "90%", padding: "0px 10px", margin: "12px 10px 5px 20px", display: "inline-block" }}>
-                            <Menu.Item>
-                                <Accordion.Title
-                                    active={activeIndex === 0}
-                                    content='Filters'
-                                    index={0}
-                                    onClick={handleClick}
-                                />
-                                <Accordion.Content active={activeIndex === 0} >
-                                    <div style={{ width: "100%", margin: "0px 5px 10px 10px" }}>
-                                        Day: <Dropdown style={{ minWidth: "95%", padding: "15px" }} selection value={day} options={days} onChange={changeDay} />
-                                    </div>
-                                    <div style={{ width: "100%", margin: "0px 5px 10px 10px" }}>
-                                        Neighborhood: <Dropdown style={{ minWidth: "95%", padding: "15px" }} selection value={neighborhood} options={neighborhoods} onChange={changeHood} />
-                                    </div>
-                                    {showClear ? <Button primary onClick={clearSearch} style={{ margin: "0px 5px 10px 24px" }}>Clear Search</Button> : null}
-                                </Accordion.Content>
-                            </Menu.Item>
-                        </Accordion>
+                        <h3 style={{ margin: "10px 0px 0px 20px", display: "inline-block" }}>{day} Happy Hours</h3>
+                        <Icon link onClick={handleDisplayChange} style={{ display: "inline-block", float: 'right', marginRight: '20px' }} circular size='large' color='blue' name={`${displayMap ? "list" : "map"}`} />
+                        <div style={{ width: "100%", margin: "0px 0px 0px 10px", display: 'inline-block' }}>
+                            <div style={{ width: "45%", padding: "5px 0px 10px 10px", display: 'inline-block' }}>
+                                <Dropdown style={{ minWidth: "95%" }} selection value={day} options={days} onChange={changeDay} />
+                            </div>
+                            <div style={{ width: "55%", padding: "5px 20px 10px 0px", display: 'inline-block' }}>
+                                <Dropdown style={{ minWidth: "95%" }} selection value={neighborhood} options={neighborhoods} onChange={changeHood} />
+                            </div>
+                            {showClear ? <Button primary onClick={clearSearch} style={{ margin: "0px 5px 10px 24px" }}>Clear Search</Button> : null}
+                        </div>
                     </div>
                 </Sticky>
                 {displayMap ? <MobileHappyHourMap
