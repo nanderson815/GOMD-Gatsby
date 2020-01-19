@@ -117,7 +117,7 @@ const IndexPage = ({ data }) => {
   return (
     <div>
       <Header />
-      <SEO title="Home" />
+      <SEO title="Atlanta Happy Hours" />
       <div style={{
         width: `100%`,
         margin: "-15px 0px 0px 0px",
