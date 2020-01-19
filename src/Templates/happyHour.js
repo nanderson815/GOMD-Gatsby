@@ -35,8 +35,8 @@ const HappyHour = (props) => {
         image={post.mainImg.fluid.src}
         happyHour={true} />
       <Layout>
-        <Grid stackable columns="equal">
-          <Grid.Column width={11}>
+        <Grid>
+          <Grid.Column computer={11} tablet={11} mobile={16}>
             <Card fluid raised>
               <Img style={{ maxHeight: "350px" }} alt={post.name} fluid={post.mainImg.fluid} />
               <Card.Content>
@@ -66,7 +66,7 @@ const HappyHour = (props) => {
 
             </Card>
           </Grid.Column>
-          <Grid.Column>
+          <Grid.Column tablet={5} computer={5} mobile={16}>
             <Card fluid raised>
               <div
                 style={{ overflow: 'hidden', height: "225px" }}
