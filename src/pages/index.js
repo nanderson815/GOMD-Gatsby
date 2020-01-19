@@ -130,13 +130,12 @@ const IndexPage = ({ data }) => {
         textAlign: "center"
       }}>
         <div style={{ alignSelf: "center", maxWidth: "800px", padding: "20px" }}>
-          <h3>Search our complete list of the <span>best Atlanta Happy Hours.</span>
-            There are hundreds of options around the ATL so you’ll never overpay for a drink again. </h3>
+          <h3>Search our complete list of the best Atlanta Happy Hours. There are hundreds of options around the ATL so you’ll never overpay for a drink again. </h3>
           <div style={{ padding: "0px 20px" }}>
             <SearchBar padding="15px 10px" />
           </div>
           <br></br>
-          <p style={{ margin: "20px 0px 0px 0px" }}>Or make a selection to get started: </p>
+          <p style={{ margin: "20px 0px 0px 0px" }}>Or make a selection to discover today's best happy hours with: </p>
           <Button onClick={handleClick} value="Wine" style={{ padding: "10px", margin: "2px", minWidth: "80px" }} primary>Wine</Button>
           <Button onClick={handleClick} value="Tacos" style={{ padding: "10px", margin: "2px", minWidth: "80px" }} primary>Tacos</Button>
           <Button onClick={handleClick} value="Sushi" style={{ padding: "10px", margin: "2px", minWidth: "80px" }} primary>Sushi</Button>
