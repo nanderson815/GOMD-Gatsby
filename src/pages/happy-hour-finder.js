@@ -211,13 +211,13 @@ const HappyHourFinder = (props) => {
                         <h3 style={{ margin: "10px 0px 0px 20px", display: "inline-block" }}>{day} Happy Hours</h3>
                         <Icon link onClick={handleDisplayChange} style={{ display: "inline-block", float: 'right', marginRight: '20px' }} circular size='large' color='blue' name={`${displayMap ? "list" : "map"}`} />
                         <div style={{ width: "100%", margin: "0px 0px 0px 10px", display: 'inline-block' }}>
-                            <div style={{ width: "45%", padding: "5px 0px 10px 10px", display: 'inline-block' }}>
+                            <div style={{ width: "45%", padding: "5px 0px 5px 10px", display: 'inline-block' }}>
                                 <Dropdown style={{ minWidth: "95%" }} selection value={day} options={days} onChange={changeDay} />
                             </div>
-                            <div style={{ width: "55%", padding: "5px 20px 10px 0px", display: 'inline-block' }}>
+                            <div style={{ width: "55%", padding: "5px 20px 5px 0px", display: 'inline-block' }}>
                                 <Dropdown style={{ minWidth: "95%" }} selection value={neighborhood} options={neighborhoods} onChange={changeHood} />
                             </div>
-                            {showClear ? <Button primary onClick={clearSearch} style={{ margin: "0px 5px 10px 24px" }}>Clear Search</Button> : null}
+                            {showClear ? <Button primary onClick={clearSearch} style={{ margin: "0px 0px 5px 10px" }}>Clear Search</Button> : null}
                         </div>
                     </div>
                 </Sticky>

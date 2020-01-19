@@ -135,7 +135,7 @@ const IndexPage = ({ data }) => {
             <SearchBar padding="15px 10px" />
           </div>
           <br></br>
-          <p style={{ margin: "20px 0px 0px 0px" }}>Or make a selection to discover today's best happy hours with: </p>
+          <p style={{ margin: "20px 0px 0px 0px" }}>Or make a selection to discover the best happy hours with: </p>
           <Button onClick={handleClick} value="Wine" style={{ padding: "10px", margin: "2px", minWidth: "80px" }} primary>Wine</Button>
           <Button onClick={handleClick} value="Tacos" style={{ padding: "10px", margin: "2px", minWidth: "80px" }} primary>Tacos</Button>
           <Button onClick={handleClick} value="Sushi" style={{ padding: "10px", margin: "2px", minWidth: "80px" }} primary>Sushi</Button>
