@@ -38,7 +38,9 @@ const HappyHour = (props) => {
       <Layout>
         <Grid>
           <Grid.Column computer={11} tablet={11} mobile={16}>
-            <GoogleAd type="banner" client="ca-pub-4839737207231731" slot="4063925755"></GoogleAd>
+            <Segment style={{ height: "50px" }}>
+              <GoogleAd type="banner" client="ca-pub-4839737207231731" slot="4063925755"></GoogleAd>
+            </Segment>
             <Card fluid raised>
               <Img style={{ maxHeight: "350px" }} alt={post.name} fluid={post.mainImg.fluid} />
               <Card.Content>
