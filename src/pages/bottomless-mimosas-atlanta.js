@@ -7,6 +7,7 @@ import Img from 'gatsby-image'
 import BackgroundImage from 'gatsby-background-image'
 import BottomlessMap from '../components/bottomlessMimosaMap'
 import { navigate, Link, graphql } from 'gatsby'
+import AdSense from 'react-adsense';
 
 
 const BottomlessMimosas = (props) => {
@@ -103,7 +104,7 @@ const BottomlessMimosas = (props) => {
                         <Divider></Divider>
                         {brunches}
                     </Grid.Column>
-                    <Sticky as={Grid.Column} offset={90} tablet={6} computer={6}>
+                    <Sticky as={Grid.Column} offset={90} tablet={6} computer={6} mobile={16}>
                         <Responsive minWidth={768}>
                             <Segment style={{ padding: '0px' }}>
                                 <BottomlessMap
@@ -117,6 +118,16 @@ const BottomlessMimosas = (props) => {
                                 </BottomlessMap >
                             </Segment>
                         </Responsive>
+                        <Segment raised style={{ paddingBottom: '1px' }}>
+                            <AdSense.Google
+                                client="ca-pub-4839737207231731"
+                                slot='4063925755'
+                                responsive='true'
+                                format='auto'
+                                style={{ display: 'block', width: "100% !important" }}
+                            />
+                            <p style={{ width: "100%", textAlign: 'center', fontSize: "12px" }}><i>sponsored content</i></p>
+                        </Segment>
                     </Sticky>
 
                 </Grid>
