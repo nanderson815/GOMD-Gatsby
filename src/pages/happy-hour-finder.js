@@ -148,9 +148,6 @@ const HappyHourFinder = (props) => {
         setHovered('')
     }
 
-
-
-
     return (
         <>
             <SEO title="Atlanta Happy Hour Finder" />

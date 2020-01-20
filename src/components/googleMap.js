@@ -118,6 +118,8 @@ const HappyHourMap = ({ happyHours, hovered }) => {
     const [visible, setVisible] = React.useState("")
     const onMarkerHover = (id) => {
         setVisible(id)
+        let element = document.getElementById(id);
+        element.scrollIntoView({ block: 'center' })
     }
     const clearVisible = () => {
         setVisible("")
@@ -127,6 +129,8 @@ const HappyHourMap = ({ happyHours, hovered }) => {
         if (visible === id) {
             navigate("/atlanta-happy-hour/" + slug)
         } else {
+            let element = document.getElementById(id);
+            element.scrollIntoView({ block: 'center' })
             setVisible(id)
         }
     }
@@ -144,8 +148,8 @@ const HappyHourMap = ({ happyHours, hovered }) => {
                         labelStyle={{ fontSize: "12px", padding: "5px" }}
                         icon={mapIcon}
                         labelVisible={visible === m.id || hovered === m.id}
-                        onMouseOver={onMarkerHover.bind(this, m.id)}
-                        onMouseOut={clearVisible}
+                        // onMouseOver={onMarkerHover.bind(this, m.id)}
+                        // onMouseOut={clearVisible}
                         onClick={onClickHandler.bind(this, m.slug, m.id)}
                     >
                         <Card style={{ width: "200px" }}>
@@ -175,12 +179,13 @@ const HappyHourMap = ({ happyHours, hovered }) => {
             defaultZoom={zoom}
             defaultCenter={center}
             options={defaultMapOptions}
+            onClick={clearVisible}
         >
             <MarkerClusterer
                 onClick={onMarkerClustererClick}
                 averageCenter
                 enableRetinaIcons
-                gridSize={15}
+                gridSize={25}
             // defaultMaxZoom={13}
             >
                 {markers}

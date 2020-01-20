@@ -29,6 +29,7 @@ const HHFinderCardGroup = ({ happyHours, day, rows, hood, setHoverHandler, clear
                     link
                     // onClick={navfunc}
                     key={deal.id}
+                    id={deal.id}
                     slug={deal.slug} >
                     <Link to={`/atlanta-happy-hour/${deal.slug}`}>
                         <Img style={{ height: "150px" }} alt={deal.name + ' Happy Hour atlanta'} fluid={deal.mainImg.fluid} />
