@@ -4,23 +4,23 @@ import SEO from '../components/seo'
 import Layout from '../components/layout'
 import { Grid, Label, Segment, Container, Divider, Icon, Responsive, Sticky } from 'semantic-ui-react'
 import Img from 'gatsby-image'
-import BackgroundImage from 'gatsby-background-image'
 import BottomlessMap from '../components/bottomlessMimosaMap'
-import { navigate, Link, graphql } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 import AdSense from 'react-adsense';
 
 
-const BottomlessMimosas = (props) => {
+const BestAtlantaHappyHours = (props) => {
     let bestData = props.data.allContentfulHappyHour.edges.map(item => item.node);
     console.log(bestData)
     const [center, setCenter] = React.useState('')
 
-    let brunches = bestData.map((deal) => {
+    let bestHappyHours = bestData.map((deal) => {
         return (
             <div data-lat={deal.location.lat} data-lon={deal.location.lon} id={deal.id} key={deal.id}>
-                <Img alt={`${deal.name} bottomless mimosas`} title={`${deal.name} bottomless mimosas`} fluid={deal.mainImg.fluid} style={{ width: "100%", maxHeight: "400px", borderRadius: "5px" }}></Img>
-                <Link to={`/atlanta-happy-hour/${deal.slug}`}> <h1>{deal.name}</h1></Link>
+                <Img alt={`${deal.name} best happy hour atlanta`} title={`${deal.name} best happy hour atlanta`} fluid={deal.mainImg.fluid} style={{ width: "100%", maxHeight: "400px", borderRadius: "5px" }}></Img>
+                <Link style={{ color: "#1c70b5" }} to={`/atlanta-happy-hour/${deal.slug}`}> <h1>{deal.name}</h1></Link>
                 <p style={{ fontSize: "13px" }}><Icon name='map marker alternate'></Icon>{deal.address}</p>
+                <p>{deal.description.description}</p>
                 <Divider></Divider>
             </div>
         )
@@ -47,7 +47,7 @@ const BottomlessMimosas = (props) => {
 
     useEffect(() => {
         let elements = []
-        brunches.forEach(card => elements.push(document.getElementById(`${card.key}`)))
+        bestHappyHours.forEach(card => elements.push(document.getElementById(`${card.key}`)))
         createObserver(elements);
     }, [])
 
@@ -55,41 +55,20 @@ const BottomlessMimosas = (props) => {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     }, [])
 
-    const handleClick = (e) => {
-        let tag = "Bottomless Mimosas"
-        navigate("/happy-hour-finder", {
-            state: { tag: tag },
-        })
-    }
-
-
     return (
         <div>
             <SEO
-                title="Every Atlanta Restaurant with Bottomless Mimosas (2020)"
-                image='/mimosas.png'
-                description="Bottomless mimosas are the essential brunch beverage for a successful day of drinking. Bottomless Mimosas Atlanta - the best way to celebrate your brunch!"></SEO>
+                title="The Best Happy Hours in Atlanta (2020)"
+                image='/atlanta-happy-hour-georgia-on-my-dime.jpeg'
+                description="Here are the Best Atlanta Happy Hours to grab discounted drinks, apps, and much more! Find your favorite Atlanta Happy Hour, your friends will thank you."></SEO>
             <Header></Header>
             <Segment style={{ marginTop: "-15px" }}>
                 <Container>
                     <Grid stackable>
                         <Grid.Column computer={10}>
                             <Label color='blue'>Guide</Label>
-                            <h1 style={{ fontSize: "calc((.4em + 1.5vmin) + (.4em + 1.5vmax))", marginTop: "0px" }}>Bottomless Mimosas in the ATL</h1>
-                            <p>Your guide to successful day drinking.</p>
-                        </Grid.Column>
-                        <Grid.Column computer={6}>
-                            <div style={{ borderRadius: '5px', overflow: "hidden" }}>
-                                <BackgroundImage
-                                    onClick={handleClick}
-                                    fluid={[`linear-gradient(rgba(225, 225, 225, 0.2), rgba(0, 0, 0, 0.9))`, props.data.file.childImageSharp.fluid]}
-                                    style={{ height: "200px", display: "flex", textAlign: 'center' }}
-                                >
-                                    <div style={{ margin: "auto", color: "white" }}>
-                                        <p>View the map.</p>
-                                    </div>
-                                </BackgroundImage>
-                            </div>
+                            <h1 style={{ fontSize: "calc((.4em + 1.5vmin) + (.4em + 1.5vmax))", marginTop: "0px" }}>The Best Happy Hours in Atlanta</h1>
+                            <p>We track hundreds of happy hours, but these should top your list.</p>
                         </Grid.Column>
                     </Grid>
                 </Container>
@@ -97,12 +76,13 @@ const BottomlessMimosas = (props) => {
             <Layout>
                 <Grid >
                     <Grid.Column computer={10} tablet={10} mobile={16}>
-                        <p style={{ fontWeight: '400' }}>Everyone knows that bottomless mimosas are the essential brunch beverage for a successful day of drinking.
-                            However, due to some sketchy alcohol laws in the Atlanta, it can sometimes be hard to find all the places that offer bottomless drinks.
-                            Thankfully, we have assembled a list of every single location that offers bottomless mimosas, sangria, bloody marys, or cocktails of any kind!
-                    Check out every restaurant (that we know about) that serves bottomless mimosas in Atlanta!</p>
+                        <p style={{ fontWeight: '400' }}>Our team has visited almost every restaurant in this great city as part of creating Georgia on my Dime.
+                        If there were even whispers of a happy hour at a restaurant from Sandy Springs to Inman Park, we showed up.
+                        Throughout this process we learned that not all happy hours are created equal. Don’t get me wrong – there is nothing bad about discounted drinks and apps no matter where you get them.
+                        But with that being said, we developed some clear favorites that have kept us coming back again and again.
+                        Check out the list of the best happy hours in Atlanta below, and be sure to pay a few a visit. We guarantee you won’t regret it. </p>
                         <Divider></Divider>
-                        {brunches}
+                        {bestHappyHours}
                     </Grid.Column>
                     <Sticky as={Grid.Column} offset={90} tablet={6} computer={6} mobile={16}>
                         <Responsive minWidth={768}>
@@ -136,7 +116,6 @@ const BottomlessMimosas = (props) => {
     )
 }
 
-// Gimmy those bottomless mimosa deals baby.
 export const query = graphql`
   query bestHH  {
                     allContentfulHappyHour(filter: {best: {eq: true}}) {
@@ -146,15 +125,8 @@ export const query = graphql`
             }
             }
           }
-          file(relativePath: { eq: "map.PNG" }) {
-      childImageSharp {
-        fluid(maxWidth: 700) {
-            ...GatsbyImageSharpFluid_tracedSVG
-        }
-      }
-    }
         }
         `
 
 
-export default BottomlessMimosas;
+export default BestAtlantaHappyHours;
