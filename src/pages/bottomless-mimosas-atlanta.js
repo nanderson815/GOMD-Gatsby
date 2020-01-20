@@ -6,7 +6,7 @@ import { Grid, Label, Segment, Container, Divider, Icon, Responsive, Sticky } fr
 import Img from 'gatsby-image'
 import BackgroundImage from 'gatsby-background-image'
 import BottomlessMap from '../components/bottomlessMimosaMap'
-import { navigate, Link } from 'gatsby'
+import { navigate, Link, graphql } from 'gatsby'
 
 
 const BottomlessMimosas = (props) => {
@@ -48,6 +48,10 @@ const BottomlessMimosas = (props) => {
         let elements = []
         brunches.forEach(card => elements.push(document.getElementById(`${card.key}`)))
         createObserver(elements);
+    }, [])
+
+    useEffect(() => {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
     }, [])
 
     const handleClick = (e) => {

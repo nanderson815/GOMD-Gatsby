@@ -73,12 +73,12 @@ const Articles = ({ data }) => {
                 >
                     <div style={{ color: "white", position: "absolute", bottom: "20px", left: "10px", zIndex: "2000" }}>
                         <h2 ><span style={{ fontWeight: "lighter", fontSize: "20px" }}>Guides:</span> <br />Bottomless Mimosas in Atlanta (2020)</h2>
-                        <Card.Meta style={{ color: "white" }}>January, 10 2020</Card.Meta>
+                        <Card.Meta style={{ color: "white" }}>January 10, 2020</Card.Meta>
                     </div>
                 </BackgroundImage>
             </Card>
         )
-        cards.splice(4, 0, mimosas)
+        cards.splice(1, 0, mimosas)
         return cards
     }
     return (

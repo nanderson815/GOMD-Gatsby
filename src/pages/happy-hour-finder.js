@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { graphql, Link } from 'gatsby'
 import SEO from '../components/seo'
-import { Grid, Sticky, Responsive, Dropdown, Button, Accordion, Menu, Icon } from "semantic-ui-react"
+import { Grid, Sticky, Responsive, Dropdown, Button, Icon } from "semantic-ui-react"
 import GoogleMap from '../components/googleMap'
 import HHFinderCardGroup from '../components/hhFinderCardGroup'
 import logo from '../images/logoInlineText.svg'
@@ -47,13 +47,11 @@ const HappyHourFinder = (props) => {
     const changeDay = (e, { value }) => {
         setDay(value)
         filterHappyHours()
-        setActiveIndex(-1)
     }
 
     const changeHood = (e, { value }) => {
         setNeighborhood(value)
         filterHappyHours();
-        setActiveIndex(-1)
     }
 
     // Filter HH data here, not in children
@@ -123,7 +121,6 @@ const HappyHourFinder = (props) => {
         let HHdata = data.allContentfulHappyHour.edges.map(item => item.node);
         setHappyHours(HHdata);
         setShowClear(false);
-        setActiveIndex(-1);
     }
 
     // Sets the inital filter to today
@@ -151,13 +148,7 @@ const HappyHourFinder = (props) => {
         setHovered('')
     }
 
-    const [activeIndex, setActiveIndex] = React.useState("");
 
-    const handleClick = (e, titleProps) => {
-        const { index } = titleProps
-        const newIndex = activeIndex === index ? -1 : index
-        setActiveIndex(newIndex)
-    }
 
 
     return (

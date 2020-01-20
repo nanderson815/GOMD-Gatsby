@@ -8,6 +8,7 @@ import { Grid, Label, Card, Segment, Button } from 'semantic-ui-react'
 import SEO from '../components/seo'
 import NearbyHH from '../components/nearbyHH'
 import { setHHTime, formatPhoneNumber, sortByDay } from '../Util/Util'
+import GoogleAd from '../components/GoogleAd'
 
 
 
@@ -37,6 +38,7 @@ const HappyHour = (props) => {
       <Layout>
         <Grid>
           <Grid.Column computer={11} tablet={11} mobile={16}>
+            <GoogleAd type="banner" client="ca-pub-4839737207231731" slot="4063925755"></GoogleAd>
             <Card fluid raised>
               <Img style={{ maxHeight: "350px" }} alt={post.name} fluid={post.mainImg.fluid} />
               <Card.Content>

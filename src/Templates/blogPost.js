@@ -4,7 +4,7 @@ import { graphql } from 'gatsby';
 import Header from '../components/header'
 import Img from 'gatsby-image';
 import Layout from '../components/layout'
-import { Grid, Card, Sticky, Label, Advertisement } from 'semantic-ui-react'
+import { Grid, Card, Label } from 'semantic-ui-react'
 import SEO from '../components/seo'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
