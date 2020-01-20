@@ -8,7 +8,7 @@ import { Grid, Label, Card, Segment, Button } from 'semantic-ui-react'
 import SEO from '../components/seo'
 import NearbyHH from '../components/nearbyHH'
 import { setHHTime, formatPhoneNumber, sortByDay } from '../Util/Util'
-import GoogleAd from '../components/GoogleAd'
+import AdSense from 'react-adsense';
 
 
 
@@ -89,7 +89,13 @@ const HappyHour = (props) => {
               </Card.Content>
             </Card>
 
-            <GoogleAd type="banner" client="ca-pub-4839737207231731" slot="4063925755"></GoogleAd>
+            <AdSense.Google
+              client="ca-pub-4839737207231731"
+              slot='4063925755'
+              responsive='true'
+              format='auto'
+              style={{ display: 'block' }}
+            />
 
             <Segment raised style={{ paddingTop: '10px' }}>
               <h4 style={{ marginBottom: "25px", textAlign: "center", fontSize: "18px" }}>Other Happy Hours in {post.neighborhood}</h4>
