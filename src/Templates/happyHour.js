@@ -21,7 +21,6 @@ const handleClick = (e) => {
 
 const HappyHour = (props) => {
   const post = get(props, 'data.contentfulHappyHour')
-  console.log(post)
   const nearbyHH = get(props, 'data.allContentfulHappyHour.edges').map(item => item.node).filter(item => item.name !== post.name);
 
   useEffect(() => {
@@ -38,9 +37,6 @@ const HappyHour = (props) => {
       <Layout>
         <Grid>
           <Grid.Column computer={11} tablet={11} mobile={16}>
-            <Segment style={{ height: "50px" }}>
-              <GoogleAd type="banner" client="ca-pub-4839737207231731" slot="4063925755"></GoogleAd>
-            </Segment>
             <Card fluid raised>
               <Img style={{ maxHeight: "350px" }} alt={post.name} fluid={post.mainImg.fluid} />
               <Card.Content>
@@ -92,6 +88,8 @@ const HappyHour = (props) => {
                 </Card.Description>
               </Card.Content>
             </Card>
+
+            <GoogleAd type="banner" client="ca-pub-4839737207231731" slot="4063925755"></GoogleAd>
 
             <Segment raised style={{ paddingTop: '10px' }}>
               <h4 style={{ marginBottom: "25px", textAlign: "center", fontSize: "18px" }}>Other Happy Hours in {post.neighborhood}</h4>
