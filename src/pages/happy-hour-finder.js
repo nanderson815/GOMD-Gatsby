@@ -85,7 +85,7 @@ const HappyHourFinder = (props) => {
         setDisplayMap(displayMap)
     })
 
-    const [displayMap, setDisplayMap] = React.useState('')
+    const [displayMap, setDisplayMap] = React.useState(true)
     const handleDisplayChange = () => {
         sessionStorage.setItem('displayMap', !displayMap)
         setDisplayMap(!displayMap)

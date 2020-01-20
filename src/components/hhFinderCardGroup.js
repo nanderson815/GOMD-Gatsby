@@ -3,6 +3,8 @@ import { Card, Icon } from 'semantic-ui-react'
 import Img from 'gatsby-image'
 import { navigate, Link } from 'gatsby'
 import { setHHTime } from '../Util/Util'
+import AdSense from 'react-adsense';
+
 
 const navfunc = (e, { slug }) => {
     navigate("/atlanta-happy-hour/" + slug)
@@ -50,6 +52,29 @@ const HHFinderCardGroup = ({ happyHours, day, rows, hood, setHoverHandler, clear
                 </Card>
             )
         })
+
+
+        let adsense = (key) => {
+            return (
+                <Card
+                    key={key}>
+                    <AdSense.Google
+                        client="ca-pub-4839737207231731"
+                        slot='1919503363'
+                        format='fluid'
+                        layoutKey='-6t+ed+2i-1n-4w'
+                        style={{ display: 'block', width: "100% !important" }}
+                    />
+                </Card>
+            )
+        }
+
+        for (let i = 0; i < cards.length; i++) {
+            if (i % 10 === 0 && i !== 0) {
+                cards.splice(i, 0, adsense(Math.floor(Math.random() * 1000000)))
+            }
+        }
+
         setCards(cards);
     }, [happyHours])
 
