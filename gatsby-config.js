@@ -15,6 +15,21 @@ module.exports = {
     `gatsby-plugin-netlify`,
     `gatsby-plugin-sitemap`,
     {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Georgia on my Dime`,
+        short_name: `GOMD`,
+        start_url: `/`,
+        background_color: `#eff0f1`,
+        theme_color: `#1c70b5`,
+        display: `standalone`,
+        icon: 'src/images/dimeLogo.svg'
+      },
+    },
+    {
+      resolve: `gatsby-plugin-offline`
+    },
+    {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
         policy: [{ userAgent: '*', allow: '/' }]

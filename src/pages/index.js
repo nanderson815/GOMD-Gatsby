@@ -2,7 +2,6 @@ import React, { useEffect } from "react"
 import Header from '../components/header'
 import SEO from "../components/seo"
 import 'semantic-ui-less/semantic.less'
-import Background from '../images/homepagebackground.jpg'
 import Blue from '../images/blue.svg'
 import SearchBar from '../components/searchbar'
 import { Button, Grid, Container, Image, Label, Card, Icon } from "semantic-ui-react"
@@ -118,17 +117,21 @@ const IndexPage = ({ data }) => {
     <div>
       <Header />
       <SEO title="Atlanta Happy Hours" />
-      <div style={{
-        width: `100%`,
-        margin: "-15px 0px 0px 0px",
-        height: "450px",
-        overflow: "hidden",
-        display: "flex",
-        justifyContent: "center",
-        backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.9) 57%, rgba(255,255,255,0.7) 81%), url(${Background})`,
-        backgroundSize: "cover",
-        textAlign: "center"
-      }}>
+      <BackgroundImage
+        style={{
+          width: `100%`,
+          margin: "-15px 0px 0px 0px",
+          height: "450px",
+          overflow: "hidden",
+          display: "flex",
+          justifyContent: "center",
+          backgroundSize: "cover",
+          textAlign: "center"
+        }}
+        fluid={[`radial-gradient(circle, rgba(255,255,255,0.9) 57%, rgba(255,255,255,0.7) 81%)`, data.file.childImageSharp.fluid]}
+      >
+
+
         <div style={{ alignSelf: "center", maxWidth: "800px", padding: "20px" }}>
           <h3>Search our complete list of the best Atlanta Happy Hours. There are hundreds of options around the ATL so you’ll never overpay for a drink again. </h3>
           <div style={{ padding: "0px 20px" }}>
@@ -142,7 +145,7 @@ const IndexPage = ({ data }) => {
           <Button onClick={handleClick} value="Cocktails" style={{ padding: "10px", margin: "2px", minWidth: "80px" }} primary>Cocktails</Button>
           <Button onClick={handleClick} value="Beer" style={{ padding: "10px", margin: "2px", minWidth: "80px" }} primary>Beer</Button>
         </div>
-      </div>
+      </BackgroundImage>
       <div style={{ background: "white" }}>
         <Container>
           <h2>Featured Restaurants</h2>
@@ -189,6 +192,13 @@ export const query = graphql`
         edges {
         node {
         ...allHappyHourFields
+      }
+      }
+    }
+    file(relativePath: {eq: "homepagebackground.jpg" }) {
+        childImageSharp {
+        fluid(maxWidth: 700) {
+        ...GatsbyImageSharpFluid_tracedSVG
       }
       }
     }

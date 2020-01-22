@@ -46,7 +46,7 @@ exports.createPages = ({ graphql, actions }) => {
         const blogPosts = result.data.allContentfulBlogPost.edges
         happyHours.forEach((post, index) => {
           createPage({
-            path: `/atlanta-happy-hour/${post.node.slug}/`,
+            path: `/atlanta-happy-hour/${post.node.slug}`,
             component: happyHour,
             context: {
               slug: post.node.slug,
