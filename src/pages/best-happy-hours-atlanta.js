@@ -11,7 +11,6 @@ import AdSense from 'react-adsense';
 
 const BestAtlantaHappyHours = (props) => {
     let bestData = props.data.allContentfulHappyHour.edges.map(item => item.node);
-    console.log(bestData)
     const [center, setCenter] = React.useState('')
 
     let bestHappyHours = bestData.map((deal) => {

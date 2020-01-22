@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
-import { withGoogleMap, withScriptjs, GoogleMap } from "react-google-maps"
+import { withGoogleMap, withScriptjs, GoogleMap, Marker, InfoWindow } from "react-google-maps"
 import { Card } from 'semantic-ui-react';
 import Img from 'gatsby-image'
-import { navigate } from 'gatsby'
+import { Link } from 'gatsby'
 import mapIcon from '../images/mapIcon2.svg'
 
 
 const { MarkerClusterer } = require("react-google-maps/lib/components/addons/MarkerClusterer");
-const { MarkerWithLabel } = require("react-google-maps/lib/components/addons/MarkerWithLabel");
 
 const mapStyles = [
     {
@@ -111,11 +110,8 @@ const HappyHourMap = ({ happyHours, hovered }) => {
     const zoom = 11
     const [markers, setMarkers] = React.useState([]);
 
-    const onMarkerClustererClick = (markerClusterer) => {
-        const clickedMarkers = markerClusterer.getMarkers()
-    }
-
     const [visible, setVisible] = React.useState("")
+
     const onMarkerHover = (id) => {
         setVisible(id)
         let element = document.getElementById(id);
@@ -125,14 +121,10 @@ const HappyHourMap = ({ happyHours, hovered }) => {
         setVisible("")
     }
 
-    const onClickHandler = (slug, id) => {
-        if (visible === id) {
-            navigate("/atlanta-happy-hour/" + slug)
-        } else {
-            let element = document.getElementById(id);
-            element.scrollIntoView({ block: 'center' })
-            setVisible(id)
-        }
+    const onClickHandler = (id) => {
+        let element = document.getElementById(id);
+        element.scrollIntoView({ block: 'center' })
+        setVisible(id)
     }
 
 
@@ -140,7 +132,7 @@ const HappyHourMap = ({ happyHours, hovered }) => {
         if (happyHours.length > 0) {
             let points = happyHours.map((m) => {
                 return (
-                    <MarkerWithLabel
+                    <Marker
                         key={m.id}
                         position={{ lat: m.location.lat, lng: m.location.lon }}
                         lable={m.location.name}
@@ -150,17 +142,19 @@ const HappyHourMap = ({ happyHours, hovered }) => {
                         labelVisible={visible === m.id || hovered === m.id}
                         // onMouseOver={onMarkerHover.bind(this, m.id)}
                         // onMouseOut={clearVisible}
-                        onClick={onClickHandler.bind(this, m.slug, m.id)}
+                        onClick={onClickHandler.bind(this, m.id)}
                     >
-                        <Card style={{ width: "200px" }}>
-                            <Img style={{ height: "100px" }} alt={m.name} fluid={m.mainImg.fluid} />
-                            <Card.Content>
-                                <Card.Header>
-                                    {m.name}
-                                </Card.Header>
-                            </Card.Content>
-                        </Card>
-                    </MarkerWithLabel>
+                        {visible === m.id && <InfoWindow style={{ padding: "0px" }} onCloseClick={onClickHandler.bind(this, m.id)}>
+                            <Card style={{ width: "200px", }}>
+                                <Img style={{ height: "100px" }} alt={m.name} fluid={m.mainImg.fluid} />
+                                <Card.Content>
+                                    <Card.Header>
+                                        <Link style={{ color: "black" }} to={`/atlanta-happy-hour/${m.slug}`}> {m.name}</Link>
+                                    </Card.Header>
+                                </Card.Content>
+                            </Card>
+                        </InfoWindow>}
+                    </Marker>
                 )
             });
             setMarkers(points);
@@ -173,16 +167,12 @@ const HappyHourMap = ({ happyHours, hovered }) => {
     return (
         // Important! Always set the container height explicitly as less than 100vh to avoid strange sticky behavior.
         <GoogleMap
-            options={{
-                styles: mapStyles
-            }}
             defaultZoom={zoom}
             defaultCenter={center}
             options={defaultMapOptions}
             onClick={clearVisible}
         >
             <MarkerClusterer
-                onClick={onMarkerClustererClick}
                 averageCenter
                 enableRetinaIcons
                 gridSize={25}

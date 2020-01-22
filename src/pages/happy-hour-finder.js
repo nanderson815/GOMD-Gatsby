@@ -131,7 +131,6 @@ const HappyHourFinder = (props) => {
             filterHappyHours();
         } else {
             let currentDay = days[new Date().getDay() + 1].value;
-            console.log(currentDay)
             setDay(currentDay);
             filterHappyHours();
         }

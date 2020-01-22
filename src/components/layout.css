@@ -3,6 +3,10 @@
   position: unset !important;
 }
 
+.gm-style .gm-style-iw-c {
+    padding: 0px !important;
+}
+
 .scrolling-wrapper {
   overflow-x: scroll;
   overflow-y: hidden;
