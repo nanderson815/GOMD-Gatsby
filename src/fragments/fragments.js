@@ -115,3 +115,34 @@ export const allHappyHourFields = graphql`
 }
       `
 
+export const allSkuFields = graphql`
+  fragment allSkuFields on StripeSku {
+    active
+        currency
+        id
+        object
+        price
+        product {
+          images
+          id
+          description
+          attributes
+          name
+          metadata {
+            basePrice
+            contentfulSlug
+            slug
+          }
+          caption
+        }
+        attributes {
+          Beer
+          Brunch
+          Mimosas
+          Wings
+        }
+        inventory {
+          quantity
+        }
+  }
+  `

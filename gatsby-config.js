@@ -27,7 +27,10 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-offline`
+      resolve: `gatsby-plugin-offline`,
+      options: {
+        appendScript: require.resolve(`./src/offlineAnalytics.js`),
+      },
     },
     {
       resolve: 'gatsby-plugin-robots-txt',
@@ -40,6 +43,15 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
+      },
+    },
+    `gatsby-plugin-stripe`,
+    {
+      resolve: `gatsby-source-stripe`,
+      options: {
+        objects: ["Sku"],
+        secretKey: process.env.STRIPE_SECRET_KEY,
+        downloadFiles: true,
       },
     },
     `gatsby-transformer-sharp`,
