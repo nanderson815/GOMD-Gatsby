@@ -12,11 +12,8 @@ const AdvancedExamplePage = () => (
         <SEO title="Exclusive Deals" />
         <Header></Header>
         <Layout>
-            <h1>This is the advanced example</h1>
+            <h1>Exlusive Deals. Discounted Prices.</h1>
             <Skus />
-            <div style={{ height: '200px' }}>
-
-            </div>
         </Layout>
     </div>
 )

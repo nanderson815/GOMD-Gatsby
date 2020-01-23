@@ -56,3 +56,13 @@ export const formatPhoneNumber = (str) => {
     return null
 };
 // ----------------------------------------------------------------------------------------------------
+
+// Format Dollars from Cents Helper --------------------------------------------------------------------------------
+export const formatCurrency = (str) => {
+    // Convert to number. Int because there will be no decimals
+    var num = parseInt(str);
+    // Convert to readable dollar amount
+    var dollars = num / 100;
+    return dollars = dollars.toLocaleString("en-US", { style: "currency", currency: "USD" });
+};
+// ----------------------------------------------------------------------------------------------------
