@@ -134,6 +134,13 @@ export const allSkuFields = graphql`
             slug
           }
           caption
+          localFiles {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
         }
         attributes {
           Beer
