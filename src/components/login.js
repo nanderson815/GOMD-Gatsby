@@ -12,6 +12,8 @@ const Login = (props) => {
     }
 
     const [error, setError] = useState('')
+    const [createError, setCreateError] = useState('')
+
     const onSubmitHandler = async (e) => {
         e.preventDefault()
         if (user.email && user.password) {
@@ -22,9 +24,15 @@ const Login = (props) => {
         }
     }
 
-    const createAccount = (e) => {
+    const createAccount = async (e) => {
         e.preventDefault()
-        userSignUp(user.email, user.password);
+        if (user.email && user.password === user.passwordConfirm) {
+            let res = await userSignUp(user.email, user.password);
+            if (!res.user) setCreateError(res)
+        } else if (user.passwordConfirm !== user.password) {
+            setCreateError('Passwords do not match.')
+        }
+
     }
 
     const [user, setUser] = useState('')
@@ -51,7 +59,7 @@ const Login = (props) => {
                     </Form>
                     <Divider horizontal>Or</Divider>
                     <div style={{ textAlign: "center" }}>
-                        <Modal trigger={<Button primary>Sign Up</Button>}>
+                        <Modal trigger={<Button primary>Sign Up</Button>} closeIcon>
                             <Modal.Header>Sign Up</Modal.Header>
                             <Modal.Content>
                                 <Form style={{ maxWidth: "500px", margin: "0 auto" }}>
@@ -61,13 +69,14 @@ const Login = (props) => {
                                     </Form.Field>
                                     <Form.Field required>
                                         <label>Password</label>
-                                        <input onChange={onChangeHandler} id='password' placeholder='Password' />
+                                        <input type='password' onChange={onChangeHandler} id='password' placeholder='Password' />
                                     </Form.Field>
                                     <Form.Field required error={user.password !== user.passwordConfirm}>
                                         <label>Confirm Password</label>
-                                        <input onChange={onChangeHandler} id='passwordConfirm' placeholder='Confirm Password' />
+                                        <input type='password' onChange={onChangeHandler} id='passwordConfirm' placeholder='Confirm Password' />
                                     </Form.Field>
                                     <Button onClick={createAccount} type='submit'>Submit</Button>
+                                    <p style={{ color: "red" }}>{createError}</p>
                                 </Form>
                             </Modal.Content>
                         </Modal>

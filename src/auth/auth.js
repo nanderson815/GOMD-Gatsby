@@ -3,18 +3,19 @@ import { navigate } from 'gatsby';
 let firebase = getFirebase();
 
 //Sign Up
-export const userSignUp = (email, password) => {
-    firebase.auth().createUserWithEmailAndPassword(email, password)
+export const userSignUp = async (email, password) => {
+    let res = await firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(cred => {
             console.log(cred.user)
             verifyEmail()
-            return cred.user
+            navigate('/app/profile')
+            return cred
         })
         .catch(function (error) {
-            var errorCode = error.code;
             var errorMessage = error.message;
-            console.log(errorMessage)
+            return errorMessage
         });
+    return res
 }
 
 //Sign In
