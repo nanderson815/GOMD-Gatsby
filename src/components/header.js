@@ -53,6 +53,16 @@ export default class MenuExampleMenus extends Component {
                   >
                     <Icon name='newspaper' style={{ color: "#1c70b5" }} /> Articles
           </Menu.Item>
+                  <Menu.Item
+                    name='profile'
+                    style={{ fontWeight: "bold" }}
+                    active={activeItem === 'profile'}
+                    onClick={this.handleItemClick}
+                    as={Link}
+                    to='/login'
+                  >
+                    <Icon name='user' style={{ color: "#1c70b5" }} /> Profile
+                    </Menu.Item>
                 </Menu.Menu>
               </Container>
             </Menu>
@@ -63,8 +73,8 @@ export default class MenuExampleMenus extends Component {
             <Menu style={{ margin: "0px 0px 15px 0px", borderBottom: "4px solid #1c70b5" }} fluid className="borderless">
               {this.state.searching ? null :
                 <>
-                  <Menu.Item position="left">
-                    <Link to="/"><div style={{ width: "30px" }}> <Logo /></div></Link><Link to="/"><h4 style={{ color: "#1c70b5", margin: "0px 0px 0px 5px" }}>Georgia on my Dime</h4></Link>
+                  <Menu.Item position="left" style={{ padding: '5px' }}>
+                    <Link to="/"><div style={{ width: "45px" }}> <Logo /></div></Link><Link to="/"></Link>
                   </Menu.Item>
                   <Menu.Item
                     style={{ borderRight: "1px solid #8080807a" }}
@@ -86,10 +96,19 @@ export default class MenuExampleMenus extends Component {
                     <Icon name='newspaper' style={{ color: "#1c70b5" }} /></Menu.Item>
                   <Menu.Item
                     name='search'
+                    style={{ borderRight: "1px solid #8080807a" }}
                     active={activeItem === 'search'}
                     onClick={this.handleSearchClick}
                   >
                     <Icon name='search' style={{ color: "#1c70b5" }} /></Menu.Item>
+                  <Menu.Item
+                    name='profile'
+                    active={activeItem === 'profile'}
+                    onClick={this.handleItemClick}
+                    as={Link}
+                    to='/login'
+                  >
+                    <Icon name='user' style={{ color: "#1c70b5" }} /></Menu.Item>
                 </>
               }
               {this.state.searching ? <>

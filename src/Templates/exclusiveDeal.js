@@ -8,10 +8,7 @@ import { Grid, Label, Card, Segment, Button } from 'semantic-ui-react'
 import SEO from '../components/seo'
 import AdSense from 'react-adsense';
 import Axios from 'axios';
-
-
-
-
+import useFirebase from '../firebase/useFirebase';
 
 
 const handleClick = (e) => {
@@ -24,6 +21,7 @@ const handleClick = (e) => {
 const ExclusiveDeal = (props) => {
   const post = get(props, 'data.stripeSku')
   console.log(post);
+  const firebase = useFirebase()
 
 
   const handleCheckout = (name, desc, price, image) => {
@@ -45,6 +43,10 @@ const ExclusiveDeal = (props) => {
       .catch(err => console.log(err))
   }
 
+
+  useEffect(() => {
+    console.log(firebase)
+  }, [firebase])
 
 
   useEffect(() => {
