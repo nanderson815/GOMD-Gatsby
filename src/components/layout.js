@@ -1,15 +1,9 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
 import React from "react"
 import PropTypes from "prop-types"
 import "./layout.css"
 import { Container, Icon } from "semantic-ui-react"
 import { Link } from "gatsby"
+import Header from '../components/header'
 
 const Layout = ({ children }) => {
 

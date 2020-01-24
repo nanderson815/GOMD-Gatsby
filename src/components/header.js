@@ -59,7 +59,7 @@ export default class MenuExampleMenus extends Component {
                     active={activeItem === 'profile'}
                     onClick={this.handleItemClick}
                     as={Link}
-                    to='/login'
+                    to='/app/login'
                   >
                     <Icon name='user' style={{ color: "#1c70b5" }} /> Profile
                     </Menu.Item>
@@ -106,7 +106,7 @@ export default class MenuExampleMenus extends Component {
                     active={activeItem === 'profile'}
                     onClick={this.handleItemClick}
                     as={Link}
-                    to='/login'
+                    to='/app/login'
                   >
                     <Icon name='user' style={{ color: "#1c70b5" }} /></Menu.Item>
                 </>
