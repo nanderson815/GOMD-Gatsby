@@ -13,7 +13,7 @@ const Skus = (props) => {
         <Card.Group>
             {skus.map(sku => (
                 <Card link key={sku.id}>
-                    <Link to={`/exclusive-deals`}>
+                    <Link to={`/exclusive-deals/${sku.product.metadata.slug}`}>
                         <Card>
                             <Img style={{ height: "200px" }} fluid={sku.product.localFiles[0].childImageSharp.fluid}></Img>
                             <Card.Content>

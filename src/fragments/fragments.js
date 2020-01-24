@@ -132,6 +132,7 @@ export const allSkuFields = graphql`
             basePrice
             contentfulSlug
             slug
+            address
           }
           caption
           localFiles {
