@@ -1,32 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import get from 'lodash/get'
-import { navigate, graphql } from 'gatsby';
+import { graphql } from 'gatsby';
 import Header from '../components/header'
 import Img from 'gatsby-image';
 import Layout from '../components/layout'
 import { Grid, Label, Card, Segment, Button } from 'semantic-ui-react'
 import SEO from '../components/seo'
-import NearbyHH from '../components/nearbyHH'
-import { setHHTime, formatPhoneNumber, sortByDay } from '../Util/Util'
 import AdSense from 'react-adsense';
 import Axios from 'axios';
 
 
-const handleCheckout = (name, desc, price) => {
-  let data = {
-    successUrl: "https://georgiaonmydime.com/success",
-    cancelUrl: "https://georgiaonmydime.com/failed",
-    name: name,
-    description: desc,
-    price: price
-  }
-  let url = "http://us-central1-georgia-on-my-dime.cloudfunctions.net/createCheckoutSession"
-  Axios.post(url, data)
-    .then(res => {
-      console.log(res)
-    })
-    .catch(err => console.log(err))
-}
+
 
 
 
@@ -41,6 +25,25 @@ const ExclusiveDeal = (props) => {
   const post = get(props, 'data.stripeSku')
   console.log(post);
 
+
+  const handleCheckout = (name, desc, price, image) => {
+    let data = {
+      successUrl: "https://georgiaonmydime.com/success",
+      cancelUrl: "https://georgiaonmydime.com/failed",
+      name: name,
+      image: image,
+      description: desc,
+      price: price
+    }
+    let url = "http://us-central1-georgia-on-my-dime.cloudfunctions.net/createCheckoutSession"
+    Axios.post(url, data)
+      .then(res => {
+        stripe.redirectToCheckout({
+          sessionId: res.data.id
+        }).then(res => console.log(res))
+      })
+      .catch(err => console.log(err))
+  }
 
 
 
@@ -101,7 +104,7 @@ const ExclusiveDeal = (props) => {
             <Segment raised style={{ paddingBottom: '1px', background: 'grey' }}>
 
               <Button
-                onClick={() => handleCheckout(post.product.name, post.product.description, post.price)}>
+                onClick={() => handleCheckout(post.product.name, post.product.description, post.price, post.product.images)}>
                 BUY NOW
               </Button>
             </Segment>
