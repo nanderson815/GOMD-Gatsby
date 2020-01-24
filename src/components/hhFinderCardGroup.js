@@ -57,6 +57,7 @@ const HHFinderCardGroup = ({ happyHours, day, rows, hood, setHoverHandler, clear
         let adsense = (key) => {
             return (
                 <Card
+                    style={{ minWidth: " 250px " }}
                     key={key}>
                     <AdSense.Google
                         client="ca-pub-4839737207231731"
