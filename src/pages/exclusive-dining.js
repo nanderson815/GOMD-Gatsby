@@ -13,7 +13,7 @@ const AdvancedExamplePage = () => (
         <Header></Header>
         <Layout>
             <h1>Exclusive rewards for the best restaurants in town.</h1>
-            <div style={{ height: '70vh' }}>
+            <div style={{ minHeight: '70vh' }}>
                 <Skus />
             </div>
         </Layout>

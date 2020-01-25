@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu, Container, Icon, Responsive, Sticky } from 'semantic-ui-react'
+import { Menu, Container, Icon, Responsive, Sticky, Dropdown } from 'semantic-ui-react'
 import SearchBar from '../components/searchbar'
 import { Link } from 'gatsby'
 import Logo from './logo'
@@ -33,16 +33,15 @@ export default class MenuExampleMenus extends Component {
                 </Menu.Item>
 
                 <Menu.Menu position='right'>
-                  <Menu.Item
-                    style={{ fontWeight: "bold" }}
-                    name='happyHours'
-                    active={activeItem === 'happyHours'}
-                    onClick={this.handleItemClick}
-                    as={Link}
-                    to='/happy-hour-finder'
-                  >
-                    <Icon name='glass martini' style={{ color: "#1c70b5" }} />Happy Hours
-            </Menu.Item>
+                  <Menu.Item>
+                    <Dropdown item text='Restaraunts' style={{ fontWeight: "bold" }}>
+                      <Dropdown.Menu>
+                        <Dropdown.Item as={Link} to='/happy-hour-finder' > <Icon name='glass martini' style={{ color: "#1c70b5" }} />Happy Hours</Dropdown.Item>
+                        <Dropdown.Item as={Link} to='/exclusive-dining'>  <Icon name='food' style={{ color: "#1c70b5" }} />Packages</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </Menu.Item>
+
                   <Menu.Item
                     style={{ fontWeight: "bold" }}
                     name='articles'
@@ -76,15 +75,20 @@ export default class MenuExampleMenus extends Component {
                   <Menu.Item position="left" style={{ padding: '5px' }}>
                     <Link to="/"><div style={{ width: "45px" }}> <Logo /></div></Link><Link to="/"></Link>
                   </Menu.Item>
+
                   <Menu.Item
                     style={{ borderRight: "1px solid #8080807a" }}
-                    name='happyHours'
-                    active={activeItem === 'happyHours'}
-                    onClick={this.handleItemClick}
-                    as={Link}
-                    to='/happy-hour-finder'
                   >
-                    <Icon name='glass martini' style={{ color: "#1c70b5" }} /></Menu.Item>
+                    <Dropdown
+                      icon='glass martini'
+                      style={{ color: "#1c70b5" }}>
+                      <Dropdown.Menu>
+                        <Dropdown.Item as={Link} to='/happy-hour-finder' > <Icon name='glass martini' style={{ color: "#1c70b5" }} />Happy Hours</Dropdown.Item>
+                        <Dropdown.Item as={Link} to='/exclusive-dining'>  <Icon name='food' style={{ color: "#1c70b5" }} />Packages</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </Menu.Item>
+
                   <Menu.Item
                     style={{ borderRight: "1px solid #8080807a" }}
                     name='articles'
