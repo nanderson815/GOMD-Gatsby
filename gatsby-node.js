@@ -78,7 +78,7 @@ exports.createPages = ({ graphql, actions }) => {
         })
         exclusiveDeals.forEach((post, index) => {
           createPage({
-            path: `/exclusive-deals/${post.node.product.metadata.slug}`,
+            path: `/exclusive-dining/${post.node.product.metadata.slug}`,
             component: exclusiveDealTemplate,
             context: {
               slug: post.node.product.metadata.slug

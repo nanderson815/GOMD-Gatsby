@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 import Header from '../components/header'
-
+import { Responsive } from 'semantic-ui-react'
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
@@ -12,9 +12,14 @@ const AdvancedExamplePage = () => (
         <SEO title="Exclusive Deals" />
         <Header></Header>
         <Layout>
-            <h1>Exclusive rewards for the best restaurants in town.</h1>
+            <h1>Exclusive dining options at the best restaurants in Atlanta.</h1>
             <div style={{ minHeight: '70vh' }}>
-                <Skus />
+                <Responsive minWidth={768}>
+                    <Skus columns={3} />
+                </Responsive>
+                <Responsive {...Responsive.onlyMobile}>
+                    <Skus columns={1} />
+                </Responsive>
             </div>
         </Layout>
     </div>
