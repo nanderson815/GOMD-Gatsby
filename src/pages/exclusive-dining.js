@@ -12,8 +12,10 @@ const AdvancedExamplePage = () => (
         <SEO title="Exclusive Deals" />
         <Header></Header>
         <Layout>
-            <h1>Exlusive Deals. Discounted Prices.</h1>
-            <Skus />
+            <h1>Exclusive rewards for the best restaurants in town.</h1>
+            <div style={{ height: '70vh' }}>
+                <Skus />
+            </div>
         </Layout>
     </div>
 )

@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from './header'
-import SEO from './seo';
 import Layout from './layout';
 import { Button } from 'semantic-ui-react';
 import { userSignOut } from '../auth/auth'
+import { getUser } from '../auth/auth'
+
 const Profile = (props) => {
+
+    useEffect(() => {
+        console.log(getUser())
+
+    })
+
     return (
         <div>
             <Header></Header>

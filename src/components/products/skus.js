@@ -14,11 +14,11 @@ const Skus = (props) => {
             {skus.map(sku => (
                 <Card link key={sku.id}>
                     <Link to={`/exclusive-deals/${sku.product.metadata.slug}`}>
-                        <Card>
+                        <Card style={{ boxShadow: 'none' }}>
                             <Img style={{ height: "200px" }} fluid={sku.product.localFiles[0].childImageSharp.fluid}></Img>
                             <Card.Content>
                                 <Card.Header>{sku.product.name}</Card.Header>
-                                <Card.Description>{sku.product.caption}</Card.Description>
+                                <Card.Description style={{ minHeight: '38px' }}>{sku.product.caption}</Card.Description>
                             </Card.Content>
                             <Card.Content>
                                 <h3 style={{ color: "green" }}><span style={{ color: 'red', textDecoration: "line-through" }}>{formatCurrency(sku.product.metadata.basePrice)}</span> {formatCurrency(sku.price)}</h3>

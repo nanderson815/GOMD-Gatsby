@@ -3,7 +3,7 @@ import Header from './header'
 import Layout from './layout';
 import { navigate } from "gatsby"
 import { Button, Form, Divider, Modal, Input } from 'semantic-ui-react'
-import { userSignIn, isLoggedIn, userSignUp } from '../auth/auth'
+import { userSignIn, isLoggedIn, userSignUp, resetPassword } from '../auth/auth'
 
 const Login = (props) => {
 
@@ -35,6 +35,20 @@ const Login = (props) => {
 
     }
 
+    const [resetMessage, setResetMessage] = useState()
+    const forgotPassword = async (e) => {
+        e.preventDefault()
+        if (user.forgotPassword) {
+            let res = await resetPassword(user.forgotPassword)
+            if (res.success) {
+                alert(res.success);
+                setError('')
+            } else {
+                setResetMessage(res.message)
+            }
+        }
+    }
+
     const [user, setUser] = useState('')
     if (isLoggedIn()) {
         navigate('/app/profile')
@@ -54,6 +68,21 @@ const Login = (props) => {
                             <label>Password</label>
                             <input type='password' onChange={onChangeHandler} id='password' placeholder='Password' />
                         </Form.Field>
+                        {error ?
+                            <Modal trigger={<Button color="red">Forgot Password?</Button>} closeIcon>
+                                <Modal.Header>Reset Password</Modal.Header>
+                                <Modal.Content>
+
+                                    <Form style={{ maxWidth: "500px", margin: "0 auto" }}>
+                                        <Form.Field required>
+                                            <label>Email</label>
+                                            <input onChange={onChangeHandler} id='forgotPassword' placeholder='Email' />
+                                        </Form.Field>
+                                        <Button onClick={forgotPassword} type='submit'>Submit</Button>
+                                        <p style={{ color: "red" }}>{resetMessage}</p>
+                                    </Form>
+                                </Modal.Content>
+                            </Modal> : null}
                         <Button type='submit'>Submit</Button>
                         <p style={{ color: "red" }}>{error}</p>
                     </Form>

@@ -34,8 +34,12 @@ export const userSignIn = async (email, password) => {
 // Check user status
 export const isLoggedIn = () => {
     let user = firebase.auth().currentUser
-    console.log(!!user)
     return !!user
+}
+
+// Get user info
+export const getUser = () => {
+    return firebase.auth().currentUser
 }
 
 // Sign Out
@@ -59,4 +63,16 @@ export const verifyEmail = () => {
     }).catch((err) => {
         console.log(err)
     });
+}
+
+// Reset Password
+export const resetPassword = async (email) => {
+    let res = await firebase.auth().sendPasswordResetEmail(email)
+        .then(() => {
+            return { success: "Email sent successfully. Please check your inbox." }
+        })
+        .catch((error) => {
+            return error
+        });
+    return res
 }
