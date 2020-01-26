@@ -40,7 +40,8 @@ const ExclusiveDeal = (props) => {
           user_id: user.uid,
           user_email: user.email,
           productMeta: post.product.metadata.slug,
-          couponCode: post.product.metadata.couponCode
+          couponCode: post.product.metadata.couponCode,
+          caption: post.product.caption
         }
       }
       let url = "http://us-central1-georgia-on-my-dime.cloudfunctions.net/createCheckoutSession"
