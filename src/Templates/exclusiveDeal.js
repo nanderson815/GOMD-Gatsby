@@ -8,7 +8,7 @@ import { Grid, Label, Card, Segment, Button } from 'semantic-ui-react'
 import SEO from '../components/seo'
 import AdSense from 'react-adsense';
 import Axios from 'axios';
-
+import { getUser } from '../auth/auth'
 
 const handleClick = (e) => {
   let tag = e.target.value
@@ -21,24 +21,41 @@ const ExclusiveDeal = (props) => {
   const post = get(props, 'data.stripeSku')
   console.log(post);
 
+  useEffect(() => {
+    console.log(getUser())
+  })
+
 
   const handleCheckout = (name, desc, price, image) => {
-    let data = {
-      successUrl: "https://georgiaonmydime.com/success",
-      cancelUrl: "https://georgiaonmydime.com/failed",
-      name: name,
-      image: image,
-      description: desc,
-      price: price
+    let user = getUser()
+    if (user) {
+      let data = {
+        successUrl: "https://georgiaonmydime.com/app/profile",
+        cancelUrl: `https://georgiaonmydime.com/exclusive-dining/${post.product.metadata.slug}`,
+        name: name,
+        image: image,
+        description: desc,
+        price: price,
+        metadata: {
+          user_id: user.uid,
+          user_email: user.email,
+          productMeta: post.product.metadata.slug,
+          couponCode: post.product.metadata.couponCode
+        }
+      }
+      let url = "http://us-central1-georgia-on-my-dime.cloudfunctions.net/createCheckoutSession"
+      Axios.post(url, data)
+        .then(res => {
+          console.log(res)
+          stripe.redirectToCheckout({
+            sessionId: res.data.id
+          }).then(res => console.log(res))
+        })
+        .catch(err => console.log(err))
+    } else {
+      console.log("You must be logged in !")
     }
-    let url = "http://us-central1-georgia-on-my-dime.cloudfunctions.net/createCheckoutSession"
-    Axios.post(url, data)
-      .then(res => {
-        stripe.redirectToCheckout({
-          sessionId: res.data.id
-        }).then(res => console.log(res))
-      })
-      .catch(err => console.log(err))
+
   }
 
   useEffect(() => {

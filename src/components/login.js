@@ -1,11 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from './header'
 import Layout from './layout';
 import { navigate } from "gatsby"
 import { Button, Form, Divider, Modal, Input } from 'semantic-ui-react'
 import { userSignIn, isLoggedIn, userSignUp, resetPassword } from '../auth/auth'
+import { getFirebase } from '../firebase/firebase'
 
 const Login = (props) => {
+
+    // Redirects if user is logged in.
+    useEffect(() => {
+        let firebase = getFirebase()
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                navigate('/app/profile')
+            }
+        });
+    })
 
     const onChangeHandler = (e) => {
         setUser({ ...user, [e.target.id]: e.target.value })
@@ -50,9 +61,7 @@ const Login = (props) => {
     }
 
     const [user, setUser] = useState('')
-    if (isLoggedIn()) {
-        navigate('/app/profile')
-    }
+
     return (
         <>
             <Header></Header>
