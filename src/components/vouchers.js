@@ -5,10 +5,23 @@ import Barcode from 'react-barcode'
 const Vouchers = ({ data }) => {
     console.log(data)
 
-    const [modalOpen, setModalOpen] = useState(false)
-    const handleOpen = () => setModalOpen(true)
-    const handleClose = () => setModalOpen(false)
+    const [activeVourcher, setActiveVoucher] = useState('')
 
+    const [modalOpen, setModalOpen] = useState(false)
+    const handleOpen = (voucher) => {
+        console.log(voucher)
+        setActiveVoucher(voucher)
+        setModalOpen(true)
+    }
+    const handleClose = () => {
+        setRedeeming(false)
+        setModalOpen(false)
+    }
+
+    const [redeeming, setRedeeming] = useState(false)
+    const redeemVoucher = () => {
+        setRedeeming(true)
+    }
 
     return (
         <Card.Group>
@@ -20,23 +33,39 @@ const Vouchers = ({ data }) => {
                             <Card.Header>{voucher.name}</Card.Header>
                             <Card.Description>{voucher.description}</Card.Description>
                             <div style={{ textAlign: "center", marginTop: "5px" }}>
-                                <Modal dimmer="blurring" open={modalOpen} onClose={handleClose} trigger={<Button onClick={handleOpen} primary>Redeem</Button>} closeIcon>
-                                    <Modal.Header>Do not redeem until check out.</Modal.Header>
-                                    <Modal.Content>
-                                        <Modal.Description>
-                                            <p>Wait until you are ready to pay before redeeming this voucher. This voucher will disappear after automatically use.</p>
-                                            <p>When you are ready, press redeem and show the screen to your waiter/waitress. </p>
+                                <Modal dimmer="blurring" open={modalOpen} trigger={<Button onClick={handleOpen.bind(this, voucher)} primary>Redeem</Button>}>
+                                    {redeeming ? <>
+                                        <Modal.Header>{activeVourcher.name}</Modal.Header>
+                                        <Modal.Content>
+                                            <Modal.Description style={{ textAlign: 'center' }}>
+                                                <p>{activeVourcher.description}</p>
+                                                <Barcode value={activeVourcher.couponCode}></Barcode>
+                                            </Modal.Description>
+                                        </Modal.Content>
+                                        <Modal.Actions>
+                                            <Button onClick={handleClose} color='green' inverted>
+                                                <Icon name='checkmark' /> Done
+                                        </Button>
+                                        </Modal.Actions>
+                                    </>
+                                        : <>
+                                            <Modal.Header style={{ textAlign: 'center' }}><span style={{ color: 'red' }}>WAIT! </span>Do not redeem this voucher until check out.</Modal.Header>
+                                            <Modal.Content>
+                                                <Modal.Description>
+                                                    <p>Wait until you are ready to pay before redeeming this voucher. <span style={{fontWeight: 'bold'}}>This voucher will disappear automatically after use.</span></p>
+                                                    <p>When you are ready, press redeem and show the screen to your waiter/waitress. </p>
 
-                                        </Modal.Description>
-                                    </Modal.Content>
-                                    <Modal.Actions>
-                                        <Button onClick={handleClose} basic>
-                                            <Icon name='remove' /> Not Yet
+                                                </Modal.Description>
+                                            </Modal.Content>
+                                            <Modal.Actions>
+                                                <Button onClick={handleClose} basic>
+                                                    <Icon name='remove' /> Not Yet
                                         </Button>
-                                        <Button onClick={handleClose} color='green' inverted>
-                                            <Icon name='checkmark' /> Redeem
+                                                <Button onClick={redeemVoucher} color='green' inverted>
+                                                    <Icon name='checkmark' /> Redeem
                                         </Button>
-                                    </Modal.Actions>
+                                            </Modal.Actions>
+                                        </>}
                                 </Modal>
                             </div>
                         </Card.Content>
