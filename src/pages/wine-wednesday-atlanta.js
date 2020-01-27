@@ -58,7 +58,7 @@ const WineWednesdayAtlanta = (props) => {
         <div>
             <SEO
                 title="Wine Wednesday in Atlanta (2020)"
-                image='/atlanta-happy-hour-georgia-on-my-dime.jpeg'
+                image='/wine-wednesday-in-atlanta.jpg'
                 description="Here are the Best Wine Wednesday deals in Atlanta. You've made it halfway through the week - time to reward yourself!"></SEO>
             <Header></Header>
             <Segment style={{ marginTop: "-15px" }}>

@@ -96,8 +96,27 @@ const Articles = ({ data }) => {
                 </BackgroundImage>
             </Card>
         )
+        let wineWednesday = (
+            <Card
+                link
+                onClick={() => handleCardClick('wine-wednesday-atlanta')}
+                key={"wineWednesday-123"}
+                style={{ width: width }}>
+                <BackgroundImage
+                    fluid={[`linear-gradient(rgba(225, 225, 225, 0.2), rgba(0, 0, 0, 0.9))`, data.wineW.childImageSharp.fluid]}
+                    alt={"Best Happy Hours in Atlanta"}
+                    style={{ height: `50vh`, borderRadius: "10px" }}
+                >
+                    <div style={{ color: "white", position: "absolute", bottom: "20px", left: "10px", zIndex: "2000" }}>
+                        <h2 ><span style={{ fontWeight: "lighter", fontSize: "20px" }}>Guides:</span> <br />Wine Wednesday in Atlanta</h2>
+                        <Card.Meta style={{ color: "white" }}>January 26, 2020</Card.Meta>
+                    </div>
+                </BackgroundImage>
+            </Card>
+        )
         cards.splice(1, 0, mimosas)
         cards.splice(1, 0, bestHHs)
+        cards.splice(1, 0, wineWednesday)
         return cards
     }
     return (
@@ -148,6 +167,13 @@ export const query = graphql`
           }
         }
         bestHH: file(relativePath: { eq: "Bazati.jpg" }) {
+          childImageSharp {
+            fluid(quality: 90, maxWidth: 1920) {
+              ...GatsbyImageSharpFluid_withWebp
+            }
+          }
+        }
+        wineW: file(relativePath: { eq: "winewed.jpg" }) {
           childImageSharp {
             fluid(quality: 90, maxWidth: 1920) {
               ...GatsbyImageSharpFluid_withWebp
