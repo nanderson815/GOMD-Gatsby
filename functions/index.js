@@ -68,6 +68,8 @@ exports.createCheckoutSession = functions.https.onRequest(async (request, respon
     cors(request, response, () => {
         if (request.method !== 'POST') {
             return
+        } else if (request.body.metadata.vouchersSold >= request.body.metadata.quantity) {
+            return
         }
         stripe.checkout.sessions.create(
             {
