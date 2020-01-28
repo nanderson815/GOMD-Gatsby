@@ -20,6 +20,8 @@ const contentfulToken = functions.config().contentful.token;
 //     });
 // });
 
+
+// This function creates a voucher in the DB after a product is created in stripe. Need this to track quantity. 
 exports.createProductFromSku = functions.https.onRequest(async (request, response) => {
     cors(request, response, () => {
         if (request.method !== 'POST') {
@@ -51,8 +53,9 @@ exports.createProductFromSku = functions.https.onRequest(async (request, respons
                     image: content.mainImg.fields,
                     neighborhood: content.neighborhood,
                     address: content.address,
+                    quantity: parseInt(obj.metadata.quantity)
                 }
-                admin.firestore().collection('vouchers').doc(obj.id).set({ voucher })
+                admin.firestore().collection('vouchers').doc(obj.id).set(voucher)
                     .then(() => response.json({ recieved: true }))
                     .catch((error) => response.json({ recieved: false, error: error }))
             })
