@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from './header'
 import Layout from './layout';
-import { Button } from 'semantic-ui-react';
+import { Button, Responsive } from 'semantic-ui-react';
 import { userSignOut } from '../auth/auth'
 import { getUser } from '../auth/auth'
 import { getFirebase } from '../firebase/firebase'
@@ -36,10 +36,20 @@ const Profile = (props) => {
         <div>
             <Header></Header>
             <Layout>
-                {vouchers ? <div><h2>Your Vouchers</h2><Vouchers data={vouchers}></Vouchers></div> : null}
+                {vouchers ?
+                    <div>
+                        <h2>Your Vouchers</h2>
+                        <Responsive {...Responsive.onlyMobile}>
+                            <Vouchers rows={1} data={vouchers}></Vouchers>
+                        </Responsive>
+                        <Responsive minWidth={768}>
+                            <Vouchers rows={3} data={vouchers}></Vouchers>
+                        </Responsive>
+                    </div>
+                    : null}
                 <Button onClick={userSignOut}>Sign Out</Button>
             </Layout>
-        </div>
+        </div >
     )
 }
 

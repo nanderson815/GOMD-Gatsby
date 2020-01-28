@@ -30,8 +30,8 @@ const ExclusiveDeal = (props) => {
     let user = getUser()
     if (user) {
       let data = {
-        successUrl: "https://georgiaonmydime.com/app/profile",
-        cancelUrl: `https://georgiaonmydime.com/exclusive-dining/${post.product.metadata.slug}`,
+        successUrl: "http://localhost:8000/app/profile",
+        cancelUrl: `http://localhost:8000/exclusive-dining/${post.product.metadata.slug}`,
         name: name,
         image: image,
         description: desc,
