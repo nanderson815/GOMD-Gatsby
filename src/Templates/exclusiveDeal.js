@@ -4,11 +4,14 @@ import { graphql } from 'gatsby';
 import Header from '../components/header'
 import Img from 'gatsby-image';
 import Layout from '../components/layout'
-import { Grid, Label, Card, Segment, Button } from 'semantic-ui-react'
+import { Grid, Label, Card, Segment, Button, Icon } from 'semantic-ui-react'
 import SEO from '../components/seo'
 import AdSense from 'react-adsense';
 import Axios from 'axios';
 import { getUser } from '../auth/auth'
+import { getFirebase } from '../firebase/firebase'
+import { formatCurrency } from '../Util/Util'
+import { checkRemaining } from '../Util/Util'
 
 const handleClick = (e) => {
   let tag = e.target.value
@@ -21,9 +24,15 @@ const ExclusiveDeal = (props) => {
   const post = get(props, 'data.stripeSku')
   console.log(post);
 
+
+  let [voucher, setVoucher] = useState()
   useEffect(() => {
-    console.log(getUser())
-  })
+    let db = getFirebase().firestore()
+    db.collection('vouchers').doc(post.product.id).get().then((doc) => {
+      console.log(doc.data())
+      setVoucher(doc.data())
+    })
+  }, [])
 
 
   const handleCheckout = (name, desc, price, image) => {
@@ -41,7 +50,8 @@ const ExclusiveDeal = (props) => {
           user_email: user.email,
           productMeta: post.product.metadata.slug,
           couponCode: post.product.metadata.couponCode,
-          caption: post.product.caption
+          caption: post.product.caption,
+          voucherId: post.product.id
         }
       }
       let url = "http://us-central1-georgia-on-my-dime.cloudfunctions.net/createCheckoutSession"
@@ -85,12 +95,21 @@ const ExclusiveDeal = (props) => {
                 <Card.Header>
                   <h1 style={{ marginBottom: "-3px" }}>{post.product.name}</h1>
                   {post.product.attributes.map((tag, index) => <Label as={Button} key={`${index}label`} value={tag} onClick={handleClick}>{tag}</Label>)}
+                  <div style={{ display: "inline-block", float: 'right', fontSize: "25px" }}>
+                    {formatCurrency(post.price)}
+                  </div>
                 </Card.Header>
 
               </Card.Content>
               <Card.Content>
                 <h2>Description</h2>
                 <p>{post.product.description}</p>
+              </Card.Content>
+              <Card.Content>
+                <Icon name="map marker"></Icon> {voucher ? voucher.neighborhood : null}
+                <div style={{ display: 'inline-block', float: "right", fontWeight: "bold", fontSize: "20px" }}>
+                  Remaining: {voucher ? checkRemaining(voucher.vouchersSold, voucher.quantity) : null}
+                </div>
               </Card.Content>
 
             </Card>
@@ -113,13 +132,12 @@ const ExclusiveDeal = (props) => {
 
               </Card.Content>
             </Card>
-            <Segment raised style={{ paddingBottom: '1px', background: 'grey' }}>
-
+            {voucher ? voucher.vouchersSold >= voucher.quantity ? null : <Segment raised style={{ paddingBottom: '1px', background: '#1c70b5', textAlign: "center" }}>
               <Button
                 onClick={() => handleCheckout(post.product.name, post.product.description, post.price, post.product.images)}>
                 BUY NOW
               </Button>
-            </Segment>
+            </Segment> : null}
             <Segment raised style={{ paddingBottom: '1px' }}>
               <AdSense.Google
                 client="ca-pub-4839737207231731"

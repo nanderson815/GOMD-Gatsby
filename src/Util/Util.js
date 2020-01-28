@@ -57,7 +57,7 @@ export const formatPhoneNumber = (str) => {
 };
 // ----------------------------------------------------------------------------------------------------
 
-// Format Dollars from Cents Helper --------------------------------------------------------------------------------
+// Format Dollars from Cents Helper -------------------------------------------------------------------
 export const formatCurrency = (str) => {
     // Convert to number. Int because there will be no decimals
     var num = parseInt(str);
@@ -65,4 +65,17 @@ export const formatCurrency = (str) => {
     var dollars = num / 100;
     return dollars = dollars.toLocaleString("en-US", { style: "currency", currency: "USD" });
 };
+// ----------------------------------------------------------------------------------------------------
+
+
+// Check number of remainging vouchers ----------------------------------------------------------------
+export const checkRemaining = (sold, quantity) => {
+    if (sold >= quantity) {
+        return "Sold Out!"
+    } else if (sold) {
+        return quantity - sold
+    } else {
+        return quantity
+    }
+}
 // ----------------------------------------------------------------------------------------------------

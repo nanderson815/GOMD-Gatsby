@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { Link } from "gatsby"
 import Header from '../components/header'
 import { Responsive } from 'semantic-ui-react'
@@ -10,16 +10,20 @@ import Skus from "../components/Products/Skus"
 
 const AdvancedExamplePage = () => {
 
+    const [vouchers, setVouchers] = useState([])
     useEffect(() => {
         let db = getFirebase().firestore()
+        let vouchers = [];
         db.collection('vouchers').get()
             .then((snap) => {
                 snap.forEach(doc => {
-                    console.log(doc.data())
+                    vouchers.push(doc.data())
                 })
+                setVouchers(vouchers)
             })
             .catch(err => console.log(err))
-    })
+    }, [])
+
     return (
         <div>
             <SEO title="Exclusive Deals" />
@@ -28,7 +32,7 @@ const AdvancedExamplePage = () => {
                 <h1>Exclusive dining options at the best restaurants in Atlanta.</h1>
                 <div style={{ minHeight: '70vh' }}>
                     <Responsive minWidth={768}>
-                        <Skus columns={3} />
+                        <Skus vouchers={vouchers} columns={3} />
                     </Responsive>
                     <Responsive {...Responsive.onlyMobile}>
                         <Skus columns={1} />

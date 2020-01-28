@@ -48,6 +48,7 @@ exports.createProductFromSku = functions.https.onRequest(async (request, respons
                     price: obj.metadata.price,
                     basePrice: obj.metadata.basePrice,
                     couponCode: obj.metadata.couponCode,
+                    slug: obj.metadata.slug,
                     caption: obj.caption,
                     description: obj.description,
                     image: content.mainImg.fields,
@@ -55,7 +56,7 @@ exports.createProductFromSku = functions.https.onRequest(async (request, respons
                     address: content.address,
                     quantity: parseInt(obj.metadata.quantity)
                 }
-                admin.firestore().collection('vouchers').doc(obj.id).set(voucher)
+                admin.firestore().collection('vouchers').doc(obj.id).set(voucher, { merge: true })
                     .then(() => response.json({ recieved: true }))
                     .catch((error) => response.json({ recieved: false, error: error }))
             })
@@ -103,16 +104,18 @@ exports.postCheckoutProcess = functions.https.onRequest((request, response) => {
         }
         // This is where the coupon voucher will be created and added to firebase DB for user.
         let data = request.body.data.object
-        let voucherId = data.id
+        let voucherId = data.metadata.voucherId
+        let userVoucherId = data.id
         let document = {
-            id: voucherId,
+            id: userVoucherId,
             name: data.display_items[0].custom.name,
             images: data.display_items[0].custom.images,
             description: data.metadata.caption,
             redeemed: false,
             couponCode: data.metadata.couponCode
         }
-        admin.firestore().collection('users').doc(data.metadata.user_id).collection('vouchers').doc(voucherId).set({ document })
+        admin.firestore().collection('vouchers').doc(voucherId).update({ vouchersSold: admin.firestore.FieldValue.increment(1) })
+        admin.firestore().collection('users').doc(data.metadata.user_id).collection('vouchers').doc(userVoucherId).set({ document })
             .then(() => response.json({ recieved: true }))
             .catch((error) => response.json({ recieved: false, error: error }))
     })
