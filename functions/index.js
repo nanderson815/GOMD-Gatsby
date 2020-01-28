@@ -3,6 +3,9 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 const stripe = require('stripe')(functions.config().stripe.token);
 const cors = require('cors')({ origin: true });
+const contentful = require('contentful')
+const spaceId = functions.config().contentful.spaceid;
+const contentfulToken = functions.config().contentful.token;
 
 // Create and Deploy Your First Cloud Functions
 // https://firebase.google.com/docs/functions/write-firebase-functions
@@ -16,6 +19,46 @@ const cors = require('cors')({ origin: true });
 //         response.send("Hello from Georgia on my dime!")
 //     });
 // });
+
+exports.createProductFromSku = functions.https.onRequest(async (request, response) => {
+    cors(request, response, () => {
+        if (request.method !== 'POST') {
+            return
+        }
+        let obj = request.body.data.object
+        let slug = obj.metadata.contentfulSlug;
+
+        const client = contentful.createClient({
+            space: spaceId,
+            accessToken: contentfulToken
+        })
+        client.getEntries({
+            content_type: 'happyHour',
+            'fields.slug': slug
+        })
+            .then((res) => {
+                console.log(res.items[0])
+                let content = res.items[0].fields
+                let voucher = {
+                    name: obj.name,
+                    id: obj.id,
+                    attributes: obj.attributes,
+                    price: obj.metadata.price,
+                    basePrice: obj.metadata.basePrice,
+                    couponCode: obj.metadata.couponCode,
+                    caption: obj.caption,
+                    description: obj.description,
+                    image: content.mainImg.fields,
+                    neighborhood: content.neighborhood,
+                    address: content.address,
+                }
+                admin.firestore().collection('vouchers').doc(obj.id).set({ voucher })
+                    .then(() => response.json({ recieved: true }))
+                    .catch((error) => response.json({ recieved: false, error: error }))
+            })
+            .catch(console.error)
+    });
+})
 
 exports.createCheckoutSession = functions.https.onRequest(async (request, response) => {
     cors(request, response, () => {
