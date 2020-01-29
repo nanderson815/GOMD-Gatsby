@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { Card, Button, Modal, Icon, Responsive } from 'semantic-ui-react'
 import Barcode from 'react-barcode'
 import { Link } from 'gatsby'
+import Axios from 'axios';
 
-const Vouchers = ({ data, rows }) => {
+
+const Vouchers = ({ data, rows, user }) => {
     console.log(data)
 
     const [activeVourcher, setActiveVoucher] = useState('')
@@ -17,19 +19,35 @@ const Vouchers = ({ data, rows }) => {
     const handleClose = () => {
         setRedeeming(false)
         setModalOpen(false)
+        setLoading(false)
     }
 
+    const [loading, setLoading] = useState(false)
     const [redeeming, setRedeeming] = useState(false)
     const redeemVoucher = () => {
-        setRedeeming(true)
+        setLoading(true);
+        let url = 'https://us-central1-georgia-on-my-dime.cloudfunctions.net/redeemVoucher';
+        Axios.post(url, {
+            uid: user.uid,
+            voucherId: activeVourcher.id
+        })
+            .then(res => {
+                console.log(res)
+                handleClose()
+            })
+            .catch(err => {
+                handleClose()
+                console.log(err)
+            })
     }
+
 
     return (
         <div>
-            {data === undefined || data.length == 0 ? <div style={{ textAlign: "center" }}><h3>Looks like you don't have any vouchers yet.</h3> <Link to='/exclusive-dining'><Button primary>Buy Vouchers</Button></Link> </div> : null
+            {data === undefined || data.length == 0 ? <div style={{ textAlign: "center" }}><h3>Looks like you don't have any vouchers yet.</h3> <Link to='/exclusive-dining'><Button style={{ marginBottom: '20px' }} primary>Buy Vouchers</Button></Link> </div> : null
             }
             <Card.Group itemsPerRow={rows}>
-                {data.map(voucher => {
+                {data.filter(voucher => voucher.redeemed === false).map(voucher => {
                     return (
                         <Card key={voucher.id} link>
                             <img style={{ margin: "0px", objectFit: "cover" }} height={200} src={voucher.images[0]} />
@@ -48,7 +66,7 @@ const Vouchers = ({ data, rows }) => {
                                                     </Modal.Description>
                                                 </Modal.Content>
                                                 <Modal.Actions>
-                                                    <Button onClick={handleClose} color='green' inverted>
+                                                    <Button loading={loading} onClick={redeemVoucher} color='green' inverted>
                                                         <Icon name='checkmark' /> Done
                                         </Button>
                                                 </Modal.Actions>
@@ -66,7 +84,7 @@ const Vouchers = ({ data, rows }) => {
                                                         <Button onClick={handleClose} basic>
                                                             <Icon name='remove' /> Not Yet
                                         </Button>
-                                                        <Button onClick={redeemVoucher} color='green' inverted>
+                                                        <Button onClick={() => setRedeeming(true)} color='green' inverted>
                                                             <Icon name='checkmark' /> Redeem
                                         </Button>
                                                     </Modal.Actions>

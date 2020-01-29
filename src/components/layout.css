@@ -7,6 +7,12 @@
     padding: 0px !important;
 }
 
+.wrapped{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .scrolling-wrapper {
   overflow-x: scroll;
   overflow-y: hidden;

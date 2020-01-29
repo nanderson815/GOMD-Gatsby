@@ -8,7 +8,7 @@ import { getFirebase } from '../firebase/firebase'
 
 import Skus from "../components/Products/Skus"
 
-const AdvancedExamplePage = () => {
+const ExclusiveDiningPage = () => {
 
     const [vouchers, setVouchers] = useState([])
     useEffect(() => {
@@ -35,7 +35,7 @@ const AdvancedExamplePage = () => {
                         <Skus vouchers={vouchers} columns={3} />
                     </Responsive>
                     <Responsive {...Responsive.onlyMobile}>
-                        <Skus columns={1} />
+                        <Skus vouchers={vouchers} columns={1} />
                     </Responsive>
                 </div>
             </Layout>
@@ -43,4 +43,4 @@ const AdvancedExamplePage = () => {
     )
 }
 
-export default AdvancedExamplePage
+export default ExclusiveDiningPage

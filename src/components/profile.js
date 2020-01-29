@@ -1,13 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import Header from './header'
 import Layout from './layout';
-import { Button, Responsive } from 'semantic-ui-react';
+import { Button, Responsive, Label, Menu, Tab } from 'semantic-ui-react';
 import { userSignOut } from '../auth/auth'
 import { getUser } from '../auth/auth'
 import { getFirebase } from '../firebase/firebase'
 import Vouchers from './vouchers'
 
 const Profile = (props) => {
+
+    const panes = [
+        {
+            menuItem: 'Vouchers', render: () => <Tab.Pane>{vouchers ?
+                <div>
+                    <h2>Your Vouchers</h2>
+                    <Responsive {...Responsive.onlyMobile}>
+                        <Vouchers rows={1} data={vouchers} user={user}></Vouchers>
+                    </Responsive>
+                    <Responsive minWidth={768}>
+                        <Vouchers rows={3} data={vouchers}></Vouchers>
+                    </Responsive>
+                </div>
+                : null}</Tab.Pane>
+        },
+        { menuItem: 'Favorites', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
+        { menuItem: 'Profile', render: () => <Tab.Pane><Button onClick={userSignOut}>Sign Out</Button></Tab.Pane> },
+    ]
+
+
 
     const [user, setUser] = useState('')
     useEffect(() => {
@@ -20,14 +40,15 @@ const Profile = (props) => {
         let firebase = getFirebase();
         let db = firebase.firestore();
         if (user) {
-            db.collection("users").doc(user.uid).collection('vouchers').get().then((snapshot) => {
+            let unsubscripe = db.collection("users").doc(user.uid).collection('vouchers').where("redeemed", "==", false).onSnapshot((snapshot) => {
                 let vouchersData = []
                 snapshot.forEach((doc) => {
-                    let info = doc.data().document
+                    let info = doc.data()
                     vouchersData.push(info);
                 })
                 setVouchers(vouchersData);
             })
+            return () => unsubscripe()
         }
     }, [user])
 
@@ -36,18 +57,7 @@ const Profile = (props) => {
         <div>
             <Header></Header>
             <Layout>
-                {vouchers ?
-                    <div>
-                        <h2>Your Vouchers</h2>
-                        <Responsive {...Responsive.onlyMobile}>
-                            <Vouchers rows={1} data={vouchers}></Vouchers>
-                        </Responsive>
-                        <Responsive minWidth={768}>
-                            <Vouchers rows={3} data={vouchers}></Vouchers>
-                        </Responsive>
-                    </div>
-                    : null}
-                <Button onClick={userSignOut}>Sign Out</Button>
+                <Tab panes={panes} />
             </Layout>
         </div >
     )

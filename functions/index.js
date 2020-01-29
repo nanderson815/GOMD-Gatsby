@@ -64,6 +64,7 @@ exports.createProductFromSku = functions.https.onRequest(async (request, respons
     });
 })
 
+// Creates a checkout session.
 exports.createCheckoutSession = functions.https.onRequest(async (request, response) => {
     cors(request, response, () => {
         if (request.method !== 'POST') {
@@ -99,6 +100,7 @@ exports.createCheckoutSession = functions.https.onRequest(async (request, respon
     })
 })
 
+// Adds voucher to user profile after checkout is complete.
 exports.postCheckoutProcess = functions.https.onRequest((request, response) => {
     cors(request, response, () => {
         if (request.method !== 'POST') {
@@ -117,8 +119,25 @@ exports.postCheckoutProcess = functions.https.onRequest((request, response) => {
             couponCode: data.metadata.couponCode
         }
         admin.firestore().collection('vouchers').doc(voucherId).update({ vouchersSold: admin.firestore.FieldValue.increment(1) })
-        admin.firestore().collection('users').doc(data.metadata.user_id).collection('vouchers').doc(userVoucherId).set({ document })
+        admin.firestore().collection('users').doc(data.metadata.user_id).collection('vouchers').doc(userVoucherId).set(document)
             .then(() => response.json({ recieved: true }))
             .catch((error) => response.json({ recieved: false, error: error }))
+    })
+})
+
+// Marks voucher as used.
+exports.redeemVoucher = functions.https.onRequest((request, response) => {
+    cors(request, response, () => {
+        if (request.method !== 'POST') {
+            return
+        }
+        let uid = request.body.uid;
+        let voucherId = request.body.voucherId
+        admin.firestore().collection("users").doc(uid).collection('vouchers').doc(voucherId).update({ redeemed: true })
+            .then((res) => {
+                response.json(res)
+            })
+            .catch((error) => response.json(error))
+
     })
 })
