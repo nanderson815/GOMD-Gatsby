@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react'
 import Header from './header'
 import Layout from './layout';
 import { navigate } from "gatsby"
-import { Button, Form, Divider, Modal, Input } from 'semantic-ui-react'
-import { userSignIn, isLoggedIn, userSignUp, resetPassword } from '../auth/auth'
+import { Button, Form, Divider, Modal, Icon } from 'semantic-ui-react'
+import { userSignIn, isLoggedIn, userSignUp, resetPassword, googleSignUp } from '../auth/auth'
 import { getFirebase } from '../firebase/firebase'
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+
 
 const Login = (props) => {
 
@@ -33,6 +36,22 @@ const Login = (props) => {
         } else {
             setError("Please add an email and password.")
         }
+    }
+
+    const createGoogleAccount = (props) => {
+        if (typeof window !== 'undefined') {
+            let firebaseApp = getFirebase()
+            let provider = new firebase.auth.GoogleAuthProvider();
+            firebaseApp.auth().signInWithPopup(provider).then(function (result) {
+                console.log(result)
+            }).catch(function (error) {
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                console.log({ errorMessage, email })
+            });
+        }
+
     }
 
     const createAccount = async (e) => {
@@ -96,6 +115,11 @@ const Login = (props) => {
                         <p style={{ color: "red" }}>{error}</p>
                     </Form>
                     <Divider horizontal>Or</Divider>
+                    <div style={{ textAlign: "center", marginBottom: "10px" }}>
+                        <Button color='google plus' onClick={createGoogleAccount}>
+                            <Icon name='google' /> Login with Google
+                                    </Button>
+                    </div>
                     <div style={{ textAlign: "center" }}>
                         <Modal trigger={<Button primary>Sign Up</Button>} closeIcon>
                             <Modal.Header>Sign Up</Modal.Header>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Card, Button, Modal, Icon, Responsive } from 'semantic-ui-react'
 import Barcode from 'react-barcode'
-import { Link } from 'gatsby'
+import { Link, navigate } from 'gatsby'
 import Axios from 'axios';
 
 
@@ -9,6 +9,10 @@ const Vouchers = ({ data, rows, user }) => {
     console.log(data)
 
     const [activeVourcher, setActiveVoucher] = useState('')
+
+    const handleClick = (slug) => {
+        navigate()
+    }
 
     const [modalOpen, setModalOpen] = useState(false)
     const handleOpen = (voucher) => {
@@ -95,6 +99,9 @@ const Vouchers = ({ data, rows, user }) => {
                                         <p style={{ fontSize: "12px" }}><i>Must redeem in store. Try again on a mobile device</i></p>
                                     </Responsive>
                                 </div>
+                            </Card.Content>
+                            <Card.Content>
+                                <Link style={{color: "grey"}} to={`/exclusive-dining/${voucher.slug}`}>More Details</Link>
                             </Card.Content>
                         </Card>
                     )

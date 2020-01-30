@@ -116,7 +116,8 @@ exports.postCheckoutProcess = functions.https.onRequest((request, response) => {
             images: data.display_items[0].custom.images,
             description: data.metadata.caption,
             redeemed: false,
-            couponCode: data.metadata.couponCode
+            couponCode: data.metadata.couponCode,
+            slug: data.metadata.slug
         }
         admin.firestore().collection('vouchers').doc(voucherId).update({ vouchersSold: admin.firestore.FieldValue.increment(1) })
         admin.firestore().collection('users').doc(data.metadata.user_id).collection('vouchers').doc(userVoucherId).set(document)

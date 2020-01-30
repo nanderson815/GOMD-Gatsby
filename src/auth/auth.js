@@ -56,13 +56,27 @@ export const userSignOut = () => {
 }
 
 // Send Verification Email
-export const verifyEmail = () => {
+export const verifyEmail = async () => {
     let user = firebase.auth().currentUser
-    user.sendEmailVerification().then(() => {
-        console.log("Email Sent.")
+    let res = await user.sendEmailVerification().then(() => {
+        return ({ success: "Email Sent." })
     }).catch((err) => {
-        console.log(err)
+        return (err)
     });
+    return res
+}
+
+// Update name
+export const updateName = async (name) => {
+    let user = firebase.auth().currentUser
+    let res = await user.updateProfile({
+        displayName: name,
+    }).then(function () {
+        return true
+    }).catch(function (error) {
+        return false
+    });
+    return res
 }
 
 // Reset Password
@@ -75,4 +89,20 @@ export const resetPassword = async (email) => {
             return error
         });
     return res
+}
+
+// Update Email
+export const updateEmail = async (email) => {
+    let user = firebase.auth().currentUser;
+    if (user) {
+        let res = await user.updateEmail(email).then(() => {
+            return { message: "Email upated successfully." }
+        })
+            .catch((error) => {
+                return error
+            })
+        return res
+    } else {
+        return "There is no user logged in."
+    }
 }

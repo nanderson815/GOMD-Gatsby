@@ -12,6 +12,7 @@ import { getUser } from '../auth/auth'
 import { getFirebase } from '../firebase/firebase'
 import { formatCurrency } from '../Util/Util'
 import { checkRemaining } from '../Util/Util'
+import { navigate } from '@reach/router';
 
 const handleClick = (e) => {
   let tag = e.target.value
@@ -34,8 +35,9 @@ const ExclusiveDeal = (props) => {
     })
   }, [])
 
-
+  const [loading, setLoading] = useState(false)
   const handleCheckout = (name, desc, price, image) => {
+    setLoading(true);
     let user = getUser()
     if (user) {
       let data = {
@@ -48,7 +50,8 @@ const ExclusiveDeal = (props) => {
         metadata: {
           user_id: user.uid,
           user_email: user.email,
-          productMeta: post.product.metadata.slug,
+          slug: post.product.metadata.slug,
+          address: post.product.metadata.address,
           couponCode: post.product.metadata.couponCode,
           caption: post.product.caption,
           voucherId: post.product.id,
@@ -60,13 +63,15 @@ const ExclusiveDeal = (props) => {
       Axios.post(url, data)
         .then(res => {
           console.log(res)
+          setLoading(false)
           stripe.redirectToCheckout({
             sessionId: res.data.id
           }).then(res => console.log(res))
         })
         .catch(err => console.log(err))
     } else {
-      console.log("You must be logged in !")
+      setLoading(false)
+      navigate('/app/login')
     }
 
   }
@@ -134,8 +139,13 @@ const ExclusiveDeal = (props) => {
 
               </Card.Content>
             </Card>
-            {voucher ? voucher.vouchersSold >= voucher.quantity ? null : <Segment raised style={{ paddingBottom: '1px', background: '#1c70b5', textAlign: "center" }}>
+            {voucher ? voucher.vouchersSold >= voucher.quantity ? null : <Segment raised style={{ paddingBottom: '1px', textAlign: "center" }}>
+              <p>{post.product.caption}</p>
               <Button
+                primary
+                loading={loading}
+                disabled={loading}
+                style={{ marginBottom: '15px' }}
                 onClick={() => handleCheckout(post.product.name, post.product.description, post.price, post.product.images)}>
                 BUY NOW
               </Button>
