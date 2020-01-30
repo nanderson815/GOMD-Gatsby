@@ -27,10 +27,7 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-offline`,
-      options: {
-        appendScript: require.resolve(`./src/offlineAnalytics.js`),
-      },
+      resolve: `gatsby-plugin-offline`
     },
     {
       resolve: 'gatsby-plugin-robots-txt',
