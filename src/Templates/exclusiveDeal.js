@@ -66,7 +66,7 @@ const ExclusiveDeal = (props) => {
           quantity: voucher.quantity
         }
       }
-      let url = "http://us-central1-georgia-on-my-dime.cloudfunctions.net/createCheckoutSession"
+      let url = "https://us-central1-georgia-on-my-dime.cloudfunctions.net/createCheckoutSession"
       Axios.post(url, data)
         .then(res => {
           console.log(res)
