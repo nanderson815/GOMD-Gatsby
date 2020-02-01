@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import { Link } from "gatsby"
 import Header from '../components/header'
 import { Responsive } from 'semantic-ui-react'
 import Layout from "../components/layout"

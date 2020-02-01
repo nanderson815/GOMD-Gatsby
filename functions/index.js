@@ -112,12 +112,16 @@ exports.postCheckoutProcess = functions.https.onRequest((request, response) => {
         let userVoucherId = data.id
         let document = {
             id: userVoucherId,
+            price: data.display_items[0].amount,
+            descriptionFull: data.display_items[0].custom.description,
+            address: data.metadata.address,
             name: data.display_items[0].custom.name,
             images: data.display_items[0].custom.images,
             description: data.metadata.caption,
             redeemed: false,
             couponCode: data.metadata.couponCode,
-            slug: data.metadata.slug
+            slug: data.metadata.slug,
+            purchaseDate: new Date()
         }
         admin.firestore().collection('vouchers').doc(voucherId).update({ vouchersSold: admin.firestore.FieldValue.increment(1) })
         admin.firestore().collection('users').doc(data.metadata.user_id).collection('vouchers').doc(userVoucherId).set(document)

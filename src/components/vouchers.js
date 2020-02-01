@@ -3,6 +3,7 @@ import { Card, Button, Modal, Icon, Responsive } from 'semantic-ui-react'
 import Barcode from 'react-barcode'
 import { Link, navigate } from 'gatsby'
 import Axios from 'axios';
+import { formatCurrency, checkExpiration } from '../Util/Util'
 
 
 const Vouchers = ({ data, rows, user, hideVoucher }) => {
@@ -102,7 +103,20 @@ const Vouchers = ({ data, rows, user, hideVoucher }) => {
                                 </div>
                             </Card.Content>
                             <Card.Content>
-                                <Link style={{ color: "grey" }} to={`/exclusive-dining/${voucher.slug}`}>More Details</Link>
+                                <Modal dimmer="blurring" trigger={<div>More Details</div>} closeIcon>
+                                    <Modal.Header>
+                                        {voucher.name}
+                                    </Modal.Header>
+                                    <Modal.Content>
+                                        <Modal.Description>
+                                            <h2>Expires: {voucher.purchaseDate ? checkExpiration(voucher.purchaseDate.seconds, 30) : null}</h2>
+                                            <h4> Purchase Price: {formatCurrency(voucher.price)} <br /> Redeem For: {voucher.description} </h4>
+                                            <div>
+                                                {voucher.descriptionFull}
+                                            </div>
+                                        </Modal.Description>
+                                    </Modal.Content>
+                                </Modal>
                             </Card.Content>
                         </Card>
                     )

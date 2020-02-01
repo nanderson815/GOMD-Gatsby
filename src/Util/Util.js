@@ -79,3 +79,20 @@ export const checkRemaining = (sold, quantity) => {
     }
 }
 // ----------------------------------------------------------------------------------------------------
+
+// Check expiration Data -----------------------------------------------------------------------------
+export const checkExpiration = (seconds, validDays) => {
+    var today = new Date()
+    let purchaseDate = new Date(seconds * 1000)
+    let expirationDate = new Date(seconds * 1000)
+    expirationDate = new Date(expirationDate.setDate(expirationDate.getDate() + validDays))
+
+    if (expirationDate > purchaseDate) {
+        return expirationDate.toLocaleDateString()
+    } else {
+        return "Expired"
+    }
+
+
+}
+// ----------------------------------------------------------------------------------------------------

@@ -20,7 +20,7 @@ const Skus = ({ columns, vouchers }) => {
         <Card.Group itemsPerRow={columns} >
             {merged.map(voucher => (
                 <Card link key={voucher.id}>
-                    <Link to={`/exclusive-dining/${voucher.slug}`}>
+                    <Link to={`/exclusive-dining/${voucher.product.metadata.slug}`}>
                         <Card style={{ boxShadow: 'none', width: "100%" }}>
                             <Img style={{ height: "200px" }} fluid={voucher.product.localFiles[0].childImageSharp.fluid}></Img>
                             <Card.Content>

@@ -34,6 +34,10 @@ const ExclusiveDeal = (props) => {
       setVoucher(doc.data())
       setPageLoading(false)
     })
+      .catch((err) => {
+        alert(`You must be connected to the internet to view!`)
+        navigate("/exclusive-dining")
+      })
   }, [])
 
   const [loading, setLoading] = useState(false)
