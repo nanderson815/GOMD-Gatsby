@@ -7,7 +7,7 @@ import { getUser } from '../auth/auth'
 import { getFirebase } from '../firebase/firebase'
 import Vouchers from './vouchers'
 import { resetPassword, updateEmail, updateName } from '../auth/auth'
-import { async } from 'q';
+import Axios from 'axios';
 
 const Profile = (props) => {
 
@@ -50,6 +50,7 @@ const Profile = (props) => {
         if (user) setUser(user)
     }, [])
 
+    // Grabs the vouchers from firebase.
     const [vouchers, setVouchers] = useState('')
     useEffect(() => {
         let firebase = getFirebase();
@@ -64,6 +65,35 @@ const Profile = (props) => {
                 setVouchers(vouchersData);
             })
             return () => unsubscripe()
+        }
+    }, [user])
+
+    // Resubmits the used vouchers to the DB when back online.
+    useEffect(() => {
+        let unsubmitted = JSON.parse(localStorage.getItem('unsubmitted'))
+        let newList = []
+        if (unsubmitted && user.uid) {
+            let url = 'https://us-central1-georgia-on-my-dime.cloudfunctions.net/redeemVoucher';
+            console.log(unsubmitted)
+            console.log(user.uid)
+            unsubmitted.forEach((voucherId) => {
+                Axios.post(url, {
+                    uid: user.uid,
+                    voucherId: voucherId
+                })
+                    .then(res => {
+                        console.log(res)
+                    })
+                    .catch(err => {
+                        newList.push(voucherId)
+                        console.log(err)
+                    })
+            })
+            if (newList.length > 0) {
+                localStorage.setItem("unsubmitted", JSON.stringify(newList))
+            } else {
+                localStorage.removeItem('unsubmitted')
+            }
         }
     }, [user])
 
