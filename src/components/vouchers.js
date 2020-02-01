@@ -5,7 +5,7 @@ import { Link, navigate } from 'gatsby'
 import Axios from 'axios';
 
 
-const Vouchers = ({ data, rows, user }) => {
+const Vouchers = ({ data, rows, user, hideVoucher }) => {
     console.log(data)
 
     const [activeVourcher, setActiveVoucher] = useState('')
@@ -40,6 +40,7 @@ const Vouchers = ({ data, rows, user }) => {
                 handleClose()
             })
             .catch(err => {
+                hideVoucher(activeVourcher)
                 handleClose()
                 console.log(err)
             })
@@ -101,7 +102,7 @@ const Vouchers = ({ data, rows, user }) => {
                                 </div>
                             </Card.Content>
                             <Card.Content>
-                                <Link style={{color: "grey"}} to={`/exclusive-dining/${voucher.slug}`}>More Details</Link>
+                                <Link style={{ color: "grey" }} to={`/exclusive-dining/${voucher.slug}`}>More Details</Link>
                             </Card.Content>
                         </Card>
                     )

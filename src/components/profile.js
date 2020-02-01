@@ -42,16 +42,54 @@ const Profile = (props) => {
         }
     }
 
+
+    const [user, setUser] = useState('')
+    useEffect(() => {
+        let user = getUser();
+        console.log(user)
+        if (user) setUser(user)
+    }, [])
+
+    const [vouchers, setVouchers] = useState('')
+    useEffect(() => {
+        let firebase = getFirebase();
+        let db = firebase.firestore();
+        if (user) {
+            let unsubscripe = db.collection("users").doc(user.uid).collection('vouchers').where("redeemed", "==", false).onSnapshot((snapshot) => {
+                let vouchersData = []
+                snapshot.forEach((doc) => {
+                    let info = doc.data()
+                    vouchersData.push(info);
+                })
+                setVouchers(vouchersData);
+            })
+            return () => unsubscripe()
+        }
+    }, [user])
+
+    // Removes the voucher if it is redemmed offline, and adds the item to local stroage to be updated when back online.
+    const hideVoucher = (redeemed) => {
+        let filtered = vouchers.filter(deal => deal.id !== redeemed.id)
+        let unsubmitted = []
+        let existing = JSON.parse(localStorage.getItem('unsubmitted'));
+        if (existing) {
+            unsubmitted = existing
+        }
+        unsubmitted.push(redeemed.id)
+        localStorage.setItem("unsubmitted", JSON.stringify(unsubmitted))
+        setVouchers(filtered)
+    }
+
     const panes = [
         {
             menuItem: 'Vouchers', render: () => <Tab.Pane>{vouchers ?
                 <div>
                     <h2>Your Vouchers</h2>
                     <Responsive {...Responsive.onlyMobile}>
-                        <Vouchers rows={1} data={vouchers} user={user}></Vouchers>
+                        <Vouchers rows={1} data={vouchers} hideVoucher={hideVoucher} user={user}></Vouchers>
                     </Responsive>
                     <Responsive minWidth={768}>
-                        <Vouchers rows={3} data={vouchers}></Vouchers>
+                        <Vouchers rows={3} data={vouchers} hideVoucher={hideVoucher} user={user}></Vouchers>
                     </Responsive>
                 </div>
                 : null}</Tab.Pane>
@@ -86,29 +124,6 @@ const Profile = (props) => {
 
 
 
-    const [user, setUser] = useState('')
-    useEffect(() => {
-        let user = getUser();
-        console.log(user)
-        if (user) setUser(user)
-    }, [])
-
-    const [vouchers, setVouchers] = useState('')
-    useEffect(() => {
-        let firebase = getFirebase();
-        let db = firebase.firestore();
-        if (user) {
-            let unsubscripe = db.collection("users").doc(user.uid).collection('vouchers').where("redeemed", "==", false).onSnapshot((snapshot) => {
-                let vouchersData = []
-                snapshot.forEach((doc) => {
-                    let info = doc.data()
-                    vouchersData.push(info);
-                })
-                setVouchers(vouchersData);
-            })
-            return () => unsubscripe()
-        }
-    }, [user])
 
 
     return (
