@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from './header'
 import Layout from './layout';
-import { Button, Responsive, Label, Menu, Tab, Form, Input } from 'semantic-ui-react';
+import { Button, Responsive, Label, Menu, Tab, Form, Input, Dimmer, Loader } from 'semantic-ui-react';
 import { userSignOut } from '../auth/auth'
 import { getUser } from '../auth/auth'
 import { getFirebase } from '../firebase/firebase'
@@ -68,9 +68,11 @@ const Profile = (props) => {
     }, [user])
 
     // Resubmits the used vouchers to the DB when back online.
+    const [updatingVouchers, setUpdatingVouchers] = useState(false);
     useEffect(() => {
         let unsubmitted = JSON.parse(localStorage.getItem('unsubmitted'))
         if (unsubmitted && user.uid) {
+            setUpdatingVouchers(true)
             let url = 'https://us-central1-georgia-on-my-dime.cloudfunctions.net/redeemVoucher';
             let requests = unsubmitted.map(uid => Axios.post(url, { uid: user.uid, voucherId: uid }));
 
@@ -80,6 +82,7 @@ const Profile = (props) => {
                     let index = unsubmitted.indexOf(uid);
                     if (index !== -1) unsubmitted.splice(index, 1)
                 });
+                setUpdatingVouchers(false)
                 if (unsubmitted.length > 0) {
                     localStorage.setItem('unsubmitted', JSON.stringify(unsubmitted))
                 } else {
@@ -87,6 +90,7 @@ const Profile = (props) => {
                 }
             })
                 .catch((err) => {
+                    setUpdatingVouchers(false)
                     console.log(err)
                 })
         }
@@ -110,12 +114,15 @@ const Profile = (props) => {
             menuItem: 'Vouchers', render: () => <Tab.Pane>{vouchers ?
                 <div>
                     <h2>Your Vouchers</h2>
-                    <Responsive {...Responsive.onlyMobile}>
-                        <Vouchers rows={1} data={vouchers} hideVoucher={hideVoucher} user={user}></Vouchers>
-                    </Responsive>
-                    <Responsive minWidth={768}>
-                        <Vouchers rows={3} data={vouchers} hideVoucher={hideVoucher} user={user}></Vouchers>
-                    </Responsive>
+                    {updatingVouchers ? <Dimmer><Loader /></Dimmer> :
+                        <>
+                            <Responsive {...Responsive.onlyMobile}>
+                                <Vouchers rows={1} data={vouchers} hideVoucher={hideVoucher} user={user}></Vouchers>
+                            </Responsive>
+                            <Responsive minWidth={768}>
+                                <Vouchers rows={3} data={vouchers} hideVoucher={hideVoucher} user={user}></Vouchers>
+                            </Responsive>
+                        </>}
                 </div>
                 : null}</Tab.Pane>
         },
