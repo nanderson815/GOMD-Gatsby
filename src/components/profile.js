@@ -46,7 +46,6 @@ const Profile = (props) => {
     const [user, setUser] = useState('')
     useEffect(() => {
         let user = getUser();
-        console.log(user)
         if (user) setUser(user)
     }, [])
 
@@ -71,29 +70,25 @@ const Profile = (props) => {
     // Resubmits the used vouchers to the DB when back online.
     useEffect(() => {
         let unsubmitted = JSON.parse(localStorage.getItem('unsubmitted'))
-        let newList = []
         if (unsubmitted && user.uid) {
             let url = 'https://us-central1-georgia-on-my-dime.cloudfunctions.net/redeemVoucher';
-            console.log(unsubmitted)
-            console.log(user.uid)
-            unsubmitted.forEach((voucherId) => {
-                Axios.post(url, {
-                    uid: user.uid,
-                    voucherId: voucherId
-                })
-                    .then(res => {
-                        console.log(res)
-                    })
-                    .catch(err => {
-                        newList.push(voucherId)
-                        console.log(err)
-                    })
+            let requests = unsubmitted.map(uid => Axios.post(url, { uid: user.uid, voucherId: uid }));
+
+            Promise.all(requests).then((values) => {
+                let uids = values.map(val => val.data.uid);
+                uids.forEach(uid => {
+                    let index = unsubmitted.indexOf(uid);
+                    if (index !== -1) unsubmitted.splice(index, 1)
+                });
+                if (unsubmitted.length > 0) {
+                    localStorage.setItem('unsubmitted', JSON.stringify(unsubmitted))
+                } else {
+                    localStorage.removeItem('unsubmitted')
+                }
             })
-            if (newList.length > 0) {
-                localStorage.setItem("unsubmitted", JSON.stringify(newList))
-            } else {
-                localStorage.removeItem('unsubmitted')
-            }
+                .catch((err) => {
+                    console.log(err)
+                })
         }
     }, [user])
 

@@ -140,7 +140,7 @@ exports.redeemVoucher = functions.https.onRequest((request, response) => {
         let voucherId = request.body.voucherId
         admin.firestore().collection("users").doc(uid).collection('vouchers').doc(voucherId).update({ redeemed: true })
             .then((res) => {
-                response.json(res)
+                response.json({ response: res, uid: voucherId })
             })
             .catch((error) => response.json(error))
 
