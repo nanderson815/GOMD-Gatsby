@@ -1,6 +1,6 @@
 import React from "react"
 import { useStripeSkuData } from '../../hooks/skuData'
-import { Card, Label } from "semantic-ui-react"
+import { Card, Label, Icon } from "semantic-ui-react"
 import Img from "gatsby-image"
 import { formatCurrency } from '../../Util/Util'
 import { Link } from "gatsby"
@@ -29,6 +29,7 @@ const Skus = ({ columns, vouchers }) => {
                                 </Label>
                                 <Card.Header style={{ marginTop: '-30px' }}>{voucher.name}</Card.Header>
                                 <Card.Description style={{ minHeight: '38px' }}>{voucher.caption}</Card.Description>
+                                <Card.Meta> <Icon name="map marker alternate"></Icon> {voucher.neighborhood}</Card.Meta>
                             </Card.Content>
                             <Card.Content>
                                 <h3 style={{ color: "black" }}><span style={{ color: 'red', textDecoration: "line-through" }}>{formatCurrency(voucher.basePrice)}</span> {formatCurrency(voucher.price)}</h3>
