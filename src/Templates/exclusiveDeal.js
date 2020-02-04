@@ -135,6 +135,17 @@ const ExclusiveDeal = (props) => {
               </Card>
             </Grid.Column>
             <Grid.Column tablet={5} computer={5} mobile={16}>
+              {voucher ? voucher.vouchersSold >= voucher.quantity ? null : <Segment raised style={{ paddingBottom: '1px', textAlign: "center" }}>
+                <p>{post.product.caption}</p>
+                <Button
+                  primary
+                  loading={loading}
+                  disabled={loading}
+                  style={{ marginBottom: '15px' }}
+                  onClick={() => handleCheckout(post.product.name, post.product.description, post.price, post.product.images)}>
+                  BUY NOW
+              </Button>
+              </Segment> : null}
               <Card fluid raised>
                 <div
                   style={{ overflow: 'hidden', height: "225px" }}
@@ -152,17 +163,7 @@ const ExclusiveDeal = (props) => {
 
                 </Card.Content>
               </Card>
-              {voucher ? voucher.vouchersSold >= voucher.quantity ? null : <Segment raised style={{ paddingBottom: '1px', textAlign: "center" }}>
-                <p>{post.product.caption}</p>
-                <Button
-                  primary
-                  loading={loading}
-                  disabled={loading}
-                  style={{ marginBottom: '15px' }}
-                  onClick={() => handleCheckout(post.product.name, post.product.description, post.price, post.product.images)}>
-                  BUY NOW
-              </Button>
-              </Segment> : null}
+
               <Segment raised style={{ paddingBottom: '1px' }}>
                 <AdSense.Google
                   client="ca-pub-4839737207231731"
