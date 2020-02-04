@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
-import { Button, Input, Popup, List } from 'semantic-ui-react'
-import { useHappyHourData } from '../hooks/happyHourData'
+import { Button, Input, Popup, List, Label } from 'semantic-ui-react'
 import { Icon } from 'semantic-ui-react'
 import * as JsSearch from 'js-search'
 import { Link, navigate } from "gatsby"
+import { useAllSearchData } from '../hooks/searchData'
 
 
 const SearchBar = (props) => {
-    const happyHours = useHappyHourData();
+    const data = useAllSearchData();
     const [state, setState] = React.useState({
         happyHours: [],
         search: [],
@@ -17,16 +17,21 @@ const SearchBar = (props) => {
         isError: false,
     })
 
+    useEffect(() => {
 
+    })
 
     useEffect(() => {
+        console.log(data);
         const rebuildIndex = () => {
-            var dataToSearch = new JsSearch.Search('slug');
+            var dataToSearch = new JsSearch.Search('id');
+            dataToSearch.addIndex('slug');
             dataToSearch.addIndex('name');
-            dataToSearch.addIndex('tags');
-            dataToSearch.addIndex('days');
+            dataToSearch.addIndex('description');
             dataToSearch.addIndex(['description', 'description']);
-            dataToSearch.addDocuments(happyHours);
+            dataToSearch.addIndex(['product', 'name']);
+            dataToSearch.addIndex(['product', 'description']);
+            dataToSearch.addDocuments(data);
             setState({ search: dataToSearch, isLoading: false });
         }
 
@@ -78,14 +83,20 @@ const SearchBar = (props) => {
                 <List divided>
                     {state.searchResults ? state.searchResults.slice(0, 5).map((item) => {
                         return (
+
                             <List.Item key={item.id}>
-                                <Link to={`/atlanta-happy-hour/${item.slug}`}>
-                                    <List.Content>
-                                        <List.Header>{item.name}</List.Header>
-                                        {/* <List.Description style={{ fontSize: "12px" }}>{item.tags.toString()}</List.Description> */}
-                                        {/* {item.tags.map((tag, index) => <Label key={index}>{tag}</Label>)} */}
-                                    </List.Content>
-                                </Link>
+                                {item.name ?
+                                    <Link to={`/atlanta-happy-hour/${item.slug}`}>
+                                        <List.Content>
+                                            <List.Header>{item.name}</List.Header>
+                                        </List.Content>
+                                    </Link>
+                                    :
+                                    <Link to={`/exclusive-dining/${item.product.metadata.slug}`}>
+                                        <List.Content>
+                                            <List.Header> <Label color="blue">Package</Label> {item.product.name}</List.Header>
+                                        </List.Content>
+                                    </Link>}
                             </List.Item>
 
                         )
