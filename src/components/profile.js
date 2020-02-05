@@ -8,6 +8,7 @@ import { getFirebase } from '../firebase/firebase'
 import Vouchers from './vouchers'
 import { resetPassword, updateEmail, updateName } from '../auth/auth'
 import Axios from 'axios';
+import Favorites from './favorites'
 
 const Profile = (props) => {
 
@@ -64,6 +65,21 @@ const Profile = (props) => {
                 setVouchers(vouchersData);
             })
             return () => unsubscripe()
+        }
+    }, [user])
+
+    // Grabs the favorite HHs from firebase.
+    const [favorites, setFavorites] = useState([])
+    useEffect(() => {
+        let firebase = getFirebase();
+        let db = firebase.firestore();
+        if (user) {
+            let savedHH = []
+            db.collection('users').doc(user.uid).collection('savedHappyHours').get().then(snap => {
+                snap.forEach(doc => savedHH.push(doc.data()))
+                setFavorites(savedHH)
+            })
+                .catch(err => err)
         }
     }, [user])
 
@@ -126,7 +142,16 @@ const Profile = (props) => {
                 </div>
                 : null}</Tab.Pane>
         },
-        { menuItem: 'Favorites', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
+        {
+            menuItem: 'Favorites', render: () => <Tab.Pane>
+                <Responsive {...Responsive.onlyMobile}>
+                    <Favorites rows={1} data={favorites} hideVoucher={hideVoucher} user={user}></Favorites>
+                </Responsive>
+                <Responsive minWidth={768}>
+                    <Favorites rows={3} data={favorites} hideVoucher={hideVoucher} user={user}></Favorites>
+                </Responsive>
+            </Tab.Pane>
+        },
         {
             menuItem: 'Profile', render: () => <Tab.Pane>
                 {/* {user.emailVerified ? null : <Button onClick={sendVerification} primary>Verify Email</Button>} */}
