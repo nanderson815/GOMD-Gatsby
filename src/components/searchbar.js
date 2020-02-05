@@ -22,7 +22,6 @@ const SearchBar = (props) => {
     })
 
     useEffect(() => {
-        console.log(data);
         const rebuildIndex = () => {
             var dataToSearch = new JsSearch.Search('id');
             dataToSearch.addIndex('slug');

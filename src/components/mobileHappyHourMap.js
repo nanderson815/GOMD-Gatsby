@@ -9,7 +9,7 @@ import { sortByDay, setHHTime } from '../Util/Util'
 
 
 
-const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
+const MobileHappyHourMap = ({ filteredHH, hovered, day, handleStarClick, user }) => {
 
     const handleIntersect = (entries, observer) => {
         entries.forEach(entry => {
@@ -100,6 +100,7 @@ const MobileHappyHourMap = ({ filteredHH, hovered, day }) => {
                                 <Card.Content>
                                     <Card.Header style={{ margin: "-10px 0px -5px ", whiteSpace: "nowrap", overflow: "scroll" }}>{card.name}</Card.Header>
                                     <Card.Description style={{ marginBottom: "-10px" }}>{day === "all" ? card.neighborhood : setHHTime(card, day)} {trimmedString}</Card.Description>
+                                    <Icon style={{ position: "absolute", bottom: "5px", right: '5px' }} onClick={(e) => handleStarClick(e, index, user)} size='large' name={card.starred ? 'star' : 'star outline'} color="yellow"></Icon>
                                 </Card.Content>
                             </Card>
                         )

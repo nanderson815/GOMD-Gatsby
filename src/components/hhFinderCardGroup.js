@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, Icon } from 'semantic-ui-react'
 import Img from 'gatsby-image'
 import { navigate, Link } from 'gatsby'
@@ -11,13 +11,14 @@ const navfunc = (e, { slug }) => {
 }
 
 
-const HHFinderCardGroup = ({ happyHours, day, rows, hood, setHoverHandler, clearHoveredHandler }) => {
 
-    const [cards, setCards] = React.useState('')
 
+const HHFinderCardGroup = ({ happyHours, day, rows, handleStarClick, user }) => {
+
+
+    const [cards, setCards] = useState('')
     useEffect(() => {
-
-        let cards = happyHours.map(deal => {
+        let cards = happyHours.map((deal, index) => {
             let timeField = day.toLowerCase();
             let descField = day.toLowerCase() + "Desc";
             let descriptionString;
@@ -48,6 +49,7 @@ const HHFinderCardGroup = ({ happyHours, day, rows, hood, setHoverHandler, clear
                     <Card.Content extra value={deal.neighborhood}>
                         <Icon name="marker" />
                         {deal.neighborhood}
+                        <Icon onClick={(e) => handleStarClick(e, index, user)} style={{ float: "right" }} size='large' name={deal.starred ? 'star' : 'star outline'} color="yellow"></Icon>
                     </Card.Content>
                 </Card>
             )
@@ -76,7 +78,7 @@ const HHFinderCardGroup = ({ happyHours, day, rows, hood, setHoverHandler, clear
         }
 
         setCards(cards);
-    }, [happyHours])
+    }, [happyHours, user])
 
 
 

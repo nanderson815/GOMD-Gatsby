@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { graphql, Link } from 'gatsby'
 import SEO from '../components/seo'
 import { Grid, Sticky, Responsive, Dropdown, Button, Icon } from "semantic-ui-react"
@@ -7,9 +7,23 @@ import HHFinderCardGroup from '../components/hhFinderCardGroup'
 import logo from '../images/logoInlineText.svg'
 import 'semantic-ui-less/semantic.less'
 import MobileHappyHourMap from '../components/mobileHappyHourMap'
+import { getFirebase } from '../firebase/firebase'
 
 
 const HappyHourFinder = (props) => {
+
+    // Gets user if signed in.
+    const [user, setUser] = useState()
+    useEffect(() => {
+        let firebase = getFirebase()
+        const unlisten = firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                setUser(user)
+            }
+        });
+        return () => unlisten()
+    })
+
     let data = props.data;
     let searchResults = props.location.state && 'searchResults' in props.location.state ? props.location.state.searchResults : undefined
     let filterTag = props.location.state && "tag" in props.location.state ? props.location.state.tag : undefined
@@ -99,23 +113,31 @@ const HappyHourFinder = (props) => {
     useEffect(() => {
         let HHdata = data.allContentfulHappyHour.edges.map(item => item.node);
 
-        if (searchResults !== undefined) {
-            let resultName = searchResults.map(id => id.name);
-            let filteredHHData = HHdata.filter((item) => {
-                return resultName.indexOf(item.name) !== -1
-            })
-            setShowClear(true)
-            setHappyHours(filteredHHData);
-        } else if (filterTag !== undefined) {
-            let filteredHHData = HHdata.filter((item) => {
-                return item.tags.indexOf(filterTag) !== -1
-            })
-            setShowClear(true)
-            setHappyHours(filteredHHData)
-        } else {
-            setHappyHours(HHdata);
-        }
-    }, [data]);
+        getStarredHH().then(res => {
+            if (res) {
+                res.forEach(item => {
+                    let index = HHdata.findIndex(x => x.id === item.id)
+                    HHdata[index].starred = true
+                })
+            }
+            if (searchResults !== undefined) {
+                let resultName = searchResults.map(id => id.name);
+                let filteredHHData = HHdata.filter((item) => {
+                    return resultName.indexOf(item.name) !== -1
+                })
+                setShowClear(true)
+                setHappyHours(filteredHHData);
+            } else if (filterTag !== undefined) {
+                let filteredHHData = HHdata.filter((item) => {
+                    return item.tags.indexOf(filterTag) !== -1
+                })
+                setShowClear(true)
+                setHappyHours(filteredHHData)
+            } else {
+                setHappyHours(HHdata);
+            }
+        })
+    }, [data, user]);
 
     const clearSearch = () => {
         let HHdata = data.allContentfulHappyHour.edges.map(item => item.node);
@@ -137,6 +159,49 @@ const HappyHourFinder = (props) => {
 
     }, [happyHours]);
 
+    // Code for starred happy hours
+    const handleStarClick = (e, index, uid) => {
+        e.stopPropagation()
+        if (uid) {
+            let hh = [...filteredHH]
+            hh[index].starred ? hh[index].starred = false : hh[index].starred = true
+            if (hh[index].starred === true) {
+                let happyHour = hh[index]
+                let firebase = getFirebase()
+                let db = firebase.firestore()
+                db.collection('users').doc(uid).collection('savedHappyHours').doc(happyHour.id).set(happyHour)
+                    .then(() => console.log("success"))
+                    .catch(() => console.log("err"))
+            } else if (hh[index].starred === false) {
+                let happyHour = hh[index]
+                let firebase = getFirebase()
+                let db = firebase.firestore()
+                db.collection('users').doc(uid).collection('savedHappyHours').doc(happyHour.id).delete()
+                    .then(() => console.log("deleted"))
+                    .catch(() => console.log("err"))
+            }
+            setFilteredHH(hh)
+        } else {
+            alert("must be logged in to save happy hours!")
+        }
+    }
+
+    // TODO: Write code to automatically grab stars at load.
+    const getStarredHH = async () => {
+        let uid = user ? user.uid : null
+        let firebase = getFirebase()
+        let db = firebase.firestore()
+        console.log(uid)
+        if (uid) {
+            let savedHH = []
+            let hhData = await db.collection('users').doc(uid).collection('savedHappyHours').get().then(snap => {
+                snap.forEach(doc => savedHH.push(doc.data()))
+                return savedHH
+            })
+                .catch(err => err)
+            return hhData
+        }
+    }
 
     // Code for hovering and having it reflect on map
     const [hovered, setHovered] = React.useState("");
@@ -169,7 +234,7 @@ const HappyHourFinder = (props) => {
                                 <div style={{ height: "1px", background: "#e3e3e3", margin: "0px 0px 10px 0px" }}></div>
                             </div>
                         </Sticky>
-                        <HHFinderCardGroup happyHours={filteredHH} day={day} hood={neighborhood} rows={2} setHoverHandler={setHoverHandler} clearHoveredHandler={clearHoveredHandler} />
+                        <HHFinderCardGroup happyHours={filteredHH} day={day} rows={2} handleStarClick={handleStarClick} user={user ? user.uid : null} />
                     </Grid.Column>
                     <Grid.Column tablet={6} computer={8} largeScreen={8} style={{ padding: "0px" }}>
                         <div style={{ position: 'fixed', top: "0", width: "50%", height: "100%" }}>
@@ -211,9 +276,11 @@ const HappyHourFinder = (props) => {
                 {displayMap ? <MobileHappyHourMap
                     filteredHH={filteredHH}
                     hovered={hovered}
-                    day={day.toLowerCase()}>
+                    day={day.toLowerCase()}
+                    handleStarClick={handleStarClick}
+                    user={user ? user.uid : null}>
                 </MobileHappyHourMap> :
-                    <HHFinderCardGroup happyHours={filteredHH} hood={neighborhood} day={day} rows={1} setHoverHandler={setHoverHandler} clearHoveredHandler={clearHoveredHandler}></HHFinderCardGroup>}
+                    <HHFinderCardGroup happyHours={filteredHH} hood={neighborhood} day={day} rows={1} handleStarClick={handleStarClick} user={user ? user.uid : null} setHoverHandler={setHoverHandler} clearHoveredHandler={clearHoveredHandler}></HHFinderCardGroup>}
             </Responsive>
         </>
     )
