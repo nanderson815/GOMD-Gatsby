@@ -1,14 +1,19 @@
 import { getFirebase } from '../firebase/firebase'
 import { navigate } from 'gatsby';
+import Axios from 'axios';
+
 let firebase = getFirebase();
 
 //Sign Up
-export const userSignUp = async (email, password) => {
+export const userSignUp = async (email, password, userName) => {
     let res = await firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(cred => {
-            console.log(cred.user)
+            var user = firebase.auth().currentUser;
+            user.updateProfile({
+                displayName: userName
+            })
+            createStripeCustomer(email, userName)
             verifyEmail()
-            navigate('/app/profile')
             return cred
         })
         .catch(function (error) {
@@ -16,6 +21,16 @@ export const userSignUp = async (email, password) => {
             return errorMessage
         });
     return res
+}
+
+// Create Stripe Customer
+export const createStripeCustomer = (email, name) => {
+    let url = "https://us-central1-georgia-on-my-dime.cloudfunctions.net/createCustomer"
+    Axios.post(url, { email, name })
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => console.log(err))
 }
 
 //Sign In

@@ -3,7 +3,7 @@ import Header from './header'
 import Layout from './layout';
 import { navigate } from "gatsby"
 import { Button, Form, Divider, Modal, Icon } from 'semantic-ui-react'
-import { userSignIn, isLoggedIn, userSignUp, resetPassword, googleSignUp } from '../auth/auth'
+import { userSignIn, userSignUp, resetPassword, createStripeCustomer } from '../auth/auth'
 import { getFirebase } from '../firebase/firebase'
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
@@ -44,6 +44,7 @@ const Login = (props) => {
             let provider = new firebase.auth.GoogleAuthProvider();
             firebaseApp.auth().signInWithPopup(provider).then(function (result) {
                 console.log(result)
+                createStripeCustomer(result.user.email, result.user.displayName)
             }).catch(function (error) {
                 var errorMessage = error.message;
                 // The email of the user's account used.
@@ -56,8 +57,8 @@ const Login = (props) => {
 
     const createAccount = async (e) => {
         e.preventDefault()
-        if (user.email && user.password === user.passwordConfirm) {
-            let res = await userSignUp(user.email, user.password);
+        if (user.email && user.name && user.password === user.passwordConfirm) {
+            let res = await userSignUp(user.email, user.password, user.name);
             if (!res.user) setCreateError(res)
         } else if (user.passwordConfirm !== user.password) {
             setCreateError('Passwords do not match.')
@@ -125,6 +126,10 @@ const Login = (props) => {
                             <Modal.Header>Sign Up</Modal.Header>
                             <Modal.Content>
                                 <Form style={{ maxWidth: "500px", margin: "0 auto" }}>
+                                    <Form.Field required>
+                                        <label>Full Name (First Last)</label>
+                                        <input onChange={onChangeHandler} id='name' placeholder='Jane Doe' />
+                                    </Form.Field>
                                     <Form.Field required>
                                         <label>Email</label>
                                         <input onChange={onChangeHandler} id='email' placeholder='Email' />

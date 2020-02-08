@@ -20,6 +20,42 @@ const contentfulToken = functions.config().contentful.token;
 //     });
 // });
 
+exports.createCustomer = functions.https.onRequest(async (request, response) => {
+    cors(request, response, () => {
+        if (request.method !== 'POST') {
+            return
+        }
+        let email = request.body.email
+        let name = request.body.name
+        stripe.customers.list(
+            { email: email },
+            function (err, customers) {
+                console.log(customers)
+                if (customers.data.length > 0) {
+                    response.send(customers.data[0])
+                } else if (err) {
+                    response.send(err)
+                } else {
+                    stripe.customers.create(
+                        {
+                            email: email,
+                            name: name
+                        },
+                        function (err, customer) {
+                            if (err) {
+                                console.log(err)
+                                response.send(err)
+                            } else {
+                                console.log(customer)
+                                response.send(customer)
+                            }
+                        }
+                    );
+                }
+            }
+        );
+    })
+})
 
 // This function creates a voucher in the DB after a product is created in stripe. Need this to track quantity. 
 exports.createProductFromSku = functions.https.onRequest(async (request, response) => {
