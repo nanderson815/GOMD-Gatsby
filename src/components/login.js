@@ -44,7 +44,7 @@ const Login = (props) => {
             let provider = new firebase.auth.GoogleAuthProvider();
             firebaseApp.auth().signInWithPopup(provider).then(function (result) {
                 console.log(result)
-                createStripeCustomer(result.user.email, result.user.displayName)
+                createStripeCustomer(result.user.email, result.user.displayName, result.user.uid)
             }).catch(function (error) {
                 var errorMessage = error.message;
                 // The email of the user's account used.

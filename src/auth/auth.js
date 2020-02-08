@@ -9,10 +9,11 @@ export const userSignUp = async (email, password, userName) => {
     let res = await firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(cred => {
             var user = firebase.auth().currentUser;
+            console.log(user)
             user.updateProfile({
                 displayName: userName
             })
-            createStripeCustomer(email, userName)
+            createStripeCustomer(email, userName, user.uid)
             verifyEmail()
             return cred
         })
@@ -24,9 +25,9 @@ export const userSignUp = async (email, password, userName) => {
 }
 
 // Create Stripe Customer
-export const createStripeCustomer = (email, name) => {
+export const createStripeCustomer = (email, name, uid) => {
     let url = "https://us-central1-georgia-on-my-dime.cloudfunctions.net/createCustomer"
-    Axios.post(url, { email, name })
+    Axios.post(url, { email, name, uid })
         .then(res => {
             console.log(res)
         })

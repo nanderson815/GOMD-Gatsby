@@ -27,6 +27,8 @@ exports.createCustomer = functions.https.onRequest(async (request, response) => 
         }
         let email = request.body.email
         let name = request.body.name
+        let uid = request.body.uid
+        let db = admin.firestore()
         stripe.customers.list(
             { email: email },
             function (err, customers) {
@@ -46,7 +48,11 @@ exports.createCustomer = functions.https.onRequest(async (request, response) => 
                                 console.log(err)
                                 response.send(err)
                             } else {
-                                console.log(customer)
+                                console.log(customer.id)
+                                let id = customer.id
+                                db.collection("users").doc(uid).set({ stripeId: id })
+                                    .then(() => console.log("done"))
+                                    .catch(err => console.log(err))
                                 response.send(customer)
                             }
                         }
@@ -112,6 +118,8 @@ exports.createCheckoutSession = functions.https.onRequest(async (request, respon
             {
                 success_url: request.body.successUrl,
                 cancel_url: request.body.cancelUrl,
+                customer: request.body.stripeId,
+                // customer_email: request.body.metadata.user_email,
                 payment_method_types: ['card'],
                 metadata: request.body.metadata,
                 line_items: [

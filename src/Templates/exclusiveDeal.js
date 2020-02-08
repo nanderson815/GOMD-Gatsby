@@ -24,6 +24,8 @@ const handleClick = (e) => {
 const ExclusiveDeal = (props) => {
   const post = get(props, 'data.stripeSku')
   console.log(post);
+  let user = getUser()
+  console.log(user)
 
   const [pageLoading, setPageLoading] = useState(true)
   const [voucher, setVoucher] = useState()
@@ -50,34 +52,43 @@ const ExclusiveDeal = (props) => {
       redirect = "http://localhost:8000/"
     }
     let user = getUser()
+
+
     if (user) {
-      let data = {
-        successUrl: `${redirect}/app/profile`,
-        cancelUrl: `${redirect}/exclusive-dining/${post.product.metadata.slug}`,
-        name: name,
-        image: image,
-        description: desc,
-        price: price,
-        metadata: {
-          user_id: user.uid,
-          user_email: user.email,
-          slug: post.product.metadata.slug,
-          address: post.product.metadata.address,
-          couponCode: post.product.metadata.couponCode,
-          caption: post.product.caption,
-          voucherId: post.product.id,
-          vouchersSold: voucher.vouchersSold,
-          quantity: voucher.quantity
-        }
-      }
-      let url = "https://us-central1-georgia-on-my-dime.cloudfunctions.net/createCheckoutSession"
-      Axios.post(url, data)
-        .then(res => {
-          console.log(res)
-          setLoading(false)
-          stripe.redirectToCheckout({
-            sessionId: res.data.id
-          }).then(res => console.log(res))
+      let db = getFirebase().firestore()
+      db.collection('users').doc(user.uid).get()
+        .then(doc => {
+          let stripeId = doc.data().stripeId
+          let data = {
+            successUrl: `${redirect}/app/profile`,
+            cancelUrl: `${redirect}/exclusive-dining/${post.product.metadata.slug}`,
+            name: name,
+            image: image,
+            description: desc,
+            price: price,
+            stripeId: stripeId,
+            metadata: {
+              user_id: user.uid,
+              user_email: user.email,
+              slug: post.product.metadata.slug,
+              address: post.product.metadata.address,
+              couponCode: post.product.metadata.couponCode,
+              caption: post.product.caption,
+              voucherId: post.product.id,
+              vouchersSold: voucher.vouchersSold,
+              quantity: voucher.quantity
+            }
+          }
+          let url = "https://us-central1-georgia-on-my-dime.cloudfunctions.net/createCheckoutSession"
+          Axios.post(url, data)
+            .then(res => {
+              console.log(res)
+              setLoading(false)
+              stripe.redirectToCheckout({
+                sessionId: res.data.id
+              }).then(res => console.log(res))
+            })
+            .catch(err => console.log(err))
         })
         .catch(err => console.log(err))
     } else {
