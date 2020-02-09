@@ -12,11 +12,12 @@ const Login = (props) => {
     // Redirects if user is logged in.
     useEffect(() => {
         let firebase = getFirebase()
-        firebase.auth().onAuthStateChanged(function (user) {
+        const unlisten = firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 navigate('/app/profile')
             }
         });
+        return () => unlisten()
     })
 
 
@@ -26,7 +27,7 @@ const Login = (props) => {
             <Layout>
                 <div style={{ minHeight: "75vh" }}>
                     <h1>Sign In</h1>
-                    <LoginForm></LoginForm>
+                    <LoginForm modal={false}></LoginForm>
                 </div>
             </Layout>
         </>

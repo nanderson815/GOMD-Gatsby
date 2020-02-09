@@ -7,8 +7,8 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 
 
-const Login = () => {
-    // Redirects if user is logged in.
+const Login = ({ modal, handleClose }) => {
+
 
     const onChangeHandler = (e) => {
         setUser({ ...user, [e.target.id]: e.target.value })
@@ -20,7 +20,8 @@ const Login = () => {
     const onSubmitHandler = async (e) => {
         e.preventDefault()
         if (user.email && user.password) {
-            let res = await userSignIn(user.email, user.password);
+            let res = await userSignIn(user.email, user.password, modal);
+            if (modal) handleClose()
             if (!res.user) setError(res.message)
         } else {
             setError("Please add an email and password.")
@@ -33,6 +34,7 @@ const Login = () => {
             let provider = new firebase.auth.GoogleAuthProvider();
             firebaseApp.auth().signInWithPopup(provider).then(function (result) {
                 console.log(result)
+                if (modal) handleClose()
                 createStripeCustomer(result.user.email, result.user.displayName, result.user.uid)
             }).catch(function (error) {
                 var errorMessage = error.message;

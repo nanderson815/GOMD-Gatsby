@@ -35,10 +35,12 @@ export const createStripeCustomer = (email, name, uid) => {
 }
 
 //Sign In
-export const userSignIn = async (email, password) => {
+export const userSignIn = async (email, password, modal) => {
     let res = await firebase.auth().signInWithEmailAndPassword(email, password)
         .then(cred => {
-            navigate('/app/profile')
+            if (!modal) {
+                navigate('/app/profile')
+            }
             return cred
         })
         .catch(function (error) {
