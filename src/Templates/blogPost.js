@@ -4,14 +4,30 @@ import { graphql } from 'gatsby';
 import Header from '../components/header'
 import Img from 'gatsby-image';
 import Layout from '../components/layout'
-import { Grid, Card, Label } from 'semantic-ui-react'
+import { Grid, Card, Label, Segment, Sticky } from 'semantic-ui-react'
 import SEO from '../components/seo'
+import { BLOCKS } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
+import useContentfulImage from '../hooks/useContentfulImage'
+import AdSense from 'react-adsense';
+
+
+const options = {
+  renderNode: {
+    [BLOCKS.EMBEDDED_ASSET]: node => {
+      let fluid = useContentfulImage(node.data.target.fields.file["en-US"].url);
+      return (
+        <Img style={{ maxHeight: "300px" }} title={node.data.target.fields.title["en-US"]} fluid={fluid.fluid} />
+      );
+    }
+  }
+};
 
 const BlogPost = (props) => {
   const post = get(props, 'data.contentfulBlogPost')
   const document = post.body.json
-  let doc2 = documentToReactComponents(document)
+  console.log(document)
+  let doc2 = documentToReactComponents(document, options);
 
 
   return (
@@ -20,8 +36,8 @@ const BlogPost = (props) => {
       <SEO title={post.title}
         description={post.seoDesc} />
       <Layout>
-        <Grid stackable columns="equal">
-          <Grid.Column>
+        <Grid >
+          <Grid.Column computer={11} tablet={11} mobile={16}>
             <Card fluid raised>
               <Img style={{ maxHeight: "450px" }} alt={post.title} fluid={post.image.fluid} />
               <Card.Content>
@@ -37,6 +53,20 @@ const BlogPost = (props) => {
               </Card.Content>
 
             </Card>
+          </Grid.Column>
+          <Grid.Column tablet={5} computer={5} mobile={16}>
+            <Sticky offset={90}>
+              <Segment raised style={{ paddingBottom: '1px' }}>
+                <AdSense.Google
+                  client="ca-pub-4839737207231731"
+                  slot='4063925755'
+                  responsive='true'
+                  format='auto'
+                  style={{ display: 'block', width: "100% !important" }}
+                />
+                <p style={{ width: "100%", textAlign: 'center', fontSize: "12px" }}><i>sponsored content</i></p>
+              </Segment>
+            </Sticky>
           </Grid.Column>
         </Grid>
       </Layout >
