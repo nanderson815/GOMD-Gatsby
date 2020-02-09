@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Card, Button, Modal, Icon, Responsive } from 'semantic-ui-react'
 import Barcode from 'react-barcode'
-import { Link, navigate } from 'gatsby'
+import { Link } from 'gatsby'
 import Axios from 'axios';
 import { formatCurrency, checkExpiration } from '../Util/Util'
 
@@ -11,9 +11,6 @@ const Vouchers = ({ data, rows, user, hideVoucher }) => {
 
     const [activeVourcher, setActiveVoucher] = useState('')
 
-    const handleClick = (slug) => {
-        navigate()
-    }
 
     const [modalOpen, setModalOpen] = useState(false)
     const handleOpen = (voucher) => {

@@ -166,9 +166,9 @@ const Profile = (props) => {
                     </Form.Field>
                     <Form.Field>
                         <label>Email Address</label>
-                        <Input value={user.email} onChange={(e) => setUser({ ...user, email: e.target.value })} action style={{ maxWidth: "400px" }}>
+                        <Input value={user.email} onChange={(e) => setUser({ ...user, email: e.target.value })} style={{ maxWidth: "400px" }} readOnly>
                             <input />
-                            <Button onClick={() => changeEmail(user.email)} primary>Update</Button>
+                            {/* <Button onClick={() => changeEmail(user.email)} primary>Update</Button> */}
                         </Input>
                     </Form.Field>
                     <h3>Update Password</h3>

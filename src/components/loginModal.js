@@ -1,0 +1,28 @@
+import React, { useState } from 'react'
+import { Button, Header, Icon, Modal } from 'semantic-ui-react'
+import LoginForm from './loginForm'
+
+const LoginModal = ({ open, handleClose, handleOpen }) => {
+
+
+
+    return (
+        <Modal
+            open={open}
+            onClose={handleClose}
+        >
+            <Header icon='user' content='Requires Login' />
+            <Modal.Content>
+                <h3>You must be logged in to save happy hours.</h3>
+                <LoginForm></LoginForm>
+            </Modal.Content>
+            <Modal.Actions>
+                <Button color='red' onClick={handleClose}>
+                    <Icon name='close' /> Not now
+          </Button>
+            </Modal.Actions>
+        </Modal>
+    )
+}
+
+export default LoginModal

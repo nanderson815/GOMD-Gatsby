@@ -8,6 +8,7 @@ import logo from '../images/logoInlineText.svg'
 import 'semantic-ui-less/semantic.less'
 import MobileHappyHourMap from '../components/mobileHappyHourMap'
 import { getFirebase } from '../firebase/firebase'
+import LoginModal from '../components/loginModal'
 
 
 const HappyHourFinder = (props) => {
@@ -159,6 +160,15 @@ const HappyHourFinder = (props) => {
 
     }, [happyHours]);
 
+    // Login modal logic
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => {
+        setOpen(true)
+    }
+    const handleClose = () => {
+        setOpen(false)
+    }
+
     // Code for starred happy hours
     const handleStarClick = (e, index, uid) => {
         e.stopPropagation()
@@ -182,11 +192,11 @@ const HappyHourFinder = (props) => {
             }
             setFilteredHH(hh)
         } else {
-            alert("must be logged in to save happy hours!")
+            handleOpen()
         }
     }
 
-    // TODO: Write code to automatically grab stars at load.
+    // code to automatically grab stars at load.
     const getStarredHH = async () => {
         let uid = user ? user.uid : null
         let firebase = getFirebase()
@@ -215,6 +225,7 @@ const HappyHourFinder = (props) => {
     return (
         <>
             <SEO title="Atlanta Happy Hour Finder" />
+            <LoginModal open={open} handleClose={handleClose} />
             <Responsive minWidth={768}>
                 <Grid style={{ margin: "0px" }}>
                     <Grid.Column tablet={10} computer={8} largeScreen={8} style={{ background: "eff0f1" }}>
