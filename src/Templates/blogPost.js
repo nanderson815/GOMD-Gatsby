@@ -4,7 +4,7 @@ import { graphql } from 'gatsby';
 import Header from '../components/header'
 import Img from 'gatsby-image';
 import Layout from '../components/layout'
-import { Grid, Card, Label, Segment, Sticky } from 'semantic-ui-react'
+import { Grid, Card, Label, Segment, Sticky, Divider } from 'semantic-ui-react'
 import SEO from '../components/seo'
 import { BLOCKS } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
@@ -19,8 +19,13 @@ const options = {
       return (
         <Img style={{ maxHeight: "300px" }} title={node.data.target.fields.title["en-US"]} fluid={fluid.fluid} />
       );
+    },
+    [BLOCKS.HR]: node => {
+      return (
+        <Divider />
+      )
     }
-  }
+  },
 };
 
 const BlogPost = (props) => {
