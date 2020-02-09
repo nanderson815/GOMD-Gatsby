@@ -134,6 +134,8 @@ export const allSkuFields = graphql`
             slug
             address
             couponCode
+            price
+            duration
           }
           caption
           localFiles {

@@ -64,7 +64,7 @@ const Vouchers = ({ data, rows, user, hideVoucher }) => {
                                                 <Modal.Header>{activeVourcher.name}</Modal.Header>
                                                 <Modal.Content>
                                                     <Modal.Description style={{ textAlign: 'center' }}>
-                                                        <p>{activeVourcher.description}</p>
+                                                        {checkExpiration(activeVourcher.purchaseDate.seconds, parseInt(activeVourcher.duration)) === "Expired" ? <p style={{ color: "red" }}>EXPIRED: Redeem for {formatCurrency(activeVourcher.price)}</p> : <p>{activeVourcher.description}</p>}
                                                         <Barcode value={activeVourcher.couponCode}></Barcode>
                                                     </Modal.Description>
                                                 </Modal.Content>
@@ -104,12 +104,12 @@ const Vouchers = ({ data, rows, user, hideVoucher }) => {
                                     <Modal.Header>
                                         {voucher.name}
                                     </Modal.Header>
-                                    <Modal.Content>
+                                    <Modal.Content scrolling>
                                         <Modal.Description>
-                                            <h2>Expires: {voucher.purchaseDate ? checkExpiration(voucher.purchaseDate.seconds, 30) : null}</h2>
+                                            <h2>Expires: {voucher.purchaseDate ? checkExpiration(voucher.purchaseDate.seconds, parseInt(voucher.duration)) : null}</h2>
                                             <h4> Purchase Price: {formatCurrency(voucher.price)} <br /> Redeem For: {voucher.description} </h4>
                                             <div>
-                                                {voucher.descriptionFull}
+                                                {voucher.descriptionFull.split("\\n").map((item, i) => <p key={i}>{item}</p>)}
                                             </div>
                                         </Modal.Description>
                                     </Modal.Content>

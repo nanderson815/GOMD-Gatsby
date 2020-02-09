@@ -24,8 +24,6 @@ const handleClick = (e) => {
 const ExclusiveDeal = (props) => {
   const post = get(props, 'data.stripeSku')
   console.log(post);
-  let user = getUser()
-  console.log(user)
 
   const [pageLoading, setPageLoading] = useState(true)
   const [voucher, setVoucher] = useState()
@@ -68,6 +66,7 @@ const ExclusiveDeal = (props) => {
             price: price,
             stripeId: stripeId,
             metadata: {
+              duration: post.product.metadata.duration,
               user_id: user.uid,
               user_email: user.email,
               slug: post.product.metadata.slug,

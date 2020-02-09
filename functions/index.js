@@ -159,6 +159,7 @@ exports.postCheckoutProcess = functions.https.onRequest((request, response) => {
             price: data.display_items[0].amount,
             descriptionFull: data.display_items[0].custom.description,
             address: data.metadata.address,
+            duration: data.metadata.duration,
             name: data.display_items[0].custom.name,
             images: data.display_items[0].custom.images,
             description: data.metadata.caption,
