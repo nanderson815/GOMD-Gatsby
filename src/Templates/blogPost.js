@@ -17,7 +17,7 @@ const options = {
     [BLOCKS.EMBEDDED_ASSET]: node => {
       let fluid = useContentfulImage(node.data.target.fields.file["en-US"].url);
       return (
-        <Img style={{ maxHeight: "300px" }} title={node.data.target.fields.title["en-US"]} fluid={fluid.fluid} />
+        <Img style={{ maxHeight: "300px" }} alt={node.data.target.fields.title["en-US"]} title={node.data.target.fields.title["en-US"]} fluid={fluid.fluid} />
       );
     },
     [BLOCKS.HR]: node => {
