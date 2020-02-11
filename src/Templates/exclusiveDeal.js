@@ -12,8 +12,8 @@ import { getUser } from '../auth/auth'
 import { getFirebase } from '../firebase/firebase'
 import { formatCurrency } from '../Util/Util'
 import { checkRemaining } from '../Util/Util'
-import { navigate } from '@reach/router';
-
+import { navigate } from '@reach/router'
+import LoginModal from '../components/loginModal'
 const handleClick = (e) => {
   let tag = e.target.value
   console.log(tag);
@@ -40,6 +40,15 @@ const ExclusiveDeal = (props) => {
       })
   }, [])
 
+  // Login modal logic
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => {
+    setOpen(true)
+  }
+  const handleClose = () => {
+    setOpen(false)
+  }
+
   const [loading, setLoading] = useState(false)
   const handleCheckout = (name, desc, price, image) => {
     setLoading(true);
@@ -50,13 +59,12 @@ const ExclusiveDeal = (props) => {
       redirect = "http://localhost:8000/"
     }
     let user = getUser()
-
-
     if (user) {
       let db = getFirebase().firestore()
       db.collection('users').doc(user.uid).get()
         .then(doc => {
           let stripeId = doc.data().stripeId
+          console.log(stripeId)
           let data = {
             successUrl: `${redirect}/app/profile`,
             cancelUrl: `${redirect}/exclusive-dining/${post.product.metadata.slug}`,
@@ -87,12 +95,18 @@ const ExclusiveDeal = (props) => {
                 sessionId: res.data.id
               }).then(res => console.log(res))
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+              console.log(err)
+              setLoading(false)
+            })
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.log(err)
+          setLoading(false)
+        })
     } else {
       setLoading(false)
-      navigate('/app/login')
+      handleOpen()
     }
 
   }
@@ -115,6 +129,7 @@ const ExclusiveDeal = (props) => {
         image={post.product.localFiles[0].childImageSharp.fluid.src}
       />
       <Layout>
+        <LoginModal open={open} handleClose={handleClose} />
         {pageLoading ? <Dimmer active inverted>
           <Loader inverted>Loading</Loader>
         </Dimmer> : <Grid>

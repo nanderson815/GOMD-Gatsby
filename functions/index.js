@@ -104,7 +104,38 @@ exports.createProductFromSku = functions.https.onRequest(async (request, respons
             })
             .catch(console.error)
     });
-})
+});
+
+// Call this in the funciton above.
+const createStripeCheckout = (request, response, id) => {
+    stripe.checkout.sessions.create(
+        {
+            success_url: request.body.successUrl,
+            cancel_url: request.body.cancelUrl,
+            customer: id,
+            // customer_email: request.body.metadata.user_email,
+            payment_method_types: ['card'],
+            metadata: request.body.metadata,
+            line_items: [
+                {
+                    name: request.body.name,
+                    description: request.body.description,
+                    images: request.body.image,
+                    amount: request.body.price,
+                    currency: 'usd',
+                    quantity: 1,
+                },
+            ],
+        },
+        function (err, session) {
+            if (err) {
+                response.send(err)
+            } else {
+                response.send(session)
+            }
+        }
+    );
+};
 
 // Creates a checkout session.
 exports.createCheckoutSession = functions.https.onRequest(async (request, response) => {
@@ -114,33 +145,25 @@ exports.createCheckoutSession = functions.https.onRequest(async (request, respon
         } else if (request.body.metadata.vouchersSold >= request.body.metadata.quantity) {
             return
         }
-        stripe.checkout.sessions.create(
-            {
-                success_url: request.body.successUrl,
-                cancel_url: request.body.cancelUrl,
-                customer: request.body.stripeId,
-                // customer_email: request.body.metadata.user_email,
-                payment_method_types: ['card'],
-                metadata: request.body.metadata,
-                line_items: [
-                    {
-                        name: request.body.name,
-                        description: request.body.description,
-                        images: request.body.image,
-                        amount: request.body.price,
-                        currency: 'usd',
-                        quantity: 1,
-                    },
-                ],
-            },
-            function (err, session) {
-                if (err) {
-                    response.send(err)
-                } else {
-                    response.send(session)
+        // Get stripe id from stripe if one is not passed.
+        if (!request.body.stripeId) {
+            let email = request.body.metadata.user_email
+            stripe.customers.list(
+                { email: email },
+                function (err, customers) {
+                    if (customers.data.length > 0) {
+                        let customerId = customers.data[0].id
+                        createStripeCheckout(request, response, customerId)
+                    } else if (err) {
+                        response.send(err)
+                    } else {
+                        response.send("No customer found, please try again later.")
+                    }
                 }
-            }
-        );
+            );
+        } else {
+            createStripeCheckout(request, response, request.body.stripeId)
+        }
     })
 })
 

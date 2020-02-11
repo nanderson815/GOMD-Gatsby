@@ -51,6 +51,7 @@ const Login = ({ modal, handleClose }) => {
         if (user.email && user.name && user.password === user.passwordConfirm) {
             let res = await userSignUp(user.email, user.password, user.name);
             if (!res.user) setCreateError(res)
+            if (modal) handleClose()
         } else if (user.passwordConfirm !== user.password) {
             setCreateError('Passwords do not match.')
         }
