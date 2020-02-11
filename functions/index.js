@@ -25,7 +25,7 @@ exports.createCustomer = functions.https.onRequest(async (request, response) => 
         if (request.method !== 'POST') {
             return
         }
-        let email = request.body.email
+        let email = request.body.email.toLowerCase()
         let name = request.body.name
         let uid = request.body.uid
         let db = admin.firestore()
@@ -51,9 +51,11 @@ exports.createCustomer = functions.https.onRequest(async (request, response) => 
                                 console.log(customer.id)
                                 let id = customer.id
                                 db.collection("users").doc(uid).set({ stripeId: id })
-                                    .then(() => console.log("done"))
+                                    .then(() => {
+                                        console.log("done")
+                                        response.send(customer)
+                                    })
                                     .catch(err => console.log(err))
-                                response.send(customer)
                             }
                         }
                     );
@@ -108,25 +110,27 @@ exports.createProductFromSku = functions.https.onRequest(async (request, respons
 
 // Call this in the funciton above.
 const createStripeCheckout = (request, response, id) => {
+    let data = {
+        success_url: request.body.successUrl,
+        cancel_url: request.body.cancelUrl,
+        payment_method_types: ['card'],
+        metadata: request.body.metadata,
+        line_items: [
+            {
+                name: request.body.name,
+                description: request.body.description,
+                images: request.body.image,
+                amount: request.body.price,
+                currency: 'usd',
+                quantity: 1,
+            },
+        ],
+    }
+    if (id) {
+        data.customer = id
+    }
     stripe.checkout.sessions.create(
-        {
-            success_url: request.body.successUrl,
-            cancel_url: request.body.cancelUrl,
-            customer: id,
-            // customer_email: request.body.metadata.user_email,
-            payment_method_types: ['card'],
-            metadata: request.body.metadata,
-            line_items: [
-                {
-                    name: request.body.name,
-                    description: request.body.description,
-                    images: request.body.image,
-                    amount: request.body.price,
-                    currency: 'usd',
-                    quantity: 1,
-                },
-            ],
-        },
+        data,
         function (err, session) {
             if (err) {
                 response.send(err)
@@ -145,27 +149,24 @@ exports.createCheckoutSession = functions.https.onRequest(async (request, respon
         } else if (request.body.metadata.vouchersSold >= request.body.metadata.quantity) {
             return
         }
-        // Get stripe id from stripe if one is not passed.
-        if (!request.body.stripeId) {
-            let email = request.body.metadata.user_email
-            stripe.customers.list(
-                { email: email },
-                function (err, customers) {
-                    if (customers.data.length > 0) {
-                        let customerId = customers.data[0].id
-                        createStripeCheckout(request, response, customerId)
-                    } else if (err) {
-                        response.send(err)
-                    } else {
-                        response.send("No customer found, please try again later.")
-                    }
+        let email = request.body.metadata.user_email
+        stripe.customers.list(
+            { email: email },
+            function (err, customers) {
+                if (customers.data.length > 0) {
+                    let customerId = customers.data[0].id
+                    console.log("customerId Found: " + customerId)
+                    createStripeCheckout(request, response, customerId)
+                } else if (err) {
+                    response.send(err)
+                } else {
+                    console.log("No customer Id Found")
+                    createStripeCheckout(request, response)
                 }
-            );
-        } else {
-            createStripeCheckout(request, response, request.body.stripeId)
-        }
+            }
+        );
     })
-})
+});
 
 // Adds voucher to user profile after checkout is complete.
 exports.postCheckoutProcess = functions.https.onRequest((request, response) => {
