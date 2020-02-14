@@ -136,6 +136,7 @@ export const allSkuFields = graphql`
             couponCode
             price
             duration
+            terms
           }
           caption
           localFiles {

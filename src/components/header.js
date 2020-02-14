@@ -15,6 +15,8 @@ export default class MenuExampleMenus extends Component {
 
   render() {
     const { activeItem } = this.state
+    console.log(this.state.a)
+
 
     return (
       <div>
@@ -68,66 +70,75 @@ export default class MenuExampleMenus extends Component {
           </Sticky>
         </Responsive>
         <Responsive {...Responsive.onlyMobile}>
-          <Sticky>
-            <Menu style={{ margin: "0px 0px 15px 0px", borderBottom: "4px solid #1c70b5" }} fluid className="borderless">
-              {this.state.searching ? null :
-                <>
-                  <Menu.Item position="left" style={{ padding: '5px' }}>
-                    <Link to="/"><div style={{ width: "45px" }}> <Logo /></div></Link><Link to="/"></Link>
-                  </Menu.Item>
-
-                  <Menu.Item
-                    style={{ borderRight: "1px solid #8080807a" }}
-                  >
-                    <Dropdown
-                      icon='glass martini'
-                      style={{ color: "#1c70b5" }}>
-                      <Dropdown.Menu>
-                        <Dropdown.Item as={Link} to='/happy-hour-finder' > <Icon name='glass martini' style={{ color: "#1c70b5" }} />Happy Hours</Dropdown.Item>
-                        <Dropdown.Item as={Link} to='/exclusive-dining'>  <Icon name='food' style={{ color: "#1c70b5" }} />Packages</Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </Menu.Item>
-
-                  <Menu.Item
-                    style={{ borderRight: "1px solid #8080807a" }}
-                    name='articles'
-                    active={activeItem === 'articles'}
-                    onClick={this.handleItemClick}
-                    as={Link}
-                    to='/articles'
-                  >
-                    <Icon name='newspaper' style={{ color: "#1c70b5" }} /></Menu.Item>
-                  <Menu.Item
-                    name='search'
-                    style={{ borderRight: "1px solid #8080807a" }}
-                    active={activeItem === 'search'}
-                    onClick={this.handleSearchClick}
-                  >
-                    <Icon name='search' style={{ color: "#1c70b5" }} /></Menu.Item>
-                  <Menu.Item
-                    name='profile'
-                    active={activeItem === 'profile'}
-                    onClick={this.handleItemClick}
-                    as={Link}
-                    to='/app/profile'
-                  >
-                    <Icon name='user' style={{ color: "#1c70b5" }} /></Menu.Item>
-                </>
-              }
-              {this.state.searching ? <>
-                <Menu.Item style={{ width: "85%" }}>
-                  <SearchBar style={{ width: "100%" }}></SearchBar>
+          <Menu style={{ margin: "0px 0px 15px 0px", borderBottom: "4px solid #1c70b5" }} fluid className="borderless">
+            {this.state.searching ? null :
+              <>
+                <Menu.Item position="left" style={{ padding: '5px' }}>
+                  <Link to="/"><div style={{ width: "45px" }}> <Logo /></div></Link><Link to="/"></Link>
                 </Menu.Item>
                 <Menu.Item
-                  name='cancel'
-                  active={activeItem === 'cancel'}
+                  name='search'
+                  style={{ borderRight: "1px solid #8080807a" }}
+                  active={activeItem === 'search'}
                   onClick={this.handleSearchClick}
-
                 >
-                  <Icon name='cancel' style={{ color: "gray" }} /></Menu.Item> </> : null}
-            </Menu>
-          </Sticky>
+                  <Icon name='search' style={{ color: "#1c70b5" }} /></Menu.Item>
+              </>
+            }
+            {this.state.searching ? <>
+              <Menu.Item style={{ width: "85%" }}>
+                <SearchBar style={{ width: "100%" }}></SearchBar>
+              </Menu.Item>
+              <Menu.Item
+                name='cancel'
+                active={activeItem === 'cancel'}
+                onClick={this.handleSearchClick}
+
+              >
+                <Icon name='cancel' style={{ color: "gray" }} /></Menu.Item> </> : null}
+          </Menu>
+          <Menu compact icon="labeled" widths={5} style={{ fontSize: '12px', minHeight: "55px", borderTop: "1.5px solid #1c70b5", bottom: "0rem", left: "0rem", right: '0rem', position: 'fixed', right: '0rem', zIndex: '20' }}>
+            <Menu.Item
+              name='home'
+              active={activeItem === 'home'}
+              onClick={this.handleItemClick}
+              as={Link}
+              to='/'
+            >
+              <Icon name='home' style={{ color: "#1c70b5" }} />Home</Menu.Item>
+            <Menu.Item
+              name='packages'
+              active={activeItem === 'packages'}
+              onClick={this.handleItemClick}
+              as={Link}
+              to='/exclusive-dining'
+            >
+              <Icon name='food' style={{ color: "#1c70b5" }} />Packages</Menu.Item>
+            <Menu.Item
+              name='happyHour'
+              active={activeItem === 'happyHour'}
+              onClick={this.handleItemClick}
+              as={Link}
+              to='/happy-hour-finder'
+            >
+              <Icon name='glass martini' style={{ color: "#1c70b5" }} />Happy Hours</Menu.Item>
+            <Menu.Item
+              name='articles'
+              active={activeItem === 'articles'}
+              onClick={this.handleItemClick}
+              as={Link}
+              to='/articles'
+            >
+              <Icon name='newspaper' style={{ color: "#1c70b5" }} />Articles</Menu.Item>
+            <Menu.Item
+              name='profile'
+              active={activeItem === 'profile'}
+              onClick={this.handleItemClick}
+              as={Link}
+              to='/app/profile'
+            >
+              <Icon name='user' style={{ color: "#1c70b5" }} />Profile</Menu.Item>
+          </Menu>
         </Responsive>
       </div>
     )

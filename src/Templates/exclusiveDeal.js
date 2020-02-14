@@ -14,6 +14,8 @@ import { formatCurrency } from '../Util/Util'
 import { checkRemaining } from '../Util/Util'
 import { navigate } from '@reach/router'
 import LoginModal from '../components/loginModal'
+import Swiper from '../components/swiper'
+import TermsModal from '../components/termsModal'
 const handleClick = (e) => {
   let tag = e.target.value
   console.log(tag);
@@ -129,6 +131,7 @@ const ExclusiveDeal = (props) => {
                 <Card.Content>
                   <Card.Header>
                     <h1 style={{ marginBottom: "-3px" }}>{post.product.name}</h1>
+                    <p>{post.product.caption}</p>
                     {post.product.attributes.map((tag, index) => <Label as={Button} key={`${index}label`} value={tag} onClick={handleClick}>{tag}</Label>)}
                     <div style={{ display: "inline-block", float: 'right', fontSize: "25px" }}>
                       {formatCurrency(post.price)}
@@ -139,6 +142,10 @@ const ExclusiveDeal = (props) => {
                 <Card.Content>
                   <h2>Description</h2>
                   {post.product.description.split("\\n").map((item, i) => <p key={i}>{item}</p>)}
+                  <Swiper photos={post.product.localFiles}></Swiper>
+                  <h2>Terms and Conditions</h2>
+                  <p>{post.product.metadata.terms ? post.product.metadata.terms : "Must be 21 to purchase, valid ID required to redeem."}</p>
+                  <p style={{ display: "inline-block", marginRight: "3px" }}>All packages are governed by the site</p><TermsModal />
                 </Card.Content>
                 <Card.Content>
                   <Icon name="map marker"></Icon> {voucher ? voucher.neighborhood : null}
