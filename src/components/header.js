@@ -69,12 +69,13 @@ export default class MenuExampleMenus extends Component {
             </Menu>
           </Sticky>
         </Responsive>
+        {/* Mobile Header and navbar begins here ------------------------------------------------------------------------------- */}
         <Responsive {...Responsive.onlyMobile}>
-          <Menu style={{ margin: "0px 0px 15px 0px", borderBottom: "4px solid #1c70b5" }} fluid className="borderless">
+          <Menu style={{ margin: "0px 0px 15px 0px", borderBottom: "1px solid #1c70b5" }} fluid className="borderless">
             {this.state.searching ? null :
               <>
-                <Menu.Item position="left" style={{ padding: '5px' }}>
-                  <Link to="/"><div style={{ width: "45px" }}> <Logo /></div></Link><Link to="/"></Link>
+                <Menu.Item position="left">
+                  <Link to="/"><div style={{ width: "40px" }}> <Logo /></div></Link><Link to="/"><h3 style={{ color: "#1c70b5", margin: "0px 0px 0px 5px" }}>Georgia on my Dime</h3></Link>
                 </Menu.Item>
                 <Menu.Item
                   name='search'
@@ -82,7 +83,7 @@ export default class MenuExampleMenus extends Component {
                   active={activeItem === 'search'}
                   onClick={this.handleSearchClick}
                 >
-                  <Icon name='search' style={{ color: "#1c70b5" }} /></Menu.Item>
+                  <Icon name='search' style={{ color: "#1c70b5" }} circular inverted color="blue" /></Menu.Item>
               </>
             }
             {this.state.searching ? <>
@@ -97,7 +98,7 @@ export default class MenuExampleMenus extends Component {
               >
                 <Icon name='cancel' style={{ color: "gray" }} /></Menu.Item> </> : null}
           </Menu>
-          <Menu compact icon="labeled" widths={5} style={{ fontSize: '12px', minHeight: "55px", borderTop: "1.5px solid #1c70b5", bottom: "0rem", left: "0rem", right: '0rem', position: 'fixed', right: '0rem', zIndex: '20' }}>
+          <Menu compact icon="labeled" widths={5} style={{ fontSize: '12px', minHeight: "55px", borderTop: "1px solid grey", bottom: "0rem", left: "0rem", right: '0rem', position: 'fixed', right: '0rem', zIndex: '20' }}>
             <Menu.Item
               name='home'
               active={activeItem === 'home'}
