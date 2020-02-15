@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Header from './header'
+import Header from './header/header'
 import Layout from './layout';
 import { navigate } from "gatsby"
 import { getFirebase } from '../firebase/firebase'

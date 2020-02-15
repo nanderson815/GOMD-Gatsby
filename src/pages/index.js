@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import Header from '../components/header'
+import Header from '../components/header/header'
 import SEO from "../components/seo"
 import 'semantic-ui-less/semantic.less'
 import Blue from '../images/blue.svg'

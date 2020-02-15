@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import SEO from '../components/seo'
 import Layout from '../components/layout'
-import Header from '../components/header'
+import Header from '../components/header/header'
 import { graphql, navigate } from 'gatsby'
 import BackgroundImage from 'gatsby-background-image'
 import 'semantic-ui-less/semantic.less'

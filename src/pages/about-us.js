@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../components/header'
+import Header from '../components/header/header'
 import SEO from '../components/seo';
 import Layout from '../components/layout';
 import { Card, Icon, Segment, Grid } from 'semantic-ui-react';

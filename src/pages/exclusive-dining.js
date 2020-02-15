@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import Header from '../components/header'
+import Header from '../components/header/header'
 import { Responsive } from 'semantic-ui-react'
 import Layout from "../components/layout"
 import SEO from "../components/seo"

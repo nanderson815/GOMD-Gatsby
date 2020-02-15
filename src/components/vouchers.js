@@ -44,7 +44,6 @@ const Vouchers = ({ data, rows, user, hideVoucher }) => {
             })
     }
 
-
     return (
         <div>
             {data === undefined || data.length == 0 ? <div style={{ textAlign: "center" }}><h3>Looks like you don't have any vouchers yet.</h3> <Link to='/exclusive-dining'><Button style={{ marginBottom: '20px' }} primary>Buy Vouchers</Button></Link> </div> : null
@@ -53,7 +52,8 @@ const Vouchers = ({ data, rows, user, hideVoucher }) => {
                 {data.filter(voucher => voucher.redeemed === false).map(voucher => {
                     return (
                         <Card key={voucher.id} link>
-                            <img style={{ margin: "0px", objectFit: "cover" }} height={200} src={voucher.images[0]} />
+                            <img style={{ margin: "0px", objectFit: "cover" }} height={200} src={voucher.images[0].replace(/^http:\/\//i, 'https://')} />
+                            {/* <VoucherImage url={voucher.images[0]} /> */}
                             <Card.Content>
                                 <Card.Header>{voucher.name}</Card.Header>
                                 <Card.Description style={{ minHeight: '40px' }}>{voucher.description}</Card.Description>

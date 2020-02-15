@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import "./layout.css"
 import { Container, Icon } from "semantic-ui-react"
 import { Link } from "gatsby"
-import Header from '../components/header'
+import Header from './header/header'
 
 const Layout = ({ children }) => {
 

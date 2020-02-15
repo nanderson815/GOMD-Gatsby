@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import get from 'lodash/get'
 import { graphql } from 'gatsby';
-import Header from '../components/header'
+import Header from '../components/header/header'
 import Img from 'gatsby-image';
 import Layout from '../components/layout'
 import { Grid, Label, Card, Segment, Button, Icon, Dimmer, Loader } from 'semantic-ui-react'

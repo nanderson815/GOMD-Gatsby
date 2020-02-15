@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Header from '../components/header'
+import Header from '../components/header/header'
 import SEO from '../components/seo'
 import Layout from '../components/layout'
 import { Grid, Label, Segment, Container, Divider, Icon, Responsive, Sticky } from 'semantic-ui-react'

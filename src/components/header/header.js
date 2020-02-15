@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Menu, Container, Icon, Responsive, Sticky, Dropdown } from 'semantic-ui-react'
-import SearchBar from '../components/searchbar'
+import SearchBar from '../searchbar'
 import { Link } from 'gatsby'
-import Logo from './logo'
+import Logo from '../logo'
+import headerStyles from './header.module.css'
 
 
 export default class MenuExampleMenus extends Component {
@@ -10,12 +11,25 @@ export default class MenuExampleMenus extends Component {
     searching: false
   }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
   handleSearchClick = (e) => this.setState({ searching: !this.state.searching })
 
   render() {
-    const { activeItem } = this.state
-    console.log(this.state.a)
+
+    const styleFooter = (url) => {
+      if (typeof window !== 'undefined') {
+        let isHappyHour = window.location.pathname.includes('/atlanta-happy-hour')
+        if (window.location.pathname == url) {
+          return headerStyles.active
+        } else if (url === '/happy-hour-finder' && isHappyHour) {
+          return headerStyles.active
+        } else {
+          return headerStyles.footerLink
+        }
+
+      }
+    }
+
 
 
     return (
@@ -47,7 +61,6 @@ export default class MenuExampleMenus extends Component {
                   <Menu.Item
                     style={{ fontWeight: "bold" }}
                     name='articles'
-                    active={activeItem === 'articles'}
                     onClick={this.handleItemClick}
                     as={Link}
                     to='/articles'
@@ -57,7 +70,6 @@ export default class MenuExampleMenus extends Component {
                   <Menu.Item
                     name='profile'
                     style={{ fontWeight: "bold" }}
-                    active={activeItem === 'profile'}
                     onClick={this.handleItemClick}
                     as={Link}
                     to='/app/profile'
@@ -80,7 +92,6 @@ export default class MenuExampleMenus extends Component {
                 <Menu.Item
                   name='search'
                   style={{ borderRight: "1px solid #8080807a" }}
-                  active={activeItem === 'search'}
                   onClick={this.handleSearchClick}
                 >
                   <Icon name='search' style={{ color: "#1c70b5" }} circular inverted color="blue" /></Menu.Item>
@@ -92,56 +103,47 @@ export default class MenuExampleMenus extends Component {
               </Menu.Item>
               <Menu.Item
                 name='cancel'
-                active={activeItem === 'cancel'}
                 onClick={this.handleSearchClick}
 
               >
                 <Icon name='cancel' style={{ color: "gray" }} /></Menu.Item> </> : null}
           </Menu>
-          <Menu compact icon="labeled" widths={5} style={{ fontSize: '12px', minHeight: "55px", borderTop: "1px solid grey", bottom: "0rem", left: "0rem", right: '0rem', position: 'fixed', right: '0rem', zIndex: '20' }}>
-            <Menu.Item
-              name='home'
-              active={activeItem === 'home'}
+          {/* Footer Begins Here ---------------------------------------------------------------------------------------- */}
+          <div className={headerStyles.footer} >
+            <Link className={styleFooter('/')}
               onClick={this.handleItemClick}
-              as={Link}
               to='/'
             >
-              <Icon name='home' style={{ color: "#1c70b5" }} />Home</Menu.Item>
-            <Menu.Item
-              name='packages'
-              active={activeItem === 'packages'}
+              <Icon size='large' name='home' />Home</Link>
+
+            <Link
+              className={styleFooter('/exclusive-dining')}
               onClick={this.handleItemClick}
-              as={Link}
               to='/exclusive-dining'
             >
-              <Icon name='food' style={{ color: "#1c70b5" }} />Packages</Menu.Item>
-            <Menu.Item
-              name='happyHour'
-              active={activeItem === 'happyHour'}
+              <Icon size='large' name='food' />Packages</Link>
+            <Link
               onClick={this.handleItemClick}
-              as={Link}
+              className={styleFooter('/happy-hour-finder')}
               to='/happy-hour-finder'
             >
-              <Icon name='glass martini' style={{ color: "#1c70b5" }} />Happy Hours</Menu.Item>
-            <Menu.Item
-              name='articles'
-              active={activeItem === 'articles'}
+              <Icon size='large' name='glass martini' />
+              Happy Hours</Link>
+            <Link
               onClick={this.handleItemClick}
-              as={Link}
+              className={styleFooter('/articles')}
               to='/articles'
             >
-              <Icon name='newspaper' style={{ color: "#1c70b5" }} />Articles</Menu.Item>
-            <Menu.Item
-              name='profile'
-              active={activeItem === 'profile'}
+              <Icon size='large' name='newspaper' />Articles</Link>
+            <Link
               onClick={this.handleItemClick}
-              as={Link}
+              className={styleFooter('/app/profile')}
               to='/app/profile'
             >
-              <Icon name='user' style={{ color: "#1c70b5" }} />Profile</Menu.Item>
-          </Menu>
+              <Icon size='large' name='user' />Profile</Link>
+          </div>
         </Responsive>
-      </div>
+      </div >
     )
   }
 }

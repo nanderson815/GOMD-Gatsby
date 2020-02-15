@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '../components/layout'
-import Header from '../components/header'
+import Header from '../components/header/header'
 import SEO from '../components/seo'
 import { Grid } from 'semantic-ui-react'
 import ContactForm from '../components/contactForm'
