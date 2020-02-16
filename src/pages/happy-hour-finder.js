@@ -9,7 +9,7 @@ import 'semantic-ui-less/semantic.less'
 import MobileHappyHourMap from '../components/mobileHappyHourMap'
 import { getFirebase } from '../firebase/firebase'
 import LoginModal from '../components/loginModal'
-
+import BottomNav from '../components/header/bottomNav'
 
 const HappyHourFinder = (props) => {
 
@@ -291,7 +291,10 @@ const HappyHourFinder = (props) => {
                     handleStarClick={handleStarClick}
                     user={user ? user.uid : null}>
                 </MobileHappyHourMap> :
-                    <HHFinderCardGroup happyHours={filteredHH} hood={neighborhood} day={day} rows={1} handleStarClick={handleStarClick} user={user ? user.uid : null} setHoverHandler={setHoverHandler} clearHoveredHandler={clearHoveredHandler}></HHFinderCardGroup>}
+                    <>
+                        <HHFinderCardGroup happyHours={filteredHH} hood={neighborhood} day={day} rows={1} handleStarClick={handleStarClick} user={user ? user.uid : null} setHoverHandler={setHoverHandler} clearHoveredHandler={clearHoveredHandler}></HHFinderCardGroup>
+                        <BottomNav />
+                    </>}
             </Responsive>
         </>
     )

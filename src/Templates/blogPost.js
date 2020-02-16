@@ -13,7 +13,6 @@ const BlogPost = (props) => {
   const document = post.body.json
   let doc2 = documentToReactComponents(document)
 
-
   return (
     <>
       <Header></Header>

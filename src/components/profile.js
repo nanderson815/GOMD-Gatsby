@@ -11,7 +11,6 @@ import Axios from 'axios';
 import Favorites from './favorites'
 
 const Profile = (props) => {
-
     const [message, setMessage] = useState('')
     const [loading, setLoading] = useState(false)
     const changePassword = async () => {
@@ -84,11 +83,9 @@ const Profile = (props) => {
     }, [user])
 
     // Resubmits the used vouchers to the DB when back online.
-    const [updatingVouchers, setUpdatingVouchers] = useState(false);
     useEffect(() => {
         let unsubmitted = JSON.parse(localStorage.getItem('unsubmitted'))
         if (unsubmitted && user.uid) {
-            setUpdatingVouchers(true)
             let url = 'https://us-central1-georgia-on-my-dime.cloudfunctions.net/redeemVoucher';
             let requests = unsubmitted.map(uid => Axios.post(url, { uid: user.uid, voucherId: uid }));
 
@@ -98,7 +95,6 @@ const Profile = (props) => {
                     let index = unsubmitted.indexOf(uid);
                     if (index !== -1) unsubmitted.splice(index, 1)
                 });
-                setUpdatingVouchers(false)
                 if (unsubmitted.length > 0) {
                     localStorage.setItem('unsubmitted', JSON.stringify(unsubmitted))
                 } else {
@@ -106,7 +102,6 @@ const Profile = (props) => {
                 }
             })
                 .catch((err) => {
-                    setUpdatingVouchers(false)
                     console.log(err)
                 })
         }
@@ -130,17 +125,15 @@ const Profile = (props) => {
             menuItem: 'Vouchers', render: () => <Tab.Pane>{vouchers ?
                 <div>
                     <h2>Your Vouchers</h2>
-                    {updatingVouchers ? <Dimmer><Loader /></Dimmer> :
-                        <>
-                            <Responsive {...Responsive.onlyMobile}>
-                                <Vouchers rows={1} data={vouchers} hideVoucher={hideVoucher} user={user}></Vouchers>
-                            </Responsive>
-                            <Responsive minWidth={768}>
-                                <Vouchers rows={3} data={vouchers} hideVoucher={hideVoucher} user={user}></Vouchers>
-                            </Responsive>
-                        </>}
+                    <Responsive {...Responsive.onlyMobile}>
+                        <Vouchers rows={1} data={vouchers} hideVoucher={hideVoucher} user={user}></Vouchers>
+                    </Responsive>
+                    <Responsive minWidth={768}>
+                        <Vouchers rows={3} data={vouchers} hideVoucher={hideVoucher} user={user}></Vouchers>
+                    </Responsive>
                 </div>
-                : null}</Tab.Pane>
+                :
+                <Loader active inline='centered'>Getting Vouchers...</Loader>}</Tab.Pane>
         },
         {
             menuItem: 'Favorites', render: () => <Tab.Pane>

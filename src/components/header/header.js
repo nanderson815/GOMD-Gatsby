@@ -3,10 +3,10 @@ import { Menu, Container, Icon, Responsive, Sticky, Dropdown } from 'semantic-ui
 import SearchBar from '../searchbar'
 import { Link } from 'gatsby'
 import Logo from '../logo'
-import headerStyles from './header.module.css'
+import BottomNav from './bottomNav'
 
 
-export default class MenuExampleMenus extends Component {
+export default class Header extends Component {
   state = {
     searching: false
   }
@@ -15,24 +15,6 @@ export default class MenuExampleMenus extends Component {
   handleSearchClick = (e) => this.setState({ searching: !this.state.searching })
 
   render() {
-
-    const styleFooter = (url) => {
-      if (typeof window !== 'undefined') {
-        let isHappyHour = window.location.pathname.includes('/atlanta-happy-hour')
-        if (window.location.pathname == url) {
-          return headerStyles.active
-        } else if (window.location.pathname.includes(url) && url !== "/") {
-          return headerStyles.active
-        } else if (url === '/happy-hour-finder' && isHappyHour) {
-          return headerStyles.active
-        } else {
-          return headerStyles.footerLink
-        }
-
-      }
-    }
-
-
 
     return (
       <div>
@@ -63,7 +45,6 @@ export default class MenuExampleMenus extends Component {
                   <Menu.Item
                     style={{ fontWeight: "bold" }}
                     name='articles'
-                    onClick={this.handleItemClick}
                     as={Link}
                     to='/articles'
                   >
@@ -72,7 +53,6 @@ export default class MenuExampleMenus extends Component {
                   <Menu.Item
                     name='profile'
                     style={{ fontWeight: "bold" }}
-                    onClick={this.handleItemClick}
                     as={Link}
                     to='/app/profile'
                   >
@@ -110,40 +90,7 @@ export default class MenuExampleMenus extends Component {
               >
                 <Icon name='cancel' style={{ color: "gray" }} /></Menu.Item> </> : null}
           </Menu>
-          {/* Footer Begins Here ---------------------------------------------------------------------------------------- */}
-          <div className={headerStyles.footer} >
-            <Link className={styleFooter('/')}
-              onClick={this.handleItemClick}
-              to='/'
-            >
-              <Icon size='large' style={{ margin: '3px' }} name='home' />Home</Link>
-
-            <Link
-              className={styleFooter('/exclusive-dining')}
-              onClick={this.handleItemClick}
-              to='/exclusive-dining'
-            >
-              <Icon size='large' name='food' />Packages</Link>
-            <Link
-              onClick={this.handleItemClick}
-              className={styleFooter('/happy-hour-finder')}
-              to='/happy-hour-finder'
-            >
-              <Icon size='large' name='glass martini' />
-              Happy Hours</Link>
-            <Link
-              onClick={this.handleItemClick}
-              className={styleFooter('/articles')}
-              to='/articles'
-            >
-              <Icon size='large' name='newspaper' />Articles</Link>
-            <Link
-              onClick={this.handleItemClick}
-              className={styleFooter('/app/profile')}
-              to='/app/profile'
-            >
-              <Icon size='large' name='user' />Profile</Link>
-          </div>
+          <BottomNav></BottomNav>
         </Responsive>
       </div >
     )
