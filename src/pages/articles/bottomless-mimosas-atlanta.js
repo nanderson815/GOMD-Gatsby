@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import Header from '../components/header/header'
-import SEO from '../components/seo'
-import Layout from '../components/layout'
+import Header from '../../components/header/header'
+import SEO from '../../components/seo'
+import Layout from '../../components/layout'
 import { Grid, Label, Segment, Container, Divider, Icon, Responsive, Sticky } from 'semantic-ui-react'
 import Img from 'gatsby-image'
 import BackgroundImage from 'gatsby-background-image'
-import BottomlessMap from '../components/bottomlessMimosaMap'
+import BottomlessMap from '../../components/bottomlessMimosaMap'
 import { navigate, Link, graphql } from 'gatsby'
 import AdSense from 'react-adsense';
 

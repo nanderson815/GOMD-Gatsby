@@ -19,7 +19,7 @@ const Articles = ({ data }) => {
 
 
     const handleCardClick = (slug) => {
-        navigate(`/${slug}`)
+        navigate(`/articles/${slug}`)
     }
 
     const renderCards = () => {
