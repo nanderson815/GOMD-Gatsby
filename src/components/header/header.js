@@ -21,6 +21,8 @@ export default class MenuExampleMenus extends Component {
         let isHappyHour = window.location.pathname.includes('/atlanta-happy-hour')
         if (window.location.pathname == url) {
           return headerStyles.active
+        } else if (window.location.pathname.includes(url) && url !== "/") {
+          return headerStyles.active
         } else if (url === '/happy-hour-finder' && isHappyHour) {
           return headerStyles.active
         } else {
@@ -114,7 +116,7 @@ export default class MenuExampleMenus extends Component {
               onClick={this.handleItemClick}
               to='/'
             >
-              <Icon size='large' name='home' />Home</Link>
+              <Icon size='large' style={{ margin: '3px' }} name='home' />Home</Link>
 
             <Link
               className={styleFooter('/exclusive-dining')}

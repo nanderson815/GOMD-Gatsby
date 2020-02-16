@@ -20,19 +20,19 @@
     font-weight: 700;
     border-top-color: #1c70b5;
     border-top: 2px solid;
-     -webkit-box-align: center;
+    -webkit-box-align: center;
     align-items: center;
     display: flex;
     flex-direction: column;
     flex-shrink: 1;
-    font-size: 0.9rem;
+    font-size: .9rem;
     line-height: 1;
     -webkit-box-pack: center;
     justify-content: center;
     position: relative;
     text-align: center;
     width: 4rem;
-    height: 4rem;
+    height: 4.5rem;
     border-radius: 2px;
     text-decoration: none;
 }
@@ -44,14 +44,14 @@
     display: flex;
     flex-direction: column;
     flex-shrink: 1;
-    font-size: 0.9rem;
+    font-size: .9rem;
     line-height: 1;
     -webkit-box-pack: center;
     justify-content: center;
     position: relative;
     text-align: center;
     width: 4rem;
-    height: 4rem;
+    height: 4.5rem;
     border-radius: 2px;
     text-decoration: none;
 }
