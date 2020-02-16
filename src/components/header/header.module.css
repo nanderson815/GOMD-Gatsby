@@ -5,13 +5,13 @@
     border-top-width: 1px;
     border-top-color: darkgrey;
     background-color: white;
-    bottom: 0rem;
+    bottom: 0;
     display: flex;
     justify-content: space-around;
-    left: 0rem;
+    left: 0;
     padding-bottom: env(safe-area-inset-bottom);
     position: fixed;
-    right: 0rem;
+    right: 0;
     z-index: 5;
 }
 
@@ -32,7 +32,7 @@
     position: relative;
     text-align: center;
     width: 4rem;
-    height: 4.5rem;
+    height: 4.0rem;
     border-radius: 2px;
     text-decoration: none;
 }
@@ -51,7 +51,7 @@
     position: relative;
     text-align: center;
     width: 4rem;
-    height: 4.5rem;
+    height: 4.0rem;
     border-radius: 2px;
     text-decoration: none;
 }
