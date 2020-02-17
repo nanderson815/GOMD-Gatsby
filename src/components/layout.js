@@ -1,5 +1,4 @@
 import React from "react"
-import 'semantic-ui-less/semantic.less'
 import PropTypes from "prop-types"
 import "./layout.css"
 import { Container, Icon, Responsive } from "semantic-ui-react"
