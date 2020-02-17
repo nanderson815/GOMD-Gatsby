@@ -32,7 +32,7 @@ const ExclusiveDiningPage = ({ data }) => {
     }, [])
 
     return (
-        <div>
+        <>
             <SEO title="Exclusive Deals"
                 description="These Atlanta Restaurant Deals are offered Exclusively by Georgia on my Dime. Check out our list of exclusive happy hours at the best restaurants in Atlanta!"
             />
@@ -62,7 +62,7 @@ const ExclusiveDiningPage = ({ data }) => {
                         </div>
                     </div>}
             </Layout>
-        </div>
+        </>
     )
 }
 

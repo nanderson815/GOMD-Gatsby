@@ -5,14 +5,20 @@
     border-top-width: 1px;
     border-top-color: darkgrey;
     background-color: white;
-    bottom: 0;
+    bottom: 0rem;
     display: flex;
     justify-content: space-around;
+    padding-bottom: env(safe-area-inset-bottom, 0.5vh);
     left: 0;
-    padding-bottom: env(safe-area-inset-bottom);
     position: fixed;
     right: 0;
     z-index: 2000;
+}
+
+@media screen and (min-width: 768px) {
+    .footer{
+        display: none;
+    }
 }
 
 .active {

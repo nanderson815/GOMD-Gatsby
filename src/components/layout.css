@@ -3,6 +3,11 @@
   position: unset !important;
 }
 
+@media screen and (max-width: 768px){
+footer {
+  padding-bottom: 55px;
+}
+}
 .gm-style .gm-style-iw-c {
     padding: 0px !important;
 }
