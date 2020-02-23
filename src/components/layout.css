@@ -8,6 +8,13 @@ footer {
   padding-bottom: 55px;
 }
 }
+@media screen and (min-width: 768px){
+html {
+  box-sizing: border-box;
+  overflow: hidden;
+}
+}
+
 .gm-style .gm-style-iw-c {
     padding: 0px !important;
 }
@@ -229,11 +236,7 @@ textarea {
   -webkit-appearance: button;
   font: inherit;
 }
-html {
-  font: 112.5%/1.45em georgia, serif;
-  box-sizing: border-box;
-  overflow: hidden;
-}
+
 * {
   box-sizing: inherit;
 }

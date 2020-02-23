@@ -21,6 +21,16 @@
     }
 }
 
+.fadeOut {
+    transition: bottom 0.3s;
+    bottom: -60px
+}
+
+.fadeIn{
+    transition: bottom 0.3s;
+    bottom: 0px
+}
+
 .active {
     color: #1c70b5 !important;
     font-weight: 700;
@@ -38,7 +48,7 @@
     position: relative;
     text-align: center;
     width: 4rem;
-    height: 4.0rem;
+    height: 4.2rem;
     border-radius: 2px;
     text-decoration: none;
 }

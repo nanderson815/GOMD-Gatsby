@@ -13,7 +13,7 @@ const navfunc = (e, { slug }) => {
 
 
 
-const HHFinderCardGroup = ({ happyHours, day, rows, handleStarClick, user }) => {
+const HHFinderCardGroup = ({ happyHours, day, rows, handleStarClick, user, offset }) => {
 
 
     const [cards, setCards] = useState('')
@@ -83,7 +83,7 @@ const HHFinderCardGroup = ({ happyHours, day, rows, handleStarClick, user }) => 
 
 
     return (
-        <Card.Group itemsPerRow={rows} style={{ marginTop: "20px", paddingBottom: '55px' }}>
+        <Card.Group itemsPerRow={rows} style={{ marginTop: offset ? offset : "20px", paddingBottom: '55px' }}>
             {cards}
         </Card.Group >
     )

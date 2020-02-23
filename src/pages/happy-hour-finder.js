@@ -223,7 +223,7 @@ const HappyHourFinder = (props) => {
     }
 
     return (
-        <>
+        <main>
             <SEO title="Atlanta Happy Hour Finder" />
             <LoginModal open={open} handleClose={handleClose} />
             <Responsive minWidth={768}>
@@ -264,8 +264,10 @@ const HappyHourFinder = (props) => {
 
                 </Grid>
             </Responsive>
+
+            {/* =================================== Mobile ======================================= */}
             <Responsive {...Responsive.onlyMobile}>
-                <Sticky style={{ margin: "-14px" }}>
+                <div style={{ position: "fixed", top: "0px", zIndex: '200' }}>
                     <div style={{ background: "white" }}>
                         <div style={{ background: "#1c70b5" }}>
                             <Link to="/"><img alt="Georgia on my Dime Logo" style={{ margin: "10px 0px 0px 20px" }} src={logo} /></Link>
@@ -283,7 +285,7 @@ const HappyHourFinder = (props) => {
                             {showClear ? <Button primary onClick={clearSearch} style={{ margin: "0px 0px 5px 10px" }}>Clear Search</Button> : null}
                         </div>
                     </div>
-                </Sticky>
+                </div>
                 {displayMap ? <MobileHappyHourMap
                     filteredHH={filteredHH}
                     hovered={hovered}
@@ -292,11 +294,11 @@ const HappyHourFinder = (props) => {
                     user={user ? user.uid : null}>
                 </MobileHappyHourMap> :
                     <>
-                        <HHFinderCardGroup happyHours={filteredHH} hood={neighborhood} day={day} rows={1} handleStarClick={handleStarClick} user={user ? user.uid : null} setHoverHandler={setHoverHandler} clearHoveredHandler={clearHoveredHandler}></HHFinderCardGroup>
+                        <HHFinderCardGroup offset={150} happyHours={filteredHH} hood={neighborhood} day={day} rows={1} handleStarClick={handleStarClick} user={user ? user.uid : null} setHoverHandler={setHoverHandler} clearHoveredHandler={clearHoveredHandler}></HHFinderCardGroup>
                         <BottomNav />
                     </>}
             </Responsive>
-        </>
+        </main>
     )
 }
 

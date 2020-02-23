@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import "./layout.css"
 import { Container, Icon, Responsive } from "semantic-ui-react"
 import { Link } from "gatsby"
-import BottomNav from "./header/bottomNav"
+// import BottomNav from "./header/bottomNav"
 
 
 const Layout = ({ children }) => {
@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
     <>
       <Container>
         <main>{children}</main>
-        <BottomNav></BottomNav>
+        {/* <BottomNav></BottomNav> */}
       </Container>
       <footer style={{ marginTop: "20px", backgroundColor: "#1c70b5" }}>
         <div style={{ minHeight: '20px', backgroundColor: "#115287", display: 'flex', justifyContent: "center" }}>

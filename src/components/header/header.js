@@ -90,7 +90,7 @@ export default class Header extends Component {
               >
                 <Icon name='cancel' style={{ color: "gray" }} /></Menu.Item> </> : null}
           </Menu>
-          {/* <BottomNav></BottomNav> */}
+          <BottomNav></BottomNav>
         </Responsive>
       </div >
     )
