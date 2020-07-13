@@ -86,7 +86,6 @@ export const checkExpiration = (seconds, validDays) => {
     let purchaseDate = new Date(seconds * 1000)
     let expirationDate = new Date(seconds * 1000)
     expirationDate = new Date(expirationDate.setDate(expirationDate.getDate() + validDays))
-
     if (expirationDate > purchaseDate) {
         return expirationDate.toLocaleDateString()
     } else {
