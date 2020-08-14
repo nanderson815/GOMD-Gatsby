@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from './header/header'
 import Layout from './layout';
-import { Button, Responsive, Label, Menu, Tab, Form, Input, Dimmer, Loader } from 'semantic-ui-react';
+import { Button, Responsive, Tab, Form, Input, Loader } from 'semantic-ui-react';
 import { userSignOut } from '../auth/auth'
 import { getUser } from '../auth/auth'
 import { getFirebase } from '../firebase/firebase'
@@ -24,14 +24,14 @@ const Profile = (props) => {
         }
     }
 
-    const changeEmail = async () => {
-        if (typeof window !== 'undefined') {
-            if (window.confirm(`This will change your email to ${user.email}. Are you sure? `)) {
-                let res = await updateEmail(user.email)
-                alert(res.message)
-            }
-        }
-    }
+    // const changeEmail = async () => {
+    //     if (typeof window !== 'undefined') {
+    //         if (window.confirm(`This will change your email to ${user.email}. Are you sure? `)) {
+    //             let res = await updateEmail(user.email)
+    //             alert(res.message)
+    //         }
+    //     }
+    // }
 
     const changeName = async (name) => {
         let res = await updateName(name);

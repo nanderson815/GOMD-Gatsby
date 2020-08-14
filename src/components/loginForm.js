@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { navigate } from "gatsby"
+import React, { useState } from 'react'
 import { Button, Form, Divider, Modal, Icon } from 'semantic-ui-react'
 import { userSignIn, userSignUp, resetPassword, createStripeCustomer } from '../auth/auth'
 import { getFirebase } from '../firebase/firebase'

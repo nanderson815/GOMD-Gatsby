@@ -40,7 +40,7 @@ const ExclusiveDeal = (props) => {
         alert(`You must be connected to the internet to view!`)
         navigate("/exclusive-dining")
       })
-  }, [])
+  }, [post.product.id])
 
   // Login modal logic
   const [open, setOpen] = useState(false)

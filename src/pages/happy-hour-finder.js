@@ -118,7 +118,8 @@ const HappyHourFinder = (props) => {
             if (res) {
                 res.forEach(item => {
                     let index = HHdata.findIndex(x => x.id === item.id)
-                    HHdata[index].starred = true
+                    console.log(HHdata[index])
+                   if (HHdata[index]) HHdata[index].starred = true
                 })
             }
             if (searchResults !== undefined) {

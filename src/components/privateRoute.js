@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import { navigate } from "gatsby"
 import { isLoggedIn } from "../auth/auth"
 const PrivateRoute = ({ component: Component, location, ...rest }) => {

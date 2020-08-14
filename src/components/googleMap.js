@@ -112,11 +112,11 @@ const HappyHourMap = ({ happyHours, hovered }) => {
 
     const [visible, setVisible] = React.useState("")
 
-    const onMarkerHover = (id) => {
-        setVisible(id)
-        let element = document.getElementById(id);
-        element.scrollIntoView({ block: 'center' })
-    }
+    // const onMarkerHover = (id) => {
+    //     setVisible(id)
+    //     let element = document.getElementById(id);
+    //     element.scrollIntoView({ block: 'center' })
+    // }
     const clearVisible = () => {
         setVisible("")
     }
