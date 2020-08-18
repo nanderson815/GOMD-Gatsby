@@ -1,101 +1,102 @@
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql } from 'gatsby'
+
 export const useAllSearchData = () => {
-    const { allStripeSku, allContentfulHappyHour } = useStaticQuery(
-        graphql`
+  const { allStripeSku, allContentfulHappyHour } = useStaticQuery(
+    graphql`
       query allSearchData {
-          allStripeSku {
+        allStripeSku {
           edges {
             node {
               ...allSkuFields
             }
           }
         }
-  allContentfulHappyHour {
-    edges {
-      node {
-        best
-        seoDescription
-        days
-        fridayDesc {
-          fridayDesc
-        }
-        hours {
-          friday {
-            end
-            start
+        allContentfulHappyHour {
+          edges {
+            node {
+              best
+              seoDescription
+              days
+              fridayDesc {
+                fridayDesc
+              }
+              hours {
+                friday {
+                  end
+                  start
+                }
+                monday {
+                  end
+                  start
+                }
+                thursday {
+                  start
+                  end
+                }
+                tuesday {
+                  end
+                  start
+                }
+                wednesday {
+                  end
+                  start
+                }
+                saturday {
+                  end
+                  start
+                }
+                sunday {
+                  end
+                  start
+                }
+              }
+              id
+              location {
+                lat
+                lon
+              }
+              address
+              neighborhood
+              mainImg {
+                fluid {
+                  base64
+                }
+                id
+                title
+              }
+              name
+              mondayDesc {
+                mondayDesc
+              }
+              phone
+              slug
+              thursdayDesc {
+                thursdayDesc
+              }
+              tuesdayDesc {
+                tuesdayDesc
+              }
+              website
+              wednesdayDesc {
+                wednesdayDesc
+              }
+              description {
+                description
+              }
+              tags
+              sundayDesc {
+                sundayDesc
+              }
+              saturdayDesc {
+                saturdayDesc
+              }
+            }
           }
-          monday {
-            end
-            start
-          }
-          thursday {
-            start
-            end
-          }
-          tuesday {
-            end
-            start
-          }
-          wednesday {
-            end
-            start
-          }
-          saturday {
-            end
-            start
-          }
-          sunday {
-            end
-            start
-          }
-        }
-        id
-        location {
-          lat
-          lon
-        }
-        address
-        neighborhood
-        mainImg {
-          fluid {
-            base64
-          }
-          id
-          title
-        }
-        name
-        mondayDesc {
-          mondayDesc
-        }
-        phone
-        slug
-        thursdayDesc {
-          thursdayDesc
-        }
-        tuesdayDesc {
-          tuesdayDesc
-        }
-        website
-        wednesdayDesc {
-          wednesdayDesc
-        }
-        description {
-          description
-        }
-        tags
-        sundayDesc {
-          sundayDesc
-        }
-        saturdayDesc{
-          saturdayDesc
         }
       }
-    }
-  }
-}
     `
-    )
-    let happyHours = allContentfulHappyHour.edges.map(item => item.node)
-    let skus = allStripeSku.edges.map(item => item.node)
-    return skus.concat(happyHours)
+  )
+  const happyHours = allContentfulHappyHour.edges.map(item => item.node)
+  const skus = allStripeSku.edges.map(item => item.node)
+  return skus.concat(happyHours)
 }

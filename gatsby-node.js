@@ -4,10 +4,10 @@ const path = require('path')
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     resolve: {
-      alias: { "../../theme.config$": path.join(__dirname, "/src/semantic/theme.config") }
+      alias: { '../../theme.config$': path.join(__dirname, '/src/semantic/theme.config') }
     }
-  });
-};
+  })
+}
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
@@ -22,32 +22,32 @@ exports.createPages = ({ graphql, actions }) => {
           {
             allContentfulBlogPost {
               edges {
-               node {
-                slug
-               }
+                node {
+                  slug
+                }
               }
             }
-       allContentfulHappyHour {
-    edges {
-      node {
-        slug
-        neighborhood
-      }
-    }
-  }
-  allStripeSku {
-    edges {
-      node {
-        product {
-          metadata {
-            slug
+            allContentfulHappyHour {
+              edges {
+                node {
+                  slug
+                  neighborhood
+                }
+              }
+            }
+            allStripeSku {
+              edges {
+                node {
+                  product {
+                    metadata {
+                      slug
+                    }
+                  }
+                }
+              }
+            }
           }
-        }
-      }
-    }
-  }
-          }
-          `
+        `
       ).then(result => {
         if (result.errors) {
           console.log(result.errors)
@@ -57,17 +57,17 @@ exports.createPages = ({ graphql, actions }) => {
         const happyHours = result.data.allContentfulHappyHour.edges
         const blogPosts = result.data.allContentfulBlogPost.edges
         const exclusiveDeals = result.data.allStripeSku.edges
-        happyHours.forEach((post, index) => {
+        happyHours.forEach(post => {
           createPage({
             path: `/atlanta-happy-hour/${post.node.slug}`,
             component: happyHour,
             context: {
               slug: post.node.slug,
               neighborhood: post.node.neighborhood
-            },
+            }
           })
         })
-        blogPosts.forEach((post, index) => {
+        blogPosts.forEach(post => {
           createPage({
             path: `/articles/${post.node.slug}`,
             component: blogTemplate,
@@ -76,7 +76,7 @@ exports.createPages = ({ graphql, actions }) => {
             }
           })
         })
-        exclusiveDeals.forEach((post, index) => {
+        exclusiveDeals.forEach(post => {
           createPage({
             path: `/exclusive-dining/${post.node.product.metadata.slug}`,
             component: exclusiveDealTemplate,
