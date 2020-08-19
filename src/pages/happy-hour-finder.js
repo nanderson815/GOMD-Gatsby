@@ -54,8 +54,8 @@ const HappyHourFinder = props => {
     { key: 'Dec', value: 'Decatur', text: 'Decatur' },
     { key: 'Smy', value: 'Smyrna', text: 'Smyrna' }
   ]
-  const [neighborhood, setNeighborhood] = React.useState('All')
-  const [day, setDay] = React.useState('All')
+  const [neighborhood, setNeighborhood] = useState('All')
+  const [day, setDay] = useState('All')
 
   const changeDay = (e, { value }) => {
     setDay(value)
@@ -94,16 +94,16 @@ const HappyHourFinder = props => {
     setDisplayMap(displayMap)
   })
 
-  const [displayMap, setDisplayMap] = React.useState(true)
+  const [displayMap, setDisplayMap] = useState(true)
   const handleDisplayChange = () => {
     sessionStorage.setItem('displayMap', !displayMap)
     setDisplayMap(!displayMap)
   }
 
   // The use effect below ensures we only run map once. (could get expensive with lots of data)
-  const [happyHours, setHappyHours] = React.useState([])
-  const [filteredHH, setFilteredHH] = React.useState([])
-  const [showClear, setShowClear] = React.useState(false)
+  const [happyHours, setHappyHours] = useState([])
+  const [filteredHH, setFilteredHH] = useState([])
+  const [showClear, setShowClear] = useState(false)
 
   useEffect(() => {
     const HHdata = data.allContentfulHappyHour.edges.map(item => item.node)
@@ -204,7 +204,7 @@ const HappyHourFinder = props => {
   }
 
   // Code for hovering and having it reflect on map
-  const [hovered, setHovered] = React.useState('')
+  const [hovered, setHovered] = useState('')
   const setHoverHandler = id => {
     setHovered(id)
   }
@@ -228,11 +228,11 @@ const HappyHourFinder = props => {
                 </div>
                 <div style={{ height: '4px', background: '#5d5e5e', margin: '0px 0px 10px' }} />
                 <div style={{ display: 'inline-block', margin: '0px 5px 10px 24px' }}>
-                  Day:{' '}
+                  Day:
                   <Dropdown style={{ minWidth: '125px' }} selection value={day} options={days} onChange={changeDay} />
                 </div>
                 <div style={{ display: 'inline-block' }}>
-                  Neighborhood:{' '}
+                  Neighborhood:
                   <Dropdown
                     style={{ minWidth: '125px' }}
                     selection

@@ -11,7 +11,6 @@ const Skus = ({ columns, vouchers }) => {
 
   // Combine sku and firebase to get all data needed.
   const merged = _.map(skus, item => _.extend(item, _.find(vouchers, { id: item.product.id })))
-  console.log(merged)
 
   return (
     <Card.Group itemsPerRow={columns}>

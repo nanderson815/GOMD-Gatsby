@@ -159,10 +159,10 @@ const Profile = () => {
       render: () => (
         <Tab.Pane>
           <Responsive {...Responsive.onlyMobile}>
-            <Favorites rows={1} data={favorites} hideVoucher={hideVoucher} user={user} />
+            <Favorites rows={1} favorites={favorites} hideVoucher={hideVoucher} user={user} />
           </Responsive>
           <Responsive minWidth={768}>
-            <Favorites rows={3} data={favorites} hideVoucher={hideVoucher} user={user} />
+            <Favorites rows={3} favorites={favorites} hideVoucher={hideVoucher} user={user} />
           </Responsive>
         </Tab.Pane>
       )
