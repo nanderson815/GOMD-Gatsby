@@ -136,11 +136,11 @@ const IndexPage = ({ data }) => {
       <Header />
       <SEO title='Atlanta Happy Hours' />
       <BackgroundImage
+        preserveStackingContext
         style={{
           width: `100%`,
           margin: '-15px 0px 0px 0px',
           height: '450px',
-          overflow: 'hidden',
           display: 'flex',
           justifyContent: 'center',
           backgroundSize: 'cover',
@@ -154,10 +154,10 @@ const IndexPage = ({ data }) => {
         <div style={{ alignSelf: 'center', maxWidth: '800px', padding: '20px' }}>
           <h3>
             Search our complete list of the best Atlanta Happy Hours. There are hundreds of options around the ATL so
-            you’ll never overpay for a drink again.{' '}
+            you’ll never overpay for a drink again.
           </h3>
           <div style={{ padding: '0px 20px' }}>
-            <SearchBar padding='15px 10px' />
+            <SearchBar />
           </div>
           <br />
           <p style={{ margin: '20px 0px 0px 0px' }}>Or make a selection to discover the best happy hours with: </p>

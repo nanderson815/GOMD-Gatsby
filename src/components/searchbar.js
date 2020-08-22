@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { filter, reduce, startCase } from 'lodash'
-import { Search, Label, Grid, Header, Segment } from 'semantic-ui-react'
-import { Link, navigate } from 'gatsby'
+import { Search, Label } from 'semantic-ui-react'
+import { navigate } from 'gatsby'
 import { useAllSearchData } from '../hooks/searchData'
 
 const clean = str => {
@@ -22,13 +22,18 @@ export default function searchBar() {
 
   const handleResultSelect = (e, { result }) => {
     console.log(result)
+    if (result.slug) {
+      navigate(`../../atlanta-happy-hour/${result.slug}`, { replace: true })
+    } else if (result.product.metadata.slug) {
+      navigate(`../../exclusive-dining/${result.product.metadata.slug}`, { replace: true })
+    }
   }
 
   const handleSearchChange = (e, { value }) => {
     setValue(value)
     const searchTerm = clean(value)
 
-    if (searchTerm) {
+    if (searchTerm && searchTerm.length >= 2) {
       setLoading(true)
       const re = new RegExp(clean(value), 'i')
       console.log(re)
@@ -59,6 +64,10 @@ export default function searchBar() {
       categoryRenderer={categoryRenderer}
       category
       loading={loading}
+      open={!!(value && value.length >= 2)}
+      selectFirstResult
+      size='large'
+      fluid
       onResultSelect={handleResultSelect}
       onSearchChange={handleSearchChange}
       resultRenderer={resultRenderer}
