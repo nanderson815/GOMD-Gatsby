@@ -25,13 +25,9 @@ export const useAllSearchData = () => {
         allContentfulHappyHour {
           edges {
             node {
-              seoDescription
+              neighborhood
               name
               slug
-              description {
-                description
-              }
-              tags
             }
           }
         }

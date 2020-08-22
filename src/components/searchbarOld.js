@@ -68,7 +68,6 @@ const SearchBar = ({ padding }) => {
           <Input style={{ width: '100%' }} type='text' placeholder='Search restaurants, happy hours, etc...' action>
             <input onChange={searchData} style={{ padding }} />
             <Button onClick={handleSubmit} primary type='submit'>
-              {' '}
               <Icon name='search' style={{ marginLeft: '5px' }} />
             </Button>
           </Input>

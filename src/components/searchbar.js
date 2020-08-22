@@ -3,6 +3,9 @@ import { filter, reduce, startCase } from 'lodash'
 import { Search, Label } from 'semantic-ui-react'
 import { navigate } from 'gatsby'
 import { useAllSearchData } from '../hooks/searchData'
+import { formatCurrency } from '../Util/Util'
+
+import './layout.css'
 
 const clean = str => {
   if (str) {
@@ -17,11 +20,16 @@ export default function searchBar() {
   const [results, setResults] = useState([])
   const [value, setValue] = useState()
 
-  const resultRenderer = ({ name, product }) => <Label content={name || product.name} />
+  const resultRenderer = ({ name, product, price, neighborhood }) => (
+    <div>
+      <h3 style={{ margin: 0 }}>{name || product.name}</h3>
+      <div style={{ fontSize: '.9rem', color: 'grey' }}>{neighborhood || price}</div>
+    </div>
+  )
+
   const categoryRenderer = ({ name }) => <Label as='span' content={startCase(name)} />
 
   const handleResultSelect = (e, { result }) => {
-    console.log(result)
     if (result.slug) {
       navigate(`../../atlanta-happy-hour/${result.slug}`, { replace: true })
     } else if (result.product.metadata.slug) {
@@ -36,19 +44,25 @@ export default function searchBar() {
     if (searchTerm && searchTerm.length >= 2) {
       setLoading(true)
       const re = new RegExp(clean(value), 'i')
-      console.log(re)
 
       const filteredResults = reduce(
         data,
         (memo, data, name) => {
           const results = filter(data.results, result => re.test(clean(result.name) || clean(result.product.name)))
-          if (results.length) memo[name] = { name, results }
+          if (results.length) {
+            const cleaned = results.map((result, i) => ({
+              ...result,
+              key: i,
+              title: result.name || result.product.name,
+              price: result.price && formatCurrency(result.price)
+            }))
+            memo[name] = { name, results: cleaned.splice(0, 5) }
+          }
 
           return memo
         },
         {}
       )
-      console.log(filteredResults)
       setResults(filteredResults)
       setLoading(false)
     } else {
