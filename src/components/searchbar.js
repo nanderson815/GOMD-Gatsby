@@ -22,7 +22,7 @@ export default function searchBar() {
 
   const resultRenderer = ({ name, product, price, neighborhood }) => (
     <div>
-      <h3 style={{ margin: 0 }}>{name || product.name}</h3>
+      <h4 style={{ margin: 0 }}>{name || product.name}</h4>
       <div style={{ fontSize: '.9rem', color: 'grey' }}>{neighborhood || price}</div>
     </div>
   )
@@ -41,7 +41,7 @@ export default function searchBar() {
     setValue(value)
     const searchTerm = clean(value)
 
-    if (searchTerm && searchTerm.length >= 2) {
+    if (searchTerm) {
       setLoading(true)
       const re = new RegExp(clean(value), 'i')
 
@@ -78,13 +78,14 @@ export default function searchBar() {
       categoryRenderer={categoryRenderer}
       category
       loading={loading}
-      open={!!(value && value.length >= 2)}
+      minCharacters={2}
       selectFirstResult
       size='large'
       fluid
       onResultSelect={handleResultSelect}
       onSearchChange={handleSearchChange}
       resultRenderer={resultRenderer}
+      placeholder='Search for a restaurant...'
       results={results}
       value={value}
     />
