@@ -6,7 +6,7 @@ const LoginModal = ({ open, handleClose }) => (
   <Modal open={open} onClose={handleClose}>
     <Header icon='user' content='Requires Login' />
     <Modal.Content>
-      <h3>You must be logged in to purchase or save happy hours.</h3>
+      <h3>You must be logged in to save happy hours.</h3>
       <LoginForm modal handleClose={handleClose} />
     </Modal.Content>
     <Modal.Actions>

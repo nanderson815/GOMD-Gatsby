@@ -15,7 +15,7 @@ exports.createPages = ({ graphql, actions }) => {
   return new Promise((resolve, reject) => {
     const happyHour = path.resolve('./src/Templates/happyHour.js')
     const blogTemplate = path.resolve('./src/Templates/blogPost.js')
-    const exclusiveDealTemplate = path.resolve('./src/Templates/exclusiveDeal.js')
+    // const exclusiveDealTemplate = path.resolve('./src/Templates/exclusiveDeal.js')
     resolve(
       graphql(
         `
@@ -56,7 +56,7 @@ exports.createPages = ({ graphql, actions }) => {
 
         const happyHours = result.data.allContentfulHappyHour.edges
         const blogPosts = result.data.allContentfulBlogPost.edges
-        const exclusiveDeals = result.data.allStripeSku.edges
+        // const exclusiveDeals = result.data.allStripeSku.edges
         happyHours.forEach(post => {
           createPage({
             path: `/atlanta-happy-hour/${post.node.slug}`,
@@ -76,15 +76,15 @@ exports.createPages = ({ graphql, actions }) => {
             }
           })
         })
-        exclusiveDeals.forEach(post => {
-          createPage({
-            path: `/exclusive-dining/${post.node.product.metadata.slug}`,
-            component: exclusiveDealTemplate,
-            context: {
-              slug: post.node.product.metadata.slug
-            }
-          })
-        })
+        // exclusiveDeals.forEach(post => {
+        //   createPage({
+        //     path: `/exclusive-dining/${post.node.product.metadata.slug}`,
+        //     component: exclusiveDealTemplate,
+        //     context: {
+        //       slug: post.node.product.metadata.slug
+        //     }
+        //   })
+        // })
       })
     )
   })

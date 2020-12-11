@@ -57,10 +57,10 @@ const BottomNav = () => {
         Home
       </Link>
 
-      <Link className={styleFooter('/exclusive-dining')} to='/exclusive-dining'>
+      {/* <Link className={styleFooter('/exclusive-dining')} to='/exclusive-dining'>
         <Icon size='large' name='food' />
         Packages
-      </Link>
+      </Link> */}
       <Link className={styleFooter('/happy-hour-finder')} to='/happy-hour-finder'>
         <Icon size='large' name='glass martini' />
         Happy Hours

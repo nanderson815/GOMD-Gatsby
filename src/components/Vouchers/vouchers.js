@@ -8,13 +8,10 @@ import { formatCurrency, checkExpiration } from '../../Util/Util'
 import InfoModal from './components/InfoModal'
 
 const Vouchers = ({ data, rows, user, hideVoucher }) => {
-  console.log(data)
-
   const [activeVourcher, setActiveVoucher] = useState('')
 
   const [modalOpen, setModalOpen] = useState(false)
   const handleOpen = voucher => {
-    console.log(voucher)
     setActiveVoucher(voucher)
     setModalOpen(true)
   }
@@ -33,8 +30,7 @@ const Vouchers = ({ data, rows, user, hideVoucher }) => {
       uid: user.uid,
       voucherId: activeVourcher.id
     })
-      .then(res => {
-        console.log(res)
+      .then(() => {
         handleClose()
       })
       .catch(err => {

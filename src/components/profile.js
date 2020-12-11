@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react'
-import { Button, Responsive, Tab, Form, Input, Loader } from 'semantic-ui-react'
+import { Button, Responsive, Tab, Form, Input } from 'semantic-ui-react'
 import Axios from 'axios'
 import Header from './header/header'
 import Layout from './layout'
 import { userSignOut, getUser, resetPassword, updateName } from '../auth/auth'
 
 import { getFirebase } from '../firebase/firebase'
-import Vouchers from './Vouchers/vouchers'
+// import Vouchers from './Vouchers/vouchers'
 
 import Favorites from './favorites'
 
@@ -132,28 +132,28 @@ const Profile = () => {
   }
 
   const panes = [
-    {
-      menuItem: 'Vouchers',
-      render: () => (
-        <Tab.Pane>
-          {vouchers ? (
-            <div>
-              <h2>Your Vouchers</h2>
-              <Responsive {...Responsive.onlyMobile}>
-                <Vouchers rows={1} data={vouchers} hideVoucher={hideVoucher} user={user} />
-              </Responsive>
-              <Responsive minWidth={768}>
-                <Vouchers rows={3} data={vouchers} hideVoucher={hideVoucher} user={user} />
-              </Responsive>
-            </div>
-          ) : (
-            <Loader active inline='centered'>
-              Getting Vouchers...
-            </Loader>
-          )}
-        </Tab.Pane>
-      )
-    },
+    // {
+    //   menuItem: 'Vouchers',
+    //   render: () => (
+    //     <Tab.Pane>
+    //       {vouchers ? (
+    //         <div>
+    //           <h2>Your Vouchers</h2>
+    //           <Responsive {...Responsive.onlyMobile}>
+    //             <Vouchers rows={1} data={vouchers} hideVoucher={hideVoucher} user={user} />
+    //           </Responsive>
+    //           <Responsive minWidth={768}>
+    //             <Vouchers rows={3} data={vouchers} hideVoucher={hideVoucher} user={user} />
+    //           </Responsive>
+    //         </div>
+    //       ) : (
+    //         <Loader active inline='centered'>
+    //           Getting Vouchers...
+    //         </Loader>
+    //       )}
+    //     </Tab.Pane>
+    //   )
+    // },
     {
       menuItem: 'Favorites',
       render: () => (

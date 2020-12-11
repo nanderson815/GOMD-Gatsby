@@ -11,7 +11,6 @@ export const userSignUp = async (email, password, userName) => {
     .createUserWithEmailAndPassword(email, password)
     .then(cred => {
       const user = firebase.auth().currentUser
-      console.log(user)
       user.updateProfile({
         displayName: userName
       })
@@ -30,9 +29,7 @@ export const userSignUp = async (email, password, userName) => {
 export const createStripeCustomer = (email, name, uid) => {
   const url = 'https://us-central1-georgia-on-my-dime.cloudfunctions.net/createCustomer'
   Axios.post(url, { email, name, uid })
-    .then(res => {
-      console.log(res)
-    })
+    .then(() => {})
     .catch(err => console.log(err))
 }
 
@@ -66,11 +63,9 @@ export const userSignOut = () => {
     .auth()
     .signOut()
     .then(() => {
-      console.log('signed out.')
       navigate('/app/login')
     })
     .catch(error => {
-      console.log(' error on signed out.')
       console.log(error)
     })
 }

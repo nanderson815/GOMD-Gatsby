@@ -22,8 +22,8 @@
 }
 
 .fadeOut {
-    transition: bottom 0.3s;
-    bottom: -60px
+    transition: bottom 1s;
+    bottom: -200px
 }
 
 .fadeIn{

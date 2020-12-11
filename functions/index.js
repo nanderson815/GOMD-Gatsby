@@ -33,7 +33,6 @@ exports.createCustomer = functions.https.onRequest(async (request, response) => 
     const { uid } = request.body
     const db = admin.firestore()
     stripe.customers.list({ email }, (err, customers) => {
-      console.log(customers)
       if (customers.data.length > 0) {
         response.send(customers.data[0])
       } else if (err) {
@@ -49,13 +48,11 @@ exports.createCustomer = functions.https.onRequest(async (request, response) => 
               console.log(err)
               response.send(err)
             } else {
-              console.log(customer.id)
               const { id } = customer
               db.collection('users')
                 .doc(uid)
                 .set({ stripeId: id })
                 .then(() => {
-                  console.log('done')
                   response.send(customer)
                 })
                 .catch(err => console.log(err))
@@ -86,7 +83,6 @@ exports.createProductFromSku = functions.https.onRequest(async (request, respons
         'fields.slug': slug
       })
       .then(res => {
-        console.log(res.items[0])
         const content = res.items[0].fields
         const voucher = {
           name: obj.name,
@@ -158,12 +154,10 @@ exports.createCheckoutSession = functions.https.onRequest(async (request, respon
     stripe.customers.list({ email }, (err, customers) => {
       if (customers.data.length > 0) {
         const customerId = customers.data[0].id
-        console.log(`customerId Found: ${customerId}`)
         createStripeCheckout(request, response, customerId)
       } else if (err) {
         response.send(err)
       } else {
-        console.log('No customer Id Found')
         createStripeCheckout(request, response)
       }
     })

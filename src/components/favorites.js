@@ -31,7 +31,7 @@ const Favorites = ({ favorites, rows }) => {
       })
       setFavoritesData(favoriteArray)
     }
-  }, [data])
+  }, [data, favorites])
 
   return (
     <div>
