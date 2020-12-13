@@ -5,8 +5,8 @@ import Axios from 'axios'
 import Header from './header/header'
 import Layout from './layout'
 import { userSignOut, getUser, resetPassword, updateName } from '../auth/auth'
-
 import { getFirebase } from '../firebase/firebase'
+
 // import Vouchers from './Vouchers/vouchers'
 
 import Favorites from './favorites'
@@ -14,6 +14,9 @@ import Favorites from './favorites'
 const Profile = () => {
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
+  const [favoritesLoading, setFavoritesLoading] = useState(false)
+  const [favorites, setFavorites] = useState([])
+
   const changePassword = async () => {
     setLoading(true)
     const res = await resetPassword(user.email)
@@ -50,35 +53,35 @@ const Profile = () => {
   }, [])
 
   // Grabs the vouchers from firebase.
-  const [vouchers, setVouchers] = useState('')
+  // const [vouchers, setVouchers] = useState('')
   // eslint-disable-next-line consistent-return
-  useEffect(() => {
-    const firebase = getFirebase()
-    const db = firebase.firestore()
-    if (user) {
-      const unsubscripe = db
-        .collection('users')
-        .doc(user.uid)
-        .collection('vouchers')
-        .where('redeemed', '==', false)
-        .onSnapshot(snapshot => {
-          const vouchersData = []
-          snapshot.forEach(doc => {
-            const info = doc.data()
-            vouchersData.push(info)
-          })
-          setVouchers(vouchersData)
-        })
-      return () => unsubscripe()
-    }
-  }, [user])
+  // useEffect(() => {
+  //   const firebase = getFirebase()
+  //   const db = firebase.firestore()
+  //   if (user) {
+  //     const unsubscripe = db
+  //       .collection('users')
+  //       .doc(user.uid)
+  //       .collection('vouchers')
+  //       .where('redeemed', '==', false)
+  //       .onSnapshot(snapshot => {
+  //         const vouchersData = []
+  //         snapshot.forEach(doc => {
+  //           const info = doc.data()
+  //           vouchersData.push(info)
+  //         })
+  //         setVouchers(vouchersData)
+  //       })
+  //     return () => unsubscripe()
+  //   }
+  // }, [user])
 
   // Grabs the favorite HHs from firebase.
-  const [favorites, setFavorites] = useState([])
   useEffect(() => {
     const firebase = getFirebase()
     const db = firebase.firestore()
     if (user) {
+      setFavoritesLoading(true)
       const savedHH = []
       db.collection('users')
         .doc(user.uid)
@@ -87,6 +90,7 @@ const Profile = () => {
         .then(snap => {
           snap.forEach(doc => savedHH.push(doc.data()))
           setFavorites(savedHH)
+          setFavoritesLoading(false)
         })
         .catch(err => err)
     }
@@ -119,17 +123,17 @@ const Profile = () => {
   }, [user])
 
   // Removes the voucher if it is redemmed offline, and adds the item to local stroage to be updated when back online.
-  const hideVoucher = redeemed => {
-    const filtered = vouchers.filter(deal => deal.id !== redeemed.id)
-    let unsubmitted = []
-    const existing = JSON.parse(localStorage.getItem('unsubmitted'))
-    if (existing) {
-      unsubmitted = existing
-    }
-    unsubmitted.push(redeemed.id)
-    localStorage.setItem('unsubmitted', JSON.stringify(unsubmitted))
-    setVouchers(filtered)
-  }
+  // const hideVoucher = redeemed => {
+  //   const filtered = vouchers.filter(deal => deal.id !== redeemed.id)
+  //   let unsubmitted = []
+  //   const existing = JSON.parse(localStorage.getItem('unsubmitted'))
+  //   if (existing) {
+  //     unsubmitted = existing
+  //   }
+  //   unsubmitted.push(redeemed.id)
+  //   localStorage.setItem('unsubmitted', JSON.stringify(unsubmitted))
+  //   setVouchers(filtered)
+  // }
 
   const panes = [
     // {
@@ -159,10 +163,10 @@ const Profile = () => {
       render: () => (
         <Tab.Pane>
           <Responsive {...Responsive.onlyMobile}>
-            <Favorites rows={1} favorites={favorites} hideVoucher={hideVoucher} user={user} />
+            <Favorites favorites={favorites} rows={1} loading={favoritesLoading} />
           </Responsive>
           <Responsive minWidth={768}>
-            <Favorites rows={3} favorites={favorites} hideVoucher={hideVoucher} user={user} />
+            <Favorites favorites={favorites} rows={3} loading={favoritesLoading} />
           </Responsive>
         </Tab.Pane>
       )

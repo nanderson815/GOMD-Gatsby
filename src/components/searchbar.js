@@ -5,6 +5,7 @@ import { navigate } from 'gatsby'
 import { useAllSearchData } from '../hooks/searchData'
 import { formatCurrency } from '../Util/Util'
 
+import styles from './searchbar.module.css'
 import './layout.css'
 
 const clean = str => {
@@ -73,8 +74,9 @@ export default function searchBar() {
   if (!data) return null
   return (
     <Search
-      style={{ width: '100%' }}
-      input={{ fluid: true }}
+      // style={{ width: '100%' }}
+      className={styles.searchbar}
+      input={{ fluid: true, input: { className: styles.input } }}
       categoryRenderer={categoryRenderer}
       category
       loading={loading}

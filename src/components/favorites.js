@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useStaticQuery, graphql, Link, navigate } from 'gatsby'
-import { Button, Card, Icon } from 'semantic-ui-react'
+import { Button, Card, Icon, Loader } from 'semantic-ui-react'
 import Img from 'gatsby-image'
 
 const navfunc = slug => {
   navigate(`/atlanta-happy-hour/${slug}`)
 }
 
-const Favorites = ({ favorites, rows }) => {
+const Favorites = ({ rows, favorites, loading }) => {
   const [favoritesData, setFavoritesData] = useState([])
   const data = useStaticQuery(graphql`
     query favoritesData {
@@ -33,7 +33,7 @@ const Favorites = ({ favorites, rows }) => {
     }
   }, [data, favorites])
 
-  return (
+  return !loading ? (
     <div>
       {favoritesData === undefined || favoritesData.length === 0 ? (
         <div style={{ textAlign: 'center' }}>
@@ -65,6 +65,10 @@ const Favorites = ({ favorites, rows }) => {
         ))}
       </Card.Group>
     </div>
+  ) : (
+    <Loader active inline='centered'>
+      Fetching your favorites...
+    </Loader>
   )
 }
 
