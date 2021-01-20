@@ -96,7 +96,7 @@ const Vouchers = ({ data, rows, user, hideVoucher }) => {
                               ) : (
                                 <p>{activeVourcher.description}</p>
                               )}
-                              <Barcode value={activeVourcher.couponCode} />
+                              <Barcode width={1} value={activeVourcher.couponCode} />
                             </Modal.Description>
                           </Modal.Content>
                           <Modal.Actions>

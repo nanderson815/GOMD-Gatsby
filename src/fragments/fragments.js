@@ -24,6 +24,7 @@ export const allBlogPostFields = graphql`
 export const allHappyHourFields = graphql`
   fragment allHappyHourFields on ContentfulHappyHour {
     best
+    updatedAt
     seoDescription
     days
     fridayDesc {
@@ -146,12 +147,6 @@ export const allSkuFields = graphql`
           }
         }
       }
-    }
-    attributes {
-      Beer
-      Brunch
-      Mimosas
-      Wings
     }
     inventory {
       quantity

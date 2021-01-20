@@ -24,7 +24,6 @@ const handleClick = e => {
 
 const ExclusiveDeal = props => {
   const post = get(props, 'data.stripeSku')
-  console.log(post)
 
   const [pageLoading, setPageLoading] = useState(true)
   const [voucher, setVoucher] = useState()
@@ -34,7 +33,6 @@ const ExclusiveDeal = props => {
       .doc(post.product.id)
       .get()
       .then(doc => {
-        console.log(doc.data())
         setVoucher(doc.data())
         setPageLoading(false)
       })
