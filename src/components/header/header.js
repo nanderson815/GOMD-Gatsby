@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Menu, Container, Icon, Responsive, Sticky, Dropdown } from 'semantic-ui-react'
+import { Menu, Container, Icon, Responsive, Sticky } from 'semantic-ui-react'
 import { Link } from 'gatsby'
 import SearchBar from '../searchbar'
 import Logo from '../logo'
@@ -25,26 +25,17 @@ export default function Header() {
                 </Link>
               </Menu.Item>
 
-              <Menu.Item style={{ width: '40%' }}>
+              <Menu.Item style={{ flexGrow: 1 }}>
                 <SearchBar />
               </Menu.Item>
 
               <Menu.Menu position='right'>
-                <Menu.Item>
-                  <Dropdown item text='Restaraunts' style={{ fontWeight: 'bold' }}>
-                    <Dropdown.Menu>
-                      <Dropdown.Item as={Link} to='/happy-hour-finder'>
-                        <Icon name='glass martini' style={{ color: '#1c70b5' }} />
-                        Happy Hours
-                      </Dropdown.Item>
-                      <Dropdown.Item as={Link} to='/exclusive-dining'>
-                        <Icon name='food' style={{ color: '#1c70b5' }} />
-                        Packages
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                <Menu.Item style={{ fontWeight: 'bold' }} name='happyHours' as={Link} to='/happy-hour-finder'>
+                  <Icon name='glass martini' style={{ color: '#1c70b5' }} /> Happy Hours
                 </Menu.Item>
-
+                <Menu.Item style={{ fontWeight: 'bold' }} name='packages' as={Link} to='/exclusive-dining'>
+                  <Icon name='food' style={{ color: '#1c70b5' }} /> Packages
+                </Menu.Item>
                 <Menu.Item style={{ fontWeight: 'bold' }} name='articles' as={Link} to='/articles'>
                   <Icon name='newspaper' style={{ color: '#1c70b5' }} /> Articles
                 </Menu.Item>
