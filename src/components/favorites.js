@@ -27,7 +27,7 @@ const Favorites = ({ favorites, rows }) => {
       const favoriteArray = []
       favorites.forEach(item => {
         const index = HHdata.findIndex(x => x.id === item.id)
-        favoriteArray.push(HHdata[index])
+        if (HHdata[index]) favoriteArray.push(HHdata[index])
       })
       setFavoritesData(favoriteArray)
     }
