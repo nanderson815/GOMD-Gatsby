@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { graphql } from 'gatsby'
 import BackgroundImage from 'gatsby-background-image'
-import { Dimmer, Loader, Responsive } from 'semantic-ui-react'
+import { Dimmer, Loader, Responsive, Grid } from 'semantic-ui-react'
 import { getFirebase } from '../firebase/firebase'
 import Header from '../components/header/header'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import Skus from '../components/products/skus'
+import AboutVouchersSidebar from '../components/aboutVouchersSidebar'
 
 const ExclusiveDiningPage = ({ data }) => {
   const [loading, setLoading] = useState(true)
@@ -45,8 +46,7 @@ const ExclusiveDiningPage = ({ data }) => {
           <h1>Exclusive Dining Packages</h1>
           <p>
             We partnered with the best restaurants in{' '}
-            <span style={{ color: '#1c70b5', fontWeight: 'bolder', fontSize: '20px' }}>Atlanta</span> to bring you
-            Curated Experiences
+            <span style={{ fontWeight: 'bolder', fontSize: '20px' }}>Atlanta</span> to bring you Curated Experiences
           </p>
         </div>
       </BackgroundImage>
@@ -56,16 +56,19 @@ const ExclusiveDiningPage = ({ data }) => {
             <Loader inverted>Loading</Loader>
           </Dimmer>
         ) : (
-          <div>
-            <div style={{ minHeight: '70vh', marginTop: '20px' }}>
+          <Grid style={{ minHeight: '70vh', marginTop: '20px' }}>
+            <Grid.Column computer={11} tablet={11} mobile={16}>
               <Responsive minWidth={768}>
-                <Skus vouchers={vouchers} columns={3} />
+                <Skus vouchers={vouchers} columns={2} />
               </Responsive>
               <Responsive {...Responsive.onlyMobile}>
                 <Skus vouchers={vouchers} columns={1} />
               </Responsive>
-            </div>
-          </div>
+            </Grid.Column>
+            <Grid.Column computer={5} tablet={5} mobile={16}>
+              <AboutVouchersSidebar />
+            </Grid.Column>
+          </Grid>
         )}
       </Layout>
     </>

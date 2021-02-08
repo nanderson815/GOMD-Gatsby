@@ -154,7 +154,9 @@ const ExclusiveDeal = props => {
                 </Card.Content>
                 <Card.Content>
                   <h2>Description</h2>
-                  {post.product.metadata.validDays && <p>Only Valid on {post.product.metadata.validDays}</p>}
+                  {post.product.metadata.validDays && (
+                    <p style={{ fontWeight: 'bolder' }}>Only valid on {post.product.metadata.validDays}.</p>
+                  )}
                   {post.product.description.split('\\n').map((item, i) => (
                     <p key={i}>{item}</p>
                   ))}

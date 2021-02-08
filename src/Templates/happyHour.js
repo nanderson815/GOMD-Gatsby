@@ -1,3 +1,4 @@
+import 'semantic-ui-less/semantic.less'
 import React, { useEffect } from 'react'
 import get from 'lodash/get'
 import { navigate, graphql } from 'gatsby'
@@ -69,7 +70,7 @@ const HappyHour = props => {
                       <p>
                         {setHHTime(post, timeField)} {`${post[descField][descField]}`}
                       </p>
-                      <hr />
+                      <br />
                     </div>
                   )
                 })}

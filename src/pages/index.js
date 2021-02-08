@@ -1,7 +1,7 @@
+import 'semantic-ui-less/semantic.less'
 import React, { useEffect } from 'react'
 import { navigate, Link, graphql } from 'gatsby'
 import BackgroundImage from 'gatsby-background-image'
-import 'semantic-ui-less/semantic.less'
 import { Button, Grid, Container, Image, Label, Card, Icon } from 'semantic-ui-react'
 import Blue from '../images/blue.svg'
 import Header from '../components/header/header'
