@@ -177,13 +177,15 @@ export const query = graphql`
         fluid(quality: 90, maxWidth: 1920) {
           ...GatsbyImageSharpFluid_withWebp
         }
-        wineW: file(relativePath: { eq: "winewed.jpg" }) {
-          childImageSharp {
-            fluid(quality: 90, maxWidth: 1920) {
-              ...GatsbyImageSharpFluid_withWebp
-            }
-          }
+      }
+    }
+    wineW: file(relativePath: { eq: "winewed.jpg" }) {
+      childImageSharp {
+        fluid(quality: 90, maxWidth: 1920) {
+          ...GatsbyImageSharpFluid_withWebp
         }
+      }
+    }
   }
 `
 

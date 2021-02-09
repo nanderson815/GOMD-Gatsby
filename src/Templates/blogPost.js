@@ -31,7 +31,6 @@ const options = {
 const BlogPost = props => {
   const post = get(props, 'data.contentfulBlogPost')
   const document = post.body.json
-  console.log(document)
   const doc2 = documentToReactComponents(document, options)
 
   return (
