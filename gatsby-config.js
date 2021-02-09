@@ -14,6 +14,19 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-netlify`,
     `gatsby-plugin-sitemap`,
+    `gatsby-plugin-sass`,
+    {
+      resolve: 'gatsby-plugin-eslint',
+      options: {
+        test: /\.js$|\.jsx$/,
+        exclude: /(node_modules|.cache|public)/,
+        stages: ['develop'],
+        options: {
+          emitWarning: true,
+          failOnError: false
+        }
+      }
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -24,7 +37,7 @@ module.exports = {
         theme_color: `#1c70b5`,
         display: `standalone`,
         icon: 'src/images/dimeLogo.svg'
-      },
+      }
     },
     {
       resolve: `gatsby-plugin-offline`
@@ -36,11 +49,24 @@ module.exports = {
       }
     },
     {
+      resolve: `gatsby-plugin-create-client-paths`,
+      options: { prefixes: [`/app/*`] }
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`,
-      },
+        path: `${__dirname}/src/images`
+      }
+    },
+    `gatsby-plugin-stripe`,
+    {
+      resolve: `gatsby-source-stripe`,
+      options: {
+        objects: ['Sku'],
+        secretKey: process.env.GATSBY_STRIPE_SECRET_KEY,
+        downloadFiles: true
+      }
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
@@ -48,30 +74,27 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: "UA-108351219-1",
-      },
+        trackingId: 'UA-108351219-1'
+      }
     },
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [
-          `limelight`,
-          'Quicksand'
-        ],
+        fonts: [`limelight`, 'Quicksand'],
         display: 'swap'
-      },
+      }
     },
     {
       resolve: `gatsby-source-contentful`,
       options: {
         spaceId: `lt4eu82gh5sn`,
         // Learn about environment variables: https://gatsby.dev/env-vars
-        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-      },
-    },
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN
+      }
+    }
 
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
-  ],
+  ]
 }

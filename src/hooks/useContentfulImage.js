@@ -1,8 +1,8 @@
-import { graphql, useStaticQuery } from "gatsby";
+import { graphql, useStaticQuery } from 'gatsby'
 
-export default (assetUrl) => {
-    const { allContentfulAsset } = useStaticQuery(
-        graphql`
+export default assetUrl => {
+  const { allContentfulAsset } = useStaticQuery(
+    graphql`
       query CONTENTFUL_IMAGE_QUERY {
         allContentfulAsset {
           nodes {
@@ -16,6 +16,6 @@ export default (assetUrl) => {
         }
       }
     `
-    );
-    return allContentfulAsset.nodes.find(n => n.file.url === assetUrl);
-};
+  )
+  return allContentfulAsset.nodes.find(n => n.file.url === assetUrl)
+}

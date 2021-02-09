@@ -1,99 +1,93 @@
-import React, { useEffect } from 'react'
-import { Button, Input, Popup, List } from 'semantic-ui-react'
-import { useHappyHourData } from '../hooks/happyHourData'
-import { Icon } from 'semantic-ui-react'
-import * as JsSearch from 'js-search'
-import { Link, navigate } from "gatsby"
+import React, { useState } from 'react'
+import { filter, reduce, startCase } from 'lodash'
+import { Search, Label } from 'semantic-ui-react'
+import { navigate } from 'gatsby'
+import { useAllSearchData } from '../hooks/searchData'
+import { formatCurrency } from '../Util/Util'
 
+import './layout.css'
 
-const SearchBar = (props) => {
-    const happyHours = useHappyHourData();
-    const [state, setState] = React.useState({
-        happyHours: [],
-        search: [],
-        searchResults: [],
-        nameResults: [],
-        isLoading: true,
-        isError: false,
-    })
-
-
-
-    useEffect(() => {
-        const rebuildIndex = () => {
-            var dataToSearch = new JsSearch.Search('slug');
-            dataToSearch.addIndex('name');
-            dataToSearch.addIndex('tags');
-            dataToSearch.addIndex('days');
-            dataToSearch.addIndex(['description', 'description']);
-            dataToSearch.addDocuments(happyHours);
-            setState({ search: dataToSearch, isLoading: false });
-        }
-
-        rebuildIndex();
-    }, [])
-
-    const searchData = e => {
-        const { search } = state
-        if (e.target.value !== "") {
-            const queryResult = search.search(e.target.value)
-            const names = queryResult.map(item => item.name)
-            setState({ ...state, searchResults: queryResult, nameResults: names })
-        } else {
-            setState({ ...state, searchResults: [], nameResults: [] })
-        }
-
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        if (state.searchResults === undefined) {
-            return
-        } else if (state.searchResults.length > 1) {
-            navigate("/happy-hour-finder", {
-                state: { searchResults: state.searchResults },
-            })
-        } else if (state.searchResults.length === 1) {
-            navigate(`atlanta-happy-hour/${state.searchResults[0].slug}`)
-        }
-    }
-
-    return (
-        <Popup
-            wide
-            position='bottom left'
-            style={{ marginTop: "auto", width: "100%" }}
-            open={!(state.nameResults === undefined || state.nameResults.length === 0)}
-            trigger={
-                <form style={{ width: "100%", marginBottom: "0px" }} >
-                    <Input style={{ width: "100%" }} type='text' placeholder='Search restaurants, happy hours, etc...' action>
-                        <input
-                            onChange={searchData}
-                            style={{ padding: props.padding }}
-                        />
-                        <Button onClick={handleSubmit} primary type='submit'> <Icon name='search' style={{ marginLeft: "5px" }} /></Button>
-                    </Input>
-                </form>}>
-            <Popup.Header>
-                <List divided>
-                    {state.searchResults ? state.searchResults.slice(0, 5).map((item) => {
-                        return (
-                            <List.Item key={item.id}>
-                                <Link to={`/atlanta-happy-hour/${item.slug}`}>
-                                    <List.Content>
-                                        <List.Header>{item.name}</List.Header>
-                                        {/* <List.Description style={{ fontSize: "12px" }}>{item.tags.toString()}</List.Description> */}
-                                        {/* {item.tags.map((tag, index) => <Label key={index}>{tag}</Label>)} */}
-                                    </List.Content>
-                                </Link>
-                            </List.Item>
-
-                        )
-                    }) : null}
-                </List>
-            </Popup.Header>
-        </Popup >
-    )
+const clean = str => {
+  if (str) {
+    return str.replace(/\W/g, '')
+  }
+  return null
 }
 
-export default SearchBar
+export default function searchBar() {
+  const data = useAllSearchData()
+  const [loading, setLoading] = useState(false)
+  const [results, setResults] = useState([])
+  const [value, setValue] = useState()
+
+  const resultRenderer = ({ name, product, price, neighborhood }) => (
+    <div>
+      <h4 style={{ margin: 0 }}>{name || product.name}</h4>
+      <div style={{ fontSize: '.9rem', color: 'grey' }}>{neighborhood || price}</div>
+    </div>
+  )
+
+  const categoryRenderer = ({ name }) => <Label as='span' content={startCase(name)} />
+
+  const handleResultSelect = (e, { result }) => {
+    if (result.slug) {
+      navigate(`../../atlanta-happy-hour/${result.slug}`, { replace: true })
+    } else if (result.product.metadata.slug) {
+      navigate(`../../exclusive-dining/${result.product.metadata.slug}`, { replace: true })
+    }
+  }
+
+  const handleSearchChange = (e, { value }) => {
+    setValue(value)
+    const searchTerm = clean(value)
+
+    if (searchTerm) {
+      setLoading(true)
+      const re = new RegExp(clean(value), 'i')
+
+      const filteredResults = reduce(
+        data,
+        (memo, data, name) => {
+          const results = filter(data.results, result => re.test(clean(result.name) || clean(result.product.name)))
+          if (results.length) {
+            const cleaned = results.map((result, i) => ({
+              ...result,
+              key: i,
+              title: result.name || result.product.name,
+              price: result.price && formatCurrency(result.price)
+            }))
+            memo[name] = { name, results: cleaned.splice(0, 5) }
+          }
+
+          return memo
+        },
+        {}
+      )
+      setResults(filteredResults)
+      setLoading(false)
+    } else {
+      setResults([])
+    }
+  }
+
+  if (!data) return null
+  return (
+    <Search
+      style={{ width: '100%' }}
+      input={{ fluid: true }}
+      categoryRenderer={categoryRenderer}
+      category
+      loading={loading}
+      minCharacters={2}
+      selectFirstResult
+      size='large'
+      fluid
+      onResultSelect={handleResultSelect}
+      onSearchChange={handleSearchChange}
+      resultRenderer={resultRenderer}
+      placeholder='Search for a restaurant...'
+      results={results}
+      value={value}
+    />
+  )
+}

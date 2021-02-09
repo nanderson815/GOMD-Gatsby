@@ -5,10 +5,16 @@
 /happy-hour-category/friday/        /happy-hour-finder
 /happy-hour-category/saturday/      /happy-hour-finder
 /happy-hour-category/sunday/        /happy-hour-finder
-/diningout-atlanta-passbook-2019-promo-code/    /atlanta-diningout-passbook-2020-promo-code
-/wine-wednesday-in-atlanta/         /wine-wednesday-atlanta
+/diningout-atlanta-passbook-2019-promo-code/    /articles/atlanta-diningout-passbook-2020-promo-code
+/atlanta-diningout-passbook-2020-promo-code     /articles/atlanta-diningout-passbook-2020-promo-code
 /guides/                            /articles
 /news/                              /articles
 /atlanta-happy-hour/lingering-shade-happy-hour/     /atlanta-happy-hour/lingering-shade
-/atlanta-happy-hour/cooks-and-soldiers-happy-hour/  https://georgiaonmydime.com/atlanta-happy-hour/cooks-and-soldiers
+/the-best-monday-happy-hours-in-atlanta             /articles/the-best-monday-happy-hours-in-atlanta
+/best-happy-hours-atlanta           /articles/best-happy-hours-atlanta
+/bottomless-mimosas-atlanta         /articles/bottomless-mimosas-atlanta
+/atlantas-only-pedal-tavern-southern-pedaler        /articles/atlantas-only-pedal-tavern-southern-pedaler
+/best-thursday-happy-hours-atlanta                  /articles/best-thursday-happy-hours-atlanta
+/best-atlanta-freebies-for-your-birthday            /articles/best-atlanta-freebies-for-your-birthday
+
 https://determined-panini-d1e569.netlify.com/* https://georgiaonmydime.com/:splat 301!

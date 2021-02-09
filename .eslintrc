@@ -1,0 +1,38 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": ["airbnb", "prettier", "prettier/react"],
+  "parser": "babel-eslint",
+  "plugins": ["react", "prettier"],
+  "rules": {
+    "arrow-body-style": ["error", "as-needed"],
+    "arrow-parens": ["error", "as-needed"],
+    "camelcase": "error",
+    "comma-dangle": "off",
+    "import/prefer-default-export": "off",
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "jsx-quotes": ["error", "prefer-single"],
+    "max-len": ["warn", { "code": 200, "ignoreUrls": true }],
+    "no-alert":"off",
+    "no-console":"off",
+    "no-param-reassign": ["error", { "props": false }],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-shadow": "off",
+    "no-tabs": "off",
+    "no-underscore-dangle": "off",
+    "no-use-before-define": "off",
+    "prettier/prettier": "error",
+    "react/forbid-prop-types": "off",
+    "react/jsx-filename-extension": "off",
+    "react/jsx-fragments": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/no-array-index-key": "off",
+    "react/no-unescaped-entities": "off",
+    "react/prop-types": "off", // TODO: Turn on prop-types
+    "react/state-in-constructor": "off",
+    "semi": ["error", "never"]
+  }
+}
