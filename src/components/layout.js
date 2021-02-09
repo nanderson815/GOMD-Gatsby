@@ -23,11 +23,6 @@ const Layout = ({ children }) => (
             Contact
           </Link>
         </h4>
-        <h4 style={{ margin: '20px 30px' }}>
-          <Link style={{ color: 'white' }} to='/articles'>
-            Articles
-          </Link>
-        </h4>
       </div>
       <Container style={{ color: 'white', textAlign: 'center' }}>
         <div style={{ marginTop: '10px' }}>

@@ -53,24 +53,20 @@ const BottomNav = () => {
   return (
     <div className={`${headerStyles.footer} ${!show ? headerStyles.fadeOut : headerStyles.fadeIn}`}>
       <Link className={styleFooter('/')} to='/'>
-        <Icon size='large' style={{ margin: '3px' }} name='home' />
+        <Icon size='big' name='home' style={{ margin: 2 }} />
         Home
       </Link>
 
       <Link className={styleFooter('/exclusive-dining')} to='/exclusive-dining'>
-        <Icon size='large' name='food' />
+        <Icon size='big' name='food' style={{ margin: 2 }} />
         Packages
       </Link>
       <Link className={styleFooter('/happy-hour-finder')} to='/happy-hour-finder'>
-        <Icon size='large' name='glass martini' />
+        <Icon size='big' name='glass martini' style={{ margin: 2 }} />
         Happy Hours
       </Link>
-      <Link className={styleFooter('/articles')} to='/articles'>
-        <Icon size='large' name='newspaper' />
-        Articles
-      </Link>
       <Link className={styleFooter('/app/profile')} to='/app/profile'>
-        <Icon size='large' name='user' />
+        <Icon size='big' name='user' style={{ margin: 2 }} />
         Profile
       </Link>
     </div>

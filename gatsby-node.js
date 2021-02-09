@@ -14,19 +14,11 @@ exports.createPages = ({ graphql, actions }) => {
 
   return new Promise((resolve, reject) => {
     const happyHour = path.resolve('./src/Templates/happyHour.js')
-    const blogTemplate = path.resolve('./src/Templates/blogPost.js')
     const exclusiveDealTemplate = path.resolve('./src/Templates/exclusiveDeal.js')
     resolve(
       graphql(
         `
           {
-            allContentfulBlogPost {
-              edges {
-                node {
-                  slug
-                }
-              }
-            }
             allContentfulHappyHour {
               edges {
                 node {
@@ -55,7 +47,6 @@ exports.createPages = ({ graphql, actions }) => {
         }
 
         const happyHours = result.data.allContentfulHappyHour.edges
-        const blogPosts = result.data.allContentfulBlogPost.edges
         const exclusiveDeals = result.data.allStripeSku.edges
         happyHours.forEach(post => {
           createPage({
@@ -64,15 +55,6 @@ exports.createPages = ({ graphql, actions }) => {
             context: {
               slug: post.node.slug,
               neighborhood: post.node.neighborhood
-            }
-          })
-        })
-        blogPosts.forEach(post => {
-          createPage({
-            path: `/articles/${post.node.slug}`,
-            component: blogTemplate,
-            context: {
-              slug: post.node.slug
             }
           })
         })

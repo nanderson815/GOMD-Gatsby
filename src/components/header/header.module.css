@@ -1,73 +1,73 @@
 .footer {
-    -webkit-box-align: center;
-    align-items: center;
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-top-color: darkgrey;
-    background-color: white;
-    bottom: 0rem;
-    display: flex;
-    justify-content: space-around;
-    padding-bottom: env(safe-area-inset-bottom, 0.5vh);
-    left: 0;
-    position: fixed;
-    right: 0;
-    z-index: 2000;
+  -webkit-box-align: center;
+  align-items: center;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: darkgrey;
+  background-color: white;
+  bottom: 0rem;
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: env(safe-area-inset-bottom, 0.5vh);
+  left: 0;
+  position: fixed;
+  right: 0;
+  z-index: 2000;
 }
 
 @media screen and (min-width: 768px) {
-    .footer{
-        display: none;
-    }
+  .footer {
+    display: none;
+  }
 }
 
 .fadeOut {
-    transition: bottom 1s;
-    bottom: -200px
+  transition: bottom 1s;
+  bottom: -200px;
 }
 
-.fadeIn{
-    transition: bottom 0.3s;
-    bottom: 0px
+.fadeIn {
+  transition: bottom 0.3s;
+  bottom: 0px;
 }
 
 .active {
-    color: #1c70b5 !important;
-    font-weight: 700;
-    border-top-color: #1c70b5;
-    border-top: 2px solid;
-    -webkit-box-align: center;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 1;
-    font-size: .9rem;
-    line-height: 1;
-    -webkit-box-pack: center;
-    justify-content: center;
-    position: relative;
-    text-align: center;
-    width: 4rem;
-    height: 4.2rem;
-    border-radius: 2px;
-    text-decoration: none;
+  color: #1c70b5 !important;
+  font-weight: 700;
+  border-top-color: #1c70b5;
+  border-top: 2px solid;
+  -webkit-box-align: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
+  font-size: 0.9rem;
+  line-height: 1;
+  -webkit-box-pack: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  width: 25%;
+  height: 4.2rem;
+  border-radius: 2px;
+  text-decoration: none;
 }
 
 .footerLink {
-    -webkit-box-align: center;
-    align-items: center;
-    color: darkgrey;
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 1;
-    font-size: .9rem;
-    line-height: 1;
-    -webkit-box-pack: center;
-    justify-content: center;
-    position: relative;
-    text-align: center;
-    width: 4rem;
-    height: 4.0rem;
-    border-radius: 2px;
-    text-decoration: none;
+  -webkit-box-align: center;
+  align-items: center;
+  color: darkgrey;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
+  font-size: 0.9rem;
+  line-height: 1;
+  -webkit-box-pack: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  width: 25%;
+  height: 4rem;
+  border-radius: 2px;
+  text-decoration: none;
 }
