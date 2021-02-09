@@ -77,7 +77,7 @@ const ExclusiveDeal = props => {
           slug: post.product.metadata.slug,
           address: post.product.metadata.address,
           couponCode: post.product.metadata.couponCode,
-          caption: post.product.caption,
+          caption: post.product.caption || post.product.metadata.caption,
           voucherId: post.product.id,
           vouchersSold: voucher.vouchersSold,
           quantity: voucher.quantity
@@ -141,7 +141,7 @@ const ExclusiveDeal = props => {
                 <Card.Content>
                   <Card.Header>
                     <h1 style={{ marginBottom: '-3px' }}>{post.product.name}</h1>
-                    <p>{post.product.caption}</p>
+                    <p>{post.product.metadata.caption}</p>
                     {post.product.attributes.map((tag, index) => (
                       <Label as={Button} key={`${index}label`} value={tag} onClick={handleClick}>
                         {tag}

@@ -29,7 +29,7 @@ const Skus = ({ columns, vouchers }) => {
               Remaining: {checkRemaining(voucher.vouchersSold, voucher.quantity)}
             </Label>
             <Card.Header style={{ marginTop: '-30px', minHeight: '45px' }}>{voucher.name}</Card.Header>
-            <Card.Description style={{ minHeight: '38px' }}>{voucher.caption}</Card.Description>
+            <Card.Description style={{ minHeight: '38px' }}>{voucher.product.metadata.caption}</Card.Description>
           </Card.Content>
           <Card.Content>
             <Grid>
