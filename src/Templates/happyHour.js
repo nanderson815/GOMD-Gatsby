@@ -6,6 +6,7 @@ import Img from 'gatsby-image'
 import { Grid, Label, Card, Segment, Button } from 'semantic-ui-react'
 import AdSense from 'react-adsense'
 import Header from '../components/header/header'
+import CovidMessage from '../components/covidMessage'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import NearbyHH from '../components/nearbyHH'
@@ -41,6 +42,7 @@ const HappyHour = props => {
       <Layout>
         <Grid>
           <Grid.Column computer={11} tablet={11} mobile={16}>
+            <CovidMessage />
             <Card fluid raised>
               <Img style={{ maxHeight: '350px' }} alt={post.name} fluid={post.mainImg.fluid} />
               <Card.Content>

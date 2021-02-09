@@ -6,6 +6,7 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^13.4.0",
+    "@contentful/rich-text-types": "^14.1.2",
     "@material-ui/core": "latest",
     "@material-ui/styles": "^4.10.0",
     "@reach/router": "^1.3.4",
