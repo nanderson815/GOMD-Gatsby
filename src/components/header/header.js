@@ -36,9 +36,6 @@ export default function Header() {
                 <Menu.Item style={{ fontWeight: 'bold' }} name='packages' as={Link} to='/exclusive-dining'>
                   <Icon name='food' style={{ color: '#1c70b5' }} /> Packages
                 </Menu.Item>
-                <Menu.Item style={{ fontWeight: 'bold' }} name='articles' as={Link} to='/articles'>
-                  <Icon name='newspaper' style={{ color: '#1c70b5' }} /> Articles
-                </Menu.Item>
                 <Menu.Item name='profile' style={{ fontWeight: 'bold' }} as={Link} to='/app/profile'>
                   <Icon name='user' style={{ color: '#1c70b5' }} /> Profile
                 </Menu.Item>

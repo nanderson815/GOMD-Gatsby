@@ -1,26 +1,5 @@
 import { graphql } from 'gatsby'
 
-export const allBlogPostFields = graphql`
-  fragment allBlogPostFields on ContentfulBlogPost {
-    category
-    date(formatString: "MMMM DD, YYYY")
-    id
-    image {
-      fluid(maxWidth: 1800, resizingBehavior: SCALE) {
-        ...GatsbyContentfulFluid_withWebp
-      }
-      id
-      title
-    }
-    seoDesc
-    slug
-    title
-    body {
-      json
-    }
-  }
-`
-
 export const allHappyHourFields = graphql`
   fragment allHappyHourFields on ContentfulHappyHour {
     best
