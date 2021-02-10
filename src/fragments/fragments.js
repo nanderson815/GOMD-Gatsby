@@ -117,7 +117,6 @@ export const allSkuFields = graphql`
         price
         duration
         terms
-        validDays
         caption
       }
       caption
