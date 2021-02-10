@@ -129,7 +129,8 @@ const createStripeCheckout = (request, response, id) => {
         images: request.body.image,
         amount: request.body.price,
         currency: 'usd',
-        quantity: 1
+        quantity: 1,
+        tax_rates: ['txr_1IJOjnHt7IhAV7OQ1wIGuHEv']
       }
     ]
   }

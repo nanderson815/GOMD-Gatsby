@@ -62,7 +62,6 @@ const ExclusiveDeal = props => {
     }
     const user = getUser()
     if (user) {
-      console.log(user)
       const data = {
         successUrl: `${redirect}/app/profile`,
         cancelUrl: `${redirect}/exclusive-dining/${post.product.metadata.slug}`,
@@ -86,7 +85,6 @@ const ExclusiveDeal = props => {
       const url = 'https://us-central1-georgia-on-my-dime.cloudfunctions.net/createCheckoutSession'
       Axios.post(url, data)
         .then(res => {
-          console.log(res)
           setLoading(false)
           stripe
             .redirectToCheckout({
@@ -190,7 +188,7 @@ const ExclusiveDeal = props => {
                       disabled={loading}
                       style={{ marginBottom: '15px' }}
                       onClick={() =>
-                        handleCheckout(post.product.name, post.product.description, post.price, post.product.images)
+                        handleCheckout(post.product.name, post.product.caption, post.price, post.product.images)
                       }
                     >
                       BUY NOW
