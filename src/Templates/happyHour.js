@@ -106,18 +106,18 @@ const HappyHour = props => {
                 </Card.Description>
               </Card.Content>
             </Card>
-            <Segment raised style={{ paddingBottom: '1px' }}>
-              {/* <AdSense.Google
+            {/* <Segment raised style={{ paddingBottom: '1px' }}>
+              <AdSense.Google
                 client='ca-pub-4839737207231731'
                 slot='4063925755'
                 responsive='true'
                 format='auto'
                 style={{ display: 'block', width: '100% !important' }}
-              /> */}
+              />
               <p style={{ width: '100%', textAlign: 'center', fontSize: '12px' }}>
                 <i>sponsored content</i>
               </p>
-            </Segment>
+            </Segment> */}
             <Segment raised style={{ paddingTop: '10px' }}>
               <h4 style={{ marginBottom: '25px', textAlign: 'center', fontSize: '18px' }}>
                 Other Happy Hours in {post.neighborhood}

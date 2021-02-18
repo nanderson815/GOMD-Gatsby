@@ -54,23 +54,23 @@ const HHFinderCardGroup = ({ happyHours, day, rows, handleStarClick, user, offse
       )
     })
 
-    const adsense = key => (
-      <Card key={key}>
-        {/* <AdSense.Google
-          client='ca-pub-4839737207231731'
-          slot='1919503363'
-          format='fluid'
-          layoutKey='-6t+ed+2i-1n-4w'
-          style={{ display: 'block', width: '100% !important', minWidth: '250px' }}
-        /> */}
-      </Card>
-    )
+    // const adsense = key => (
+    //   <Card key={key}>
+    //     <AdSense.Google
+    //       client='ca-pub-4839737207231731'
+    //       slot='1919503363'
+    //       format='fluid'
+    //       layoutKey='-6t+ed+2i-1n-4w'
+    //       style={{ display: 'block', width: '100% !important', minWidth: '250px' }}
+    //     />
+    //   </Card>
+    // )
 
-    for (let i = 0; i < cards.length; i++) {
-      if (i % 10 === 0 && i !== 0) {
-        cards.splice(i, 0, adsense(Math.floor(Math.random() * 1000000)))
-      }
-    }
+    // for (let i = 0; i < cards.length; i++) {
+    //   if (i % 10 === 0 && i !== 0) {
+    //     cards.splice(i, 0, adsense(Math.floor(Math.random() * 1000000)))
+    //   }
+    // }
 
     setCards(cards)
   }, [happyHours, user])
