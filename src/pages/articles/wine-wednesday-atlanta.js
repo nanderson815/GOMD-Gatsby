@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Grid, Label, Segment, Container, Divider, Icon, Responsive, Sticky } from 'semantic-ui-react'
 import Img from 'gatsby-image'
 import { Link, graphql } from 'gatsby'
-import AdSense from 'react-adsense'
+// import AdSense from 'react-adsense'
 import Header from '../../components/header/header'
 import SEO from '../../components/seo'
 import Layout from '../../components/layout'
@@ -112,13 +112,13 @@ const WineWednesdayAtlanta = props => {
               </Segment>
             </Responsive>
             <Segment raised style={{ paddingBottom: '1px' }}>
-              <AdSense.Google
+              {/* <AdSense.Google
                 client='ca-pub-4839737207231731'
                 slot='4063925755'
                 responsive='true'
                 format='auto'
                 style={{ display: 'block', width: '100% !important' }}
-              />
+              /> */}
               <p style={{ width: '100%', textAlign: 'center', fontSize: '12px' }}>
                 <i>sponsored content</i>
               </p>

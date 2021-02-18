@@ -4,7 +4,7 @@ import get from 'lodash/get'
 import { navigate, graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import { Grid, Label, Card, Segment, Button } from 'semantic-ui-react'
-import AdSense from 'react-adsense'
+// import AdSense from 'react-adsense'
 import Header from '../components/header/header'
 import CovidMessage from '../components/covidMessage'
 import Layout from '../components/layout'
@@ -107,13 +107,13 @@ const HappyHour = props => {
               </Card.Content>
             </Card>
             <Segment raised style={{ paddingBottom: '1px' }}>
-              <AdSense.Google
+              {/* <AdSense.Google
                 client='ca-pub-4839737207231731'
                 slot='4063925755'
                 responsive='true'
                 format='auto'
                 style={{ display: 'block', width: '100% !important' }}
-              />
+              /> */}
               <p style={{ width: '100%', textAlign: 'center', fontSize: '12px' }}>
                 <i>sponsored content</i>
               </p>

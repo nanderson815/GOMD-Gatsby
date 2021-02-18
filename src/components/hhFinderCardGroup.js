@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Card, Icon } from 'semantic-ui-react'
 import Img from 'gatsby-image'
 import { navigate } from 'gatsby'
-import AdSense from 'react-adsense'
+// import AdSense from 'react-adsense'
 import { setHHTime } from '../Util/Util'
 
 const navfunc = slug => {
@@ -56,13 +56,13 @@ const HHFinderCardGroup = ({ happyHours, day, rows, handleStarClick, user, offse
 
     const adsense = key => (
       <Card key={key}>
-        <AdSense.Google
+        {/* <AdSense.Google
           client='ca-pub-4839737207231731'
           slot='1919503363'
           format='fluid'
           layoutKey='-6t+ed+2i-1n-4w'
           style={{ display: 'block', width: '100% !important', minWidth: '250px' }}
-        />
+        /> */}
       </Card>
     )
 

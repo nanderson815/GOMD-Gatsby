@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { navigate, Link, graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import BackgroundImage from 'gatsby-background-image'
-import AdSense from 'react-adsense'
+// import AdSense from 'react-adsense'
 import { Grid, Label, Segment, Container, Divider, Icon, Responsive, Sticky } from 'semantic-ui-react'
 import Header from '../../components/header/header'
 import SEO from '../../components/seo'
@@ -135,13 +135,13 @@ const BottomlessMimosas = ({ data }) => {
               </Segment>
             </Responsive>
             <Segment raised style={{ paddingBottom: '1px' }}>
-              <AdSense.Google
+              {/* <AdSense.Google
                 client='ca-pub-4839737207231731'
                 slot='4063925755'
                 responsive='true'
                 format='auto'
                 style={{ display: 'block', width: '100% !important' }}
-              />
+              /> */}
               <p style={{ width: '100%', textAlign: 'center', fontSize: '12px' }}>
                 <i>sponsored content</i>
               </p>
