@@ -3,7 +3,7 @@ import get from 'lodash/get'
 import { graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import { Grid, Label, Card, Segment, Button, Icon, Dimmer, Loader } from 'semantic-ui-react'
-import AdSense from 'react-adsense'
+// import AdSense from 'react-adsense'
 import Axios from 'axios'
 import { navigate } from '@reach/router'
 import Header from '../components/header/header'
@@ -219,7 +219,7 @@ const ExclusiveDeal = props => {
                 </Card.Content>
               </Card>
 
-              <Segment raised style={{ paddingBottom: '1px' }}>
+              {/* <Segment raised style={{ paddingBottom: '1px' }}>
                 <AdSense.Google
                   client='ca-pub-4839737207231731'
                   slot='4063925755'
@@ -230,7 +230,7 @@ const ExclusiveDeal = props => {
                 <p style={{ width: '100%', textAlign: 'center', fontSize: '12px' }}>
                   <i>sponsored content</i>
                 </p>
-              </Segment>
+              </Segment> */}
             </Grid.Column>
           </Grid>
         )}

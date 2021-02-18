@@ -61,7 +61,7 @@ const HHFinderCardGroup = ({ happyHours, day, rows, handleStarClick, user, offse
           slot='1919503363'
           format='fluid'
           layoutKey='-6t+ed+2i-1n-4w'
-          style={{ display: 'block', width: '100% !important' }}
+          style={{ display: 'block', width: '100% !important', minWidth: '250px' }}
         />
       </Card>
     )
