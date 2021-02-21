@@ -13,7 +13,7 @@ export default function AboutVouchersSidebar() {
           restaurant or support your favorite local spot!
         </p>
         <p>The process is simple:</p>
-        <p>
+        <div style={{ fontSize: 'medium' }}>
           <List ordered>
             <List.Item>
               If you haven’t already, create an account <Link to='/app/profile'>HERE</Link>.
@@ -25,7 +25,7 @@ export default function AboutVouchersSidebar() {
             </List.Item>
             <List.Item>Enjoy your curated dining package and be sure to tell your friends!</List.Item>
           </List>
-        </p>
+        </div>
       </Card.Content>
     </Card>
   )
