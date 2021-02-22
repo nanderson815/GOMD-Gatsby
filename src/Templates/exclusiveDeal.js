@@ -181,7 +181,7 @@ const ExclusiveDeal = props => {
               {voucher ? (
                 voucher.vouchersSold >= voucher.quantity ? null : (
                   <Segment raised style={{ paddingBottom: '1px', textAlign: 'center' }}>
-                    <p>{post.product.caption}</p>
+                    <p>{post.product.metadata.caption}</p>
                     <Button
                       primary
                       loading={loading}
