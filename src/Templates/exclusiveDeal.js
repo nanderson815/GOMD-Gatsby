@@ -24,6 +24,7 @@ const handleClick = e => {
 
 const ExclusiveDeal = props => {
   const post = get(props, 'data.stripeSku')
+  const hours = JSON.parse(post?.product?.metadata?.hours)?.weekday_text
 
   const [pageLoading, setPageLoading] = useState(true)
   const [voucher, setVoucher] = useState()
@@ -218,6 +219,18 @@ const ExclusiveDeal = props => {
                   </Card.Description>
                 </Card.Content>
               </Card>
+              {post.product.metadata.hours && (
+                <Card fluid raised>
+                  <Card.Content style={{ background: 'white' }}>
+                    <Card.Header>Hours</Card.Header>
+                    <Card.Description>
+                      {hours.map(day => (
+                        <p>{day}</p>
+                      ))}
+                    </Card.Description>
+                  </Card.Content>
+                </Card>
+              )}
 
               {/* <Segment raised style={{ paddingBottom: '1px' }}>
                 <AdSense.Google

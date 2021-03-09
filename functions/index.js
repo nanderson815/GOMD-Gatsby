@@ -5,10 +5,6 @@ admin.initializeApp()
 const stripe = require('stripe')(functions.config().stripe.token)
 // eslint-disable-next-line import/no-extraneous-dependencies
 const cors = require('cors')({ origin: true })
-const contentful = require('contentful')
-
-const spaceId = functions.config().contentful.spaceid
-const contentfulToken = functions.config().contentful.token
 
 // Create and Deploy Your First Cloud Functions
 // https://firebase.google.com/docs/functions/write-firebase-functions
@@ -74,44 +70,27 @@ exports.createProductFromSku = functions.https.onRequest(async (request, respons
       return
     }
     const obj = request.body.data.object
-    const slug = obj.metadata.contentfulSlug
-
-    const client = contentful.createClient({
-      space: spaceId,
-      accessToken: contentfulToken
-    })
-    client
-      .getEntries({
-        content_type: 'happyHour',
-        'fields.slug': slug
-      })
-      .then(res => {
-        console.log(res.items[0])
-        const content = res.items[0].fields
-        const voucher = {
-          name: obj.name,
-          id: obj.id,
-          attributes: obj.attributes,
-          price: obj.metadata.price,
-          basePrice: obj.metadata.basePrice,
-          couponCode: obj.metadata.couponCode,
-          slug: obj.metadata.slug,
-          caption: obj.caption,
-          description: obj.description,
-          image: content.mainImg.fields,
-          neighborhood: content.neighborhood,
-          address: content.address,
-          quantity: parseInt(obj.metadata.quantity, 10)
-        }
-        admin
-          .firestore()
-          .collection('vouchers')
-          .doc(obj.id)
-          .set(voucher, { merge: true })
-          .then(() => response.json({ recieved: true }))
-          .catch(error => response.json({ recieved: false, error }))
-      })
-      .catch(console.error)
+    const voucher = {
+      name: obj.name,
+      id: obj.id,
+      attributes: obj.attributes,
+      price: obj.metadata.price,
+      basePrice: obj.metadata.basePrice,
+      couponCode: obj.metadata.couponCode,
+      slug: obj.metadata.slug,
+      caption: obj.caption,
+      description: obj.description,
+      neighborhood: obj.metadata.neighborhood,
+      address: obj.metadata.address,
+      quantity: parseInt(obj.metadata.quantity, 10)
+    }
+    admin
+      .firestore()
+      .collection('vouchers')
+      .doc(obj.id)
+      .set(voucher, { merge: true })
+      .then(() => response.json({ recieved: true }))
+      .catch(error => response.json({ recieved: false, error }))
   })
 })
 

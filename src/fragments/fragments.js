@@ -118,6 +118,7 @@ export const allSkuFields = graphql`
         duration
         terms
         caption
+        hours
       }
       caption
       localFiles {
