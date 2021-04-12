@@ -36,7 +36,10 @@ module.exports = {
         background_color: `#eff0f1`,
         theme_color: `#1c70b5`,
         display: `standalone`,
-        icon: 'src/images/dimeLogo.svg'
+        icon: 'src/images/dimeLogo.svg',
+        icon_options: {
+          purpose: `any maskable`
+        }
       }
     },
     {

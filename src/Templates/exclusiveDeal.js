@@ -23,15 +23,19 @@ const handleClick = e => {
 }
 
 const ExclusiveDeal = props => {
-  const post = get(props, 'data.stripeSku')
-  const hours = JSON.parse(post?.product?.metadata?.hours)?.weekday_text
+  const {
+    product: { metadata },
+    product,
+    price
+  } = get(props, 'data.stripeSku')
+  const hours = JSON.parse(metadata?.hours)?.weekday_text
 
   const [pageLoading, setPageLoading] = useState(true)
   const [voucher, setVoucher] = useState()
   useEffect(() => {
     const db = getFirebase().firestore()
     db.collection('vouchers')
-      .doc(post.product.id)
+      .doc(product.id)
       .get()
       .then(doc => {
         setVoucher(doc.data())
@@ -41,7 +45,7 @@ const ExclusiveDeal = props => {
         alert(`You must be connected to the internet to view!`)
         navigate('/exclusive-dining')
       })
-  }, [post.product.id])
+  }, [product.id])
 
   // Login modal logic
   const [open, setOpen] = useState(false)
@@ -65,20 +69,20 @@ const ExclusiveDeal = props => {
     if (user) {
       const data = {
         successUrl: `${redirect}/app/profile`,
-        cancelUrl: `${redirect}/exclusive-dining/${post.product.metadata.slug}`,
+        cancelUrl: `${redirect}/exclusive-dining/${metadata.slug}`,
         name,
         image,
         description: desc,
         price,
         metadata: {
-          duration: post.product.metadata.duration,
+          duration: metadata.duration,
           user_id: user.uid,
           user_email: user.email,
-          slug: post.product.metadata.slug,
-          address: post.product.metadata.address,
-          couponCode: post.product.metadata.couponCode,
-          caption: post.product.caption || post.product.metadata.caption,
-          voucherId: post.product.id,
+          slug: metadata.slug,
+          address: metadata.address,
+          couponCode: metadata.couponCode,
+          caption: product.caption || metadata.caption,
+          voucherId: product.id,
           vouchersSold: voucher.vouchersSold,
           quantity: voucher.quantity
         }
@@ -118,9 +122,9 @@ const ExclusiveDeal = props => {
     <>
       <Header />
       <SEO
-        title={`${post.product.name} - Exclusive Deal`}
-        description={`${post.product.caption} Exclusively available through Georgia on my Dime.`}
-        image={post.product.localFiles[0].childImageSharp.fluid.src}
+        title={`${product.name} - Exclusive Deal`}
+        description={`${product.caption} Exclusively available through Georgia on my Dime.`}
+        image={product.localFiles[0].childImageSharp.fluid.src}
       />
       <Layout>
         <LoginModal open={open} handleClose={handleClose} />
@@ -134,38 +138,32 @@ const ExclusiveDeal = props => {
               <Card fluid raised>
                 <Img
                   style={{ maxHeight: '350px' }}
-                  alt={post.product.name}
-                  fluid={post.product.localFiles[0].childImageSharp.fluid}
+                  alt={product.name}
+                  fluid={product.localFiles[0].childImageSharp.fluid}
                 />
                 <Card.Content>
                   <Card.Header>
-                    <h1 style={{ marginBottom: '-3px' }}>{post.product.name}</h1>
-                    <p>{post.product.metadata.caption}</p>
-                    {post.product.attributes.map((tag, index) => (
+                    <h1 style={{ marginBottom: '-3px' }}>{product.name}</h1>
+                    <p>{metadata.caption}</p>
+                    {product.attributes.map((tag, index) => (
                       <Label as={Button} key={`${index}label`} value={tag} onClick={handleClick}>
                         {tag}
                       </Label>
                     ))}
                     <div style={{ display: 'inline-block', float: 'right', fontSize: '25px' }}>
-                      {formatCurrency(post.price)}
+                      {formatCurrency(price)}
                     </div>
                   </Card.Header>
                 </Card.Content>
                 <Card.Content>
                   <h2>Description</h2>
-                  {post.product.metadata.validDays && (
-                    <p style={{ fontWeight: 'bolder' }}>Only valid on {post.product.metadata.validDays}.</p>
-                  )}
-                  {post.product.description.split('\\n').map((item, i) => (
+                  {metadata.validDays && <p style={{ fontWeight: 'bolder' }}>Only valid on {metadata.validDays}.</p>}
+                  {product.description.split('\\n').map((item, i) => (
                     <p key={i}>{item}</p>
                   ))}
-                  <Swiper photos={post.product.localFiles} />
+                  <Swiper photos={product.localFiles} />
                   <h2>Terms and Conditions</h2>
-                  <p>
-                    {post.product.metadata.terms
-                      ? post.product.metadata.terms
-                      : 'Must be 21 to purchase, valid ID required to redeem.'}
-                  </p>
+                  <p>{metadata.terms ? metadata.terms : 'Must be 21 to purchase, valid ID required to redeem.'}</p>
                   <p style={{ display: 'inline-block', marginRight: '3px' }}>All packages are governed by the site</p>
                   <TermsModal />
                 </Card.Content>
@@ -182,15 +180,13 @@ const ExclusiveDeal = props => {
               {voucher ? (
                 voucher.vouchersSold >= voucher.quantity ? null : (
                   <Segment raised style={{ paddingBottom: '1px', textAlign: 'center' }}>
-                    <p>{post.product.metadata.caption}</p>
+                    <p>{metadata.caption}</p>
                     <Button
                       primary
                       loading={loading}
                       disabled={loading}
                       style={{ marginBottom: '15px' }}
-                      onClick={() =>
-                        handleCheckout(post.product.name, post.product.caption, post.price, post.product.images)
-                      }
+                      onClick={() => handleCheckout(product.name, product.caption, price, product.images)}
                     >
                       BUY NOW
                     </Button>
@@ -205,21 +201,21 @@ const ExclusiveDeal = props => {
                     height='240px'
                     frameBorder='0'
                     style={{ border: '0', margin: '0px' }}
-                    src={`https://www.google.com/maps/embed/v1/place?q=${post.product.metadata.address}&key=${process.env.GATSBY_GOOGLE_MAPS_API_KEY}`}
+                    src={`https://www.google.com/maps/embed/v1/place?q=${metadata.address}&key=${process.env.GATSBY_GOOGLE_MAPS_API_KEY}`}
                   />
                 </div>
                 <Card.Content style={{ background: 'white' }}>
                   <Card.Description>
                     <a
                       style={{ color: 'grey' }}
-                      href={`https://www.google.com/maps/search/?api=1&query=${post.product.metadata.address}`}
+                      href={`https://www.google.com/maps/search/?api=1&query=${metadata.address}`}
                     >
-                      {post.product.metadata.address}
+                      {metadata.address}
                     </a>
                   </Card.Description>
                 </Card.Content>
               </Card>
-              {post.product.metadata.hours && (
+              {metadata.hours && (
                 <Card fluid raised>
                   <Card.Content style={{ background: 'white' }}>
                     <Card.Header>Hours</Card.Header>
