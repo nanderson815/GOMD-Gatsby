@@ -159,7 +159,8 @@ const ExclusiveDeal = props => {
                   <h2>Description</h2>
                   {metadata.validDays && <p style={{ fontWeight: 'bolder' }}>Only valid on {metadata.validDays}.</p>}
                   {product.description.split('\\n').map((item, i) => (
-                    <p key={i}>{item}</p>
+                    // eslint-disable-next-line react/no-danger
+                    <p key={i} dangerouslySetInnerHTML={{ __html: item }} />
                   ))}
                   <Swiper photos={product.localFiles} />
                   <h2>Terms and Conditions</h2>
@@ -221,7 +222,7 @@ const ExclusiveDeal = props => {
                     <Card.Header>Hours</Card.Header>
                     <Card.Description>
                       {hours.map(day => (
-                        <p>{day}</p>
+                        <p key={day}>{day}</p>
                       ))}
                     </Card.Description>
                   </Card.Content>
